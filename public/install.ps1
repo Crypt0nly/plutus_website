@@ -110,4 +110,4 @@ Write-Host "  Tip: After setup, go to Settings to enable Linux Superpowers (WSL)
 Write-Host "  ─────────────────────────────" -ForegroundColor DarkGray
 Write-Host ""
 
-plutus-ai start
+plutus start
