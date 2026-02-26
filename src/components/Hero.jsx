@@ -2,23 +2,21 @@ import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 
 const INSTALL_COMMANDS = {
-  mac: 'curl -fsSL https://www.useplutus.ai/install.sh | bash',
-  linux: 'curl -fsSL https://www.useplutus.ai/install.sh | bash',
+  unix: 'curl -fsSL https://www.useplutus.ai/install.sh | bash',
   windows: 'iwr https://www.useplutus.ai/install.ps1 | iex',
 }
 
-const OS_LABELS = { mac: 'macOS', linux: 'Linux', windows: 'Windows' }
+const OS_LABELS = { unix: 'macOS / Linux', windows: 'Windows' }
 
 function detectOS() {
   const ua = navigator.userAgent || ''
   if (ua.includes('Win')) return 'windows'
-  if (ua.includes('Mac')) return 'mac'
-  return 'linux'
+  return 'unix'
 }
 
 // Animated typing terminal lines
 const TERMINAL_LINES = [
-  { text: '$ plutus start', delay: 0.2, color: '#a855f7' },
+  { text: '$ plutus-ai start', delay: 0.2, color: '#a855f7' },
   { text: '✓ Loading agent runtime...', delay: 0.6, color: '#22c55e' },
   { text: '✓ Connecting to Anthropic API...', delay: 1.0, color: '#22c55e' },
   { text: '✓ Spawning subprocess pool (4 workers)', delay: 1.4, color: '#22c55e' },
@@ -54,7 +52,7 @@ function TerminalLine({ text, color, delay }) {
 }
 
 export default function Hero() {
-  const [os, setOs] = useState('mac')
+  const [os, setOs] = useState('unix')
   const [copied, setCopied] = useState(false)
   const [installCount, setInstallCount] = useState(2847)
   const terminalRef = useRef(null)
@@ -283,7 +281,7 @@ export default function Hero() {
           <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ff5f57' }} />
           <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ffbd2e' }} />
           <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#28c840' }} />
-          <span style={{ marginLeft: 8, fontSize: 12, color: '#475569', fontFamily: 'JetBrains Mono, monospace' }}>plutus — bash</span>
+          <span style={{ marginLeft: 8, fontSize: 12, color: '#475569', fontFamily: 'JetBrains Mono, monospace' }}>plutus-ai — bash</span>
         </div>
         {/* Terminal body */}
         <div style={{ padding: '20px 24px', minHeight: 180 }}>
