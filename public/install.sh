@@ -1,6 +1,6 @@
 #!/bin/bash
 # Plutus Installer for macOS / Linux
-# Usage: curl -sSL https://useplutus.ai/install.sh | sh
+# Usage: curl -sSL https://www.useplutus.ai/install.sh | sh
 #
 # What this script does:
 #   1. Checks that Python 3.11+ is available
