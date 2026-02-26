@@ -2,18 +2,16 @@ import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 
 const INSTALL_COMMANDS = {
-  mac: 'curl -fsSL https://www.useplutus.ai/install.sh | bash',
-  linux: 'curl -fsSL https://www.useplutus.ai/install.sh | bash',
+  unix: 'curl -fsSL https://www.useplutus.ai/install.sh | bash',
   windows: 'iwr https://www.useplutus.ai/install.ps1 | iex',
 }
 
-const OS_LABELS = { mac: 'macOS', linux: 'Linux', windows: 'Windows' }
+const OS_LABELS = { unix: 'macOS / Linux', windows: 'Windows' }
 
 function detectOS() {
   const ua = navigator.userAgent || ''
   if (ua.includes('Win')) return 'windows'
-  if (ua.includes('Mac')) return 'mac'
-  return 'linux'
+  return 'unix'
 }
 
 // Animated typing terminal lines
@@ -54,7 +52,7 @@ function TerminalLine({ text, color, delay }) {
 }
 
 export default function Hero() {
-  const [os, setOs] = useState('mac')
+  const [os, setOs] = useState('unix')
   const [copied, setCopied] = useState(false)
   const [installCount, setInstallCount] = useState(2847)
   const terminalRef = useRef(null)

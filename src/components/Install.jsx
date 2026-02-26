@@ -3,17 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 const tabs = [
   {
-    id: 'mac',
-    label: '🍎 macOS',
-    steps: [
-      { cmd: 'curl -fsSL https://www.useplutus.ai/install.sh | bash', desc: 'Download & install Plutus' },
-      { cmd: 'plutus-ai config set ANTHROPIC_API_KEY sk-ant-...', desc: 'Set your API key' },
-      { cmd: 'plutus-ai start', desc: 'Launch the agent' },
-    ]
-  },
-  {
-    id: 'linux',
-    label: '🐧 Linux',
+    id: 'unix',
+    label: '🍎 macOS / Linux',
     steps: [
       { cmd: 'curl -fsSL https://www.useplutus.ai/install.sh | bash', desc: 'Download & install Plutus' },
       { cmd: 'export ANTHROPIC_API_KEY=sk-ant-...', desc: 'Set your API key' },
@@ -32,7 +23,7 @@ const tabs = [
 ]
 
 export default function Install() {
-  const [active, setActive] = useState('mac')
+  const [active, setActive] = useState('unix')
   const [copied, setCopied] = useState(null)
 
   const copyCmd = (cmd, idx) => {
