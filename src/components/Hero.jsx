@@ -16,7 +16,7 @@ function detectOS() {
 
 // Animated typing terminal lines
 const TERMINAL_LINES = [
-  { text: '$ plutus-ai start', delay: 0.2, color: '#a855f7' },
+  { text: '$ plutus start', delay: 0.2, color: '#a855f7' },
   { text: '✓ Loading agent runtime...', delay: 0.6, color: '#22c55e' },
   { text: '✓ Connecting to Anthropic API...', delay: 1.0, color: '#22c55e' },
   { text: '✓ Spawning subprocess pool (4 workers)', delay: 1.4, color: '#22c55e' },
@@ -281,7 +281,7 @@ export default function Hero() {
           <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ff5f57' }} />
           <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ffbd2e' }} />
           <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#28c840' }} />
-          <span style={{ marginLeft: 8, fontSize: 12, color: '#475569', fontFamily: 'JetBrains Mono, monospace' }}>plutus-ai — bash</span>
+          <span style={{ marginLeft: 8, fontSize: 12, color: '#475569', fontFamily: 'JetBrains Mono, monospace' }}>plutus — bash</span>
         </div>
         {/* Terminal body */}
         <div style={{ padding: '20px 24px', minHeight: 180 }}>

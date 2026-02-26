@@ -13,7 +13,7 @@ const steps = [
     number: '02',
     title: 'Add your API key',
     desc: 'Drop in your Anthropic, OpenAI, or Ollama key. It\'s stored locally on your machine with strict file permissions. Nothing leaves your system.',
-    code: 'plutus-ai config set ANTHROPIC_API_KEY sk-ant-...',
+    code: 'plutus config set ANTHROPIC_API_KEY sk-ant-...',
     color: '#06b6d4',
   },
   {
