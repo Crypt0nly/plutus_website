@@ -133,7 +133,12 @@ function FeatureCard({ icon, title, desc, color, glow }) {
   return (
     <motion.div
       variants={cardVariants}
-      whileHover={{ y: -4, transition: { duration: 0.2 } }}
+      whileHover={{
+        y: -4,
+        boxShadow: `0 8px 40px ${glow}, 0 0 0 1px ${color}22`,
+        borderColor: `${color}44`,
+        transition: { duration: 0.2 },
+      }}
       style={{
         background: 'rgba(255,255,255,0.02)',
         border: '1px solid rgba(255,255,255,0.06)',
@@ -143,10 +148,6 @@ function FeatureCard({ icon, title, desc, color, glow }) {
         position: 'relative',
         overflow: 'hidden',
         transition: 'border-color 0.3s, box-shadow 0.3s',
-      }}
-      whileHover={{
-        boxShadow: `0 8px 40px ${glow}, 0 0 0 1px ${color}22`,
-        borderColor: `${color}44`,
       }}
     >
       {/* Background glow on hover */}
