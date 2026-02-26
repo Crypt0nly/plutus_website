@@ -2,9 +2,9 @@ import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 
 const INSTALL_COMMANDS = {
-  mac: 'curl -fsSL https://get.plutus.ai | bash',
-  linux: 'curl -fsSL https://get.plutus.ai | bash',
-  windows: 'iwr https://get.plutus.ai/install.ps1 | iex',
+  mac: 'curl -fsSL https://www.useplutus.ai/install.sh | bash',
+  linux: 'curl -fsSL https://www.useplutus.ai/install.sh | bash',
+  windows: 'iwr https://www.useplutus.ai/install.ps1 | iex',
 }
 
 const OS_LABELS = { mac: 'macOS', linux: 'Linux', windows: 'Windows' }
