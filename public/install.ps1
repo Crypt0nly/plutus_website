@@ -85,7 +85,7 @@ Write-Host "[2/3] Installing Plutus..." -ForegroundColor Cyan
 
 try {
     & $pythonCmd -m pip install --upgrade pip 2>&1 | Out-Null
-    & $pythonCmd -m pip install plutus-ai 2>&1
+    & $pythonCmd -m pip install --upgrade plutus-ai 2>&1
     if ($LASTEXITCODE -ne 0) {
         throw "pip install failed"
     }
