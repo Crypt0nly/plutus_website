@@ -72,11 +72,28 @@ echo "       Plutus installed."
 # ── Step 3: Launch ────────────────────────────────────────
 
 echo "[3/3] Launching Plutus..."
+
+# Start Plutus in the background so the terminal is not blocked
+nohup plutus start >/dev/null 2>&1 &
+
+# Give the server a moment to start
+sleep 3
+
+# Open the browser
+if command -v open &>/dev/null; then
+    open "http://localhost:7777"
+elif command -v xdg-open &>/dev/null; then
+    xdg-open "http://localhost:7777"
+fi
+
 echo ""
 echo "  ─────────────────────────────"
-echo "  Plutus will open in your browser at http://localhost:7777"
+echo "  ✓ Plutus is running in the background."
+echo "  Opened http://localhost:7777 in your browser."
+echo ""
 echo "  First time? The setup wizard will guide you through everything."
 echo "  ─────────────────────────────"
 echo ""
-
-plutus start
+echo "  To start Plutus again later, open any terminal and run:"
+echo "    plutus start"
+echo ""

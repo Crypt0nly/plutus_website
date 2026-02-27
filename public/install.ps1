@@ -101,13 +101,26 @@ try {
 # ── Step 3: Launch ────────────────────────────────────────
 
 Write-Host "[3/3] Launching Plutus..." -ForegroundColor Cyan
+
+# Start Plutus in the background so the terminal is not blocked
+Start-Process plutus -ArgumentList "start" -WindowStyle Hidden
+
+# Give the server a moment to start
+Start-Sleep -Seconds 3
+
+# Open the browser
+Start-Process "http://localhost:7777"
+
 Write-Host ""
 Write-Host "  ─────────────────────────────" -ForegroundColor DarkGray
-Write-Host "  Plutus will open in your browser at http://localhost:7777" -ForegroundColor White
+Write-Host "  Plutus is running in the background." -ForegroundColor Green
+Write-Host "  Opened http://localhost:7777 in your browser." -ForegroundColor White
+Write-Host ""
 Write-Host "  First time? The setup wizard will guide you through everything." -ForegroundColor DarkGray
 Write-Host ""
 Write-Host "  Tip: After setup, go to Settings to enable Linux Superpowers (WSL)." -ForegroundColor DarkGray
 Write-Host "  ─────────────────────────────" -ForegroundColor DarkGray
 Write-Host ""
-
-plutus start
+Write-Host "  To start Plutus again later, open any terminal and run:" -ForegroundColor DarkGray
+Write-Host "    plutus start" -ForegroundColor White
+Write-Host ""
