@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 
 const INSTALL_COMMANDS = {
-  unix: 'curl -fsSL https://www.useplutus.ai/install.sh | bash',
-  windows: 'iwr https://www.useplutus.ai/install.ps1 | iex',
+  unix: 'curl -fsSL https://useplutus.ai/install.sh | bash',
+  windows: 'iwr https://useplutus.ai/install.ps1 | iex',
 }
 
 const OS_LABELS = { unix: 'macOS / Linux', windows: 'Windows' }

@@ -6,7 +6,7 @@ const tabs = [
     id: 'unix',
     label: '🍎 macOS / Linux',
     steps: [
-      { cmd: 'curl -fsSL https://www.useplutus.ai/install.sh | bash', desc: 'Download & install Plutus' },
+      { cmd: 'curl -fsSL https://useplutus.ai/install.sh | bash', desc: 'Download & install Plutus' },
       { cmd: 'export ANTHROPIC_API_KEY=sk-ant-...', desc: 'Set your API key' },
       { cmd: 'plutus start', desc: 'Launch the agent' },
     ]
@@ -15,7 +15,7 @@ const tabs = [
     id: 'windows',
     label: '🪟 Windows',
     steps: [
-      { cmd: 'iwr https://www.useplutus.ai/install.ps1 | iex', desc: 'Download & install Plutus (PowerShell)' },
+      { cmd: 'iwr https://useplutus.ai/install.ps1 | iex', desc: 'Download & install Plutus (PowerShell)' },
       { cmd: '$env:ANTHROPIC_API_KEY = "sk-ant-..."', desc: 'Set your API key' },
       { cmd: 'plutus start', desc: 'Launch the agent' },
     ]
