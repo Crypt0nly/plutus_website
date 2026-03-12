@@ -5,7 +5,7 @@ export default function FinalCTA() {
   const [copied, setCopied] = useState(false)
 
   const copy = () => {
-    navigator.clipboard.writeText('curl -fsSL https://www.useplutus.ai/install.sh | bash')
+    navigator.clipboard.writeText('curl -fsSL https://useplutus.ai/install.sh | bash')
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
@@ -113,7 +113,7 @@ export default function FinalCTA() {
               whiteSpace: 'nowrap',
             }}>
               <span style={{ color: '#64748b', marginRight: 8 }}>$</span>
-              curl -fsSL https://www.useplutus.ai/install.sh | bash
+              curl -fsSL https://useplutus.ai/install.sh | bash
             </code>
             <button
               onClick={copy}

@@ -6,7 +6,7 @@ const steps = [
     number: '01',
     title: 'Install in one command',
     desc: 'Paste a single line into your terminal. Plutus installs itself, sets up the runtime, and opens the web UI — all in under 60 seconds.',
-    code: 'curl -fsSL https://www.useplutus.ai/install.sh | bash',
+    code: 'curl -fsSL https://useplutus.ai/install.sh | bash',
     color: '#a855f7',
   },
   {
