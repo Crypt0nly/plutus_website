@@ -21,7 +21,7 @@ const TERMINAL_LINES = [
   { text: '✓ Connecting to Anthropic API...', delay: 1.0, color: '#22c55e' },
   { text: '✓ Spawning subprocess pool (4 workers)', delay: 1.4, color: '#22c55e' },
   { text: '✓ Dynamic tool loader ready', delay: 1.8, color: '#22c55e' },
-  { text: '🤖 Plutus is ready. What shall we build?', delay: 2.2, color: '#06b6d4' },
+  { text: '🤖 Plutus is ready. What can I help you with?', delay: 2.2, color: '#06b6d4' },
 ]
 
 function TerminalLine({ text, color, delay }) {
@@ -117,7 +117,7 @@ export default function Hero() {
         }}
       >
         <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', display: 'inline-block', boxShadow: '0 0 8px #22c55e' }} />
-        Open Source · BYOK · Free Forever · v1.2
+        Open Source · Free Forever · Private by Design · v1.2
       </motion.div>
 
       {/* Headline */}
@@ -141,7 +141,7 @@ export default function Hero() {
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
         }}>
-          Your AI Agent.
+          Your Personal AI.
         </span>
         <br />
         <span style={{
@@ -150,7 +150,7 @@ export default function Hero() {
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
         }}>
-          Installed in 60 seconds.
+          Does the work for you.
         </span>
       </motion.h1>
 
@@ -168,8 +168,8 @@ export default function Hero() {
           position: 'relative', zIndex: 1,
         }}
       >
-        Plutus is an autonomous AI agent that runs on your machine, uses your own API keys,
-        and can spawn parallel workers to get things done — all in one command.
+        Plutus is a free AI assistant that lives on your computer. Write emails, organize files,
+        automate tedious tasks, build software, or research anything — just tell it what you need in plain English.
       </motion.p>
 
       {/* Install box */}

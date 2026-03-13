@@ -5,22 +5,22 @@ const steps = [
   {
     number: '01',
     title: 'Install in one command',
-    desc: 'Paste a single line into your terminal. Plutus installs itself, sets up the runtime, and opens the web UI — all in under 60 seconds.',
+    desc: 'Copy one line, paste it into your terminal, and hit enter. Plutus sets itself up and opens a clean web interface — all in under 60 seconds.',
     code: 'curl -fsSL https://useplutus.ai/install.sh | bash',
     color: '#a855f7',
   },
   {
     number: '02',
-    title: 'Add your API key',
-    desc: 'Drop in your Anthropic, OpenAI, or Ollama key. It\'s stored locally on your machine with strict file permissions. Nothing leaves your system.',
+    title: 'Connect your AI',
+    desc: 'Add your API key from ChatGPT, Claude, or any supported provider. It stays on your computer — never sent anywhere. Or use Ollama to run AI locally for free.',
     code: 'plutus config set ANTHROPIC_API_KEY sk-ant-...',
     color: '#06b6d4',
   },
   {
     number: '03',
-    title: 'Give it a task',
-    desc: 'Type any goal in plain English. Plutus breaks it into steps, spawns workers, uses tools, and executes — while you watch it happen in real time.',
-    code: '> Build me a REST API for user authentication',
+    title: 'Tell it what you need',
+    desc: 'Just type what you want in plain English. "Organize my downloads folder," "Write a cover letter," "Build me a website" — Plutus figures out the rest.',
+    code: '> Organize my messy downloads folder by file type',
     color: '#22c55e',
   },
 ]

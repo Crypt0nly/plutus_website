@@ -3,28 +3,32 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 const faqs = [
   {
-    q: 'Is my API key safe?',
-    a: 'Yes. Your API key is stored locally in a config file with chmod 600 permissions — readable only by you. Plutus never sends your key to any external server. Zero telemetry.',
+    q: 'Do I need to be a developer to use Plutus?',
+    a: 'Not at all. Plutus is built for everyone — students, freelancers, small business owners, creators, and yes, developers too. You just type what you want in plain English. If you can describe it, Plutus can do it.',
+  },
+  {
+    q: 'Is my data private and safe?',
+    a: 'Yes. Everything runs on your own computer. Your files, your conversations, and your API keys never leave your machine. There\'s zero tracking, zero telemetry, and zero cloud storage. Your data is yours alone.',
   },
   {
     q: 'How much does it cost?',
-    a: 'Plutus itself is 100% free and open source (MIT license). You only pay for the LLM API calls you make — typically a few cents per complex task. You can also use Ollama for fully local, zero-cost inference.',
+    a: 'Plutus itself is 100% free and always will be. You only pay for the AI you use — typically a few cents per task through providers like OpenAI or Anthropic. You can also use Ollama to run AI models locally at zero cost.',
   },
   {
-    q: 'What can Plutus actually do?',
-    a: 'Plutus can write and run code, browse the web, manage files, send messages, create tools on the fly, spawn parallel workers, and chain all of this together to complete complex multi-step goals. If it can\'t do something, it writes a tool to do it.',
+    q: 'What kinds of things can Plutus do?',
+    a: 'Almost anything you do on a computer. Organize files, draft emails, write documents, research topics, create spreadsheets, build websites, automate repetitive tasks, write and run code, browse the web — and much more. If it can\'t do something yet, it teaches itself how.',
   },
   {
-    q: 'Do I need Docker or a server?',
-    a: 'No. Plutus runs entirely on your local machine. One install command, no containers, no cloud dependencies. It opens a local web UI at localhost:3000.',
+    q: 'Do I need to install anything complicated?',
+    a: 'No. It\'s one command — copy, paste, done. No Docker, no servers, no complicated setup. It runs on your computer and opens a simple web interface in your browser at localhost:3000.',
   },
   {
-    q: 'Which AI providers are supported?',
-    a: 'Anthropic (Claude), OpenAI (GPT-4/5), Google Gemini, and Ollama (local models like Llama, Mistral, etc.). You can switch providers per task.',
+    q: 'Which AI models can I use?',
+    a: 'Plutus works with all major AI providers: Anthropic (Claude), OpenAI (ChatGPT), Google Gemini, and Ollama for free local models. You can switch between them anytime based on your preference or budget.',
   },
   {
-    q: 'Is it really open source?',
-    a: 'Yes — MIT license. Fork it, modify it, self-host it. The full source is on GitHub. No hidden SaaS layer, no vendor lock-in.',
+    q: 'Is it really free and open source?',
+    a: 'Yes — MIT license, which means the code is fully public and free to use. There\'s no hidden subscription, no premium tier, no catch. The full source code is available on GitHub for anyone to inspect.',
   },
 ]
 
