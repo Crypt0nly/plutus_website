@@ -17,10 +17,10 @@ function detectOS() {
 // Animated typing terminal lines
 const TERMINAL_LINES = [
   { text: '$ plutus start', delay: 0.2, color: '#a855f7' },
-  { text: '✓ Loading agent runtime...', delay: 0.6, color: '#22c55e' },
-  { text: '✓ Connecting to Anthropic API...', delay: 1.0, color: '#22c55e' },
-  { text: '✓ Spawning subprocess pool (4 workers)', delay: 1.4, color: '#22c55e' },
-  { text: '✓ Dynamic tool loader ready', delay: 1.8, color: '#22c55e' },
+  { text: '✓ Setting things up...', delay: 0.6, color: '#22c55e' },
+  { text: '✓ Connecting to your AI provider...', delay: 1.0, color: '#22c55e' },
+  { text: '✓ Ready to multitask — 4 workers standing by', delay: 1.4, color: '#22c55e' },
+  { text: '✓ All systems go', delay: 1.8, color: '#22c55e' },
   { text: '🤖 Plutus is ready. What can I help you with?', delay: 2.2, color: '#06b6d4' },
 ]
 
