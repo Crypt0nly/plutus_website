@@ -81,7 +81,7 @@ export default function Install() {
             </span>
           </h2>
           <p style={{ color: '#64748b', fontSize: 16 }}>
-            Three commands. No Docker. No config files. No nonsense.
+            Three commands. No technical knowledge required. No nonsense.
           </p>
         </motion.div>
 
@@ -237,7 +237,7 @@ export default function Install() {
           viewport={{ once: true }}
           style={{ textAlign: 'center', marginTop: 20, fontSize: 13, color: '#334155' }}
         >
-          Requires Python 3.10+ · Works on macOS, Linux, and Windows (WSL) · No Docker required
+          Works on macOS, Linux, and Windows · Requires Python 3.10+ · No complex setup needed
         </motion.p>
       </div>
     </section>

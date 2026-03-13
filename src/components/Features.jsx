@@ -7,38 +7,38 @@ import {
 const features = [
   {
     icon: <IconKey size={24} />,
-    title: 'BYOK — Your Keys, Your Machine',
-    description: 'API keys never leave your device. No cloud middleman. No data harvesting. Complete privacy by design.',
+    title: '100% Private',
+    description: 'Your data never leaves your computer. No cloud uploads, no tracking, no data harvesting. Everything stays on your machine — always.',
     color: '#8b5cf6',
   },
   {
     icon: <IconBrandOpenSource size={24} />,
-    title: 'Open Source (MIT)',
-    description: 'Fully transparent, auditable code. Fork it, modify it, self-host it. No vendor lock-in, ever.',
+    title: 'Free & Open Source',
+    description: 'Completely free to use, forever. Built in the open with an MIT license so anyone can inspect, trust, and improve it.',
     color: '#22d3ee',
   },
   {
     icon: <IconCpu size={24} />,
-    title: 'Any LLM Provider',
-    description: 'Works with Anthropic Claude, OpenAI GPT, or Ollama for fully local, free inference. Your choice.',
+    title: 'Choose Your AI Brain',
+    description: 'Connect to Claude, ChatGPT, Gemini, or run models locally for free with Ollama. Pick the AI that fits your needs and budget.',
     color: '#f59e0b',
   },
   {
     icon: <IconRocket size={24} />,
-    title: 'Parallel Execution',
-    description: 'Subprocess orchestration with sandboxed workers. Spin up parallel tasks that execute simultaneously.',
+    title: 'Works in Parallel',
+    description: 'Give it multiple tasks and watch them happen simultaneously. Plutus spins up workers that tackle different parts of your request at the same time.',
     color: '#22c55e',
   },
   {
     icon: <IconBrain size={24} />,
-    title: 'Self-Improving',
-    description: 'Creates new tools at runtime. The more you use it, the more capable it becomes. It literally gets smarter.',
+    title: 'Gets Smarter Over Time',
+    description: 'Plutus learns new skills as you use it. It creates custom tools on the fly to handle tasks it couldn\'t before. The more you use it, the more powerful it gets.',
     color: '#ec4899',
   },
   {
     icon: <IconDevices size={24} />,
-    title: 'Every Platform',
-    description: 'Windows, macOS, Linux. One install command. Works everywhere your terminal does.',
+    title: 'Works on Any Computer',
+    description: 'Windows, macOS, or Linux — one simple install. If you have a computer, you can run Plutus.',
     color: '#8b5cf6',
   },
 ]
@@ -74,7 +74,7 @@ export default function Features() {
             <span className="gradient-text">Nothing you don't.</span>
           </h2>
           <p style={{ fontSize: 16, color: '#55556a', maxWidth: 500, margin: '0 auto' }}>
-            Built for developers who want power without compromise.
+            Built for anyone who wants to get more done with less effort.
           </p>
         </motion.div>
 

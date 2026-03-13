@@ -65,7 +65,7 @@ export default function FinalCTA() {
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
             }}>
-              Your AI agent.
+              Stop doing busywork.
             </span>
             <br />
             <span style={{
@@ -74,7 +74,7 @@ export default function FinalCTA() {
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
             }}>
-              Your keys. Your rules.
+              Let Plutus handle it.
             </span>
           </h2>
 
@@ -85,7 +85,7 @@ export default function FinalCTA() {
             margin: '0 auto 40px',
             lineHeight: 1.7,
           }}>
-            Join thousands of developers who've already replaced their manual workflows with an autonomous AI agent that actually gets things done.
+            Join thousands of people who've already reclaimed hours of their week with a private, free AI assistant that actually gets things done.
           </p>
 
           {/* Install command */}

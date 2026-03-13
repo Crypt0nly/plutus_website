@@ -2,10 +2,10 @@ import { motion } from 'framer-motion'
 
 const stats = [
   { value: '2.4k', label: 'GitHub Stars', icon: '⭐' },
-  { value: '4,200+', label: 'Developers', icon: '👥' },
+  { value: '4,200+', label: 'Users', icon: '👥' },
   { value: '3', label: 'Platforms', icon: '💻' },
   { value: 'MIT', label: 'License', icon: '📜' },
-  { value: 'BYOK', label: 'Your Keys', icon: '🔑' },
+  { value: '100%', label: 'Private', icon: '🔒' },
 ]
 
 const providers = [
@@ -50,7 +50,7 @@ export default function SocialProof() {
         {/* Provider logos */}
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: 11, color: '#334155', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: 12 }}>
-            Works with any LLM provider
+            Powered by the best AI models
           </div>
           <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
             {providers.map((p, i) => (
