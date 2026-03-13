@@ -85,8 +85,8 @@ if (-not $pythonCmd) {
 Write-Host "[2/4] Installing Plutus..." -ForegroundColor Cyan
 
 try {
-    & $pythonCmd -m pip install --upgrade pip 2>&1 | Out-Null
-    & $pythonCmd -m pip install --upgrade "plutus-ai[all]" 2>&1 | Out-Null
+    $null = & $pythonCmd -m pip install --upgrade pip 2>&1
+    $null = & $pythonCmd -m pip install --upgrade "plutus-ai[all]" 2>&1
     if ($LASTEXITCODE -ne 0) {
         throw "pip install failed"
     }
@@ -109,7 +109,7 @@ Write-Host "[3/4] Creating shortcuts..." -ForegroundColor Cyan
 
 $plutusDir = "$env:USERPROFILE\.plutus"
 if (-not (Test-Path $plutusDir)) {
-    New-Item -ItemType Directory -Path $plutusDir -Force | Out-Null
+    $null = New-Item -ItemType Directory -Path $plutusDir -Force
 }
 
 # Create launcher VBS script.
