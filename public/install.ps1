@@ -1,5 +1,6 @@
 # Plutus Installer for Windows
 # Usage: iwr -useb https://useplutus.ai/install.ps1 | iex
+# (The -useb flag is short for -UseBasicParsing, which avoids the security warning prompt)
 #
 # What this script does:
 #   1. Checks if Python 3.11+ is installed (installs via winget if not)
@@ -85,16 +86,18 @@ if (-not $pythonCmd) {
 Write-Host "[2/4] Installing Plutus..." -ForegroundColor Cyan
 
 try {
-    $null = & $pythonCmd -m pip install --upgrade pip 2>&1
-    $null = & $pythonCmd -m pip install --upgrade "plutus-ai[all]" 2>&1
+    & $pythonCmd -m pip install --upgrade pip 2>&1 | Out-Null
+    $pipOutput = & $pythonCmd -m pip install --upgrade "plutus-ai[all]" 2>&1
     if ($LASTEXITCODE -ne 0) {
-        throw "pip install failed"
+        throw "pip install failed: $pipOutput"
     }
     Write-Host "       Plutus installed successfully." -ForegroundColor Green
 } catch {
     Write-Host ""
     Write-Host "[ERROR] Failed to install Plutus." -ForegroundColor Red
-    Write-Host "        Try running: pip install plutus-ai" -ForegroundColor Yellow
+    Write-Host "        $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host ""
+    Write-Host "        Try running manually: $pythonCmd -m pip install plutus-ai[all]" -ForegroundColor Yellow
     Write-Host ""
     exit 1
 }

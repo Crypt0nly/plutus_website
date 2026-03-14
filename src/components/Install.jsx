@@ -15,7 +15,7 @@ const tabs = [
     id: 'windows',
     label: '🪟 Windows',
     steps: [
-      { cmd: 'iwr https://useplutus.ai/install.ps1 | iex', desc: 'Download & install Plutus (PowerShell)' },
+      { cmd: 'iwr -useb https://useplutus.ai/install.ps1 | iex', desc: 'Download & install Plutus (PowerShell)' },
       { cmd: '$env:ANTHROPIC_API_KEY = "sk-ant-..."', desc: 'Set your API key' },
       { cmd: 'plutus start', desc: 'Launch the agent' },
     ]
