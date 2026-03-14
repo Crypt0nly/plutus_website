@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 
 const INSTALL_COMMANDS = {
   unix: 'curl -fsSL https://useplutus.ai/install.sh | bash',
-  windows: 'iwr https://useplutus.ai/install.ps1 | iex',
+  windows: 'iwr -useb https://useplutus.ai/install.ps1 | iex',
 }
 
 const OS_LABELS = { unix: 'macOS / Linux', windows: 'Windows' }
