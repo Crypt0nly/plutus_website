@@ -110,6 +110,16 @@ try {
     Exit-WithPause 1
 }
 
+# Ensure Python Scripts directory is on the user's PATH (so 'plutus' command works)
+$scriptsDir = & $pythonCmd -c "import sysconfig; print(sysconfig.get_path('scripts'))" 2>&1
+if ($scriptsDir -and (Test-Path $scriptsDir)) {
+    $userPath = [System.Environment]::GetEnvironmentVariable("Path", "User")
+    if ($userPath -notlike "*$scriptsDir*") {
+        Write-Host "       Adding Python Scripts to PATH..." -ForegroundColor DarkGray
+        [System.Environment]::SetEnvironmentVariable("Path", "$userPath;$scriptsDir", "User")
+    }
+}
+
 # Refresh PATH so the plutus command is available in this session
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + `
              [System.Environment]::GetEnvironmentVariable("Path", "User")
@@ -210,5 +220,38 @@ Write-Host "  Tip: After setup, go to Settings to enable Linux Superpowers (WSL)
 Write-Host "  ─────────────────────────────" -ForegroundColor DarkGray
 Write-Host ""
 
-# Launch in the background via the VBS launcher
-Start-Process "wscript.exe" -ArgumentList "`"$vbsPath`""
+# Launch Plutus - try VBS launcher first, fall back to direct start
+$launched = $false
+
+# Try the VBS launcher (hidden console window)
+if (Test-Path $vbsPath) {
+    Start-Process "wscript.exe" -ArgumentList "`"$vbsPath`""
+
+    # Wait a few seconds and check if Plutus is actually running
+    Start-Sleep -Seconds 4
+    try {
+        $response = Invoke-WebRequest -Uri "http://localhost:7777/api/config" -UseBasicParsing -TimeoutSec 3 -ErrorAction Stop
+        if ($response.StatusCode -eq 200) { $launched = $true }
+    } catch {}
+}
+
+# Fallback: launch directly if VBS didn't work
+if (-not $launched) {
+    Write-Host "       Starting Plutus directly..." -ForegroundColor DarkGray
+    Start-Process -FilePath $pythonCmd -ArgumentList "-m plutus start" -WindowStyle Hidden
+
+    Start-Sleep -Seconds 4
+    try {
+        $response = Invoke-WebRequest -Uri "http://localhost:7777/api/config" -UseBasicParsing -TimeoutSec 3 -ErrorAction Stop
+        if ($response.StatusCode -eq 200) { $launched = $true }
+    } catch {}
+}
+
+if ($launched) {
+    Start-Process "http://localhost:7777"
+    Write-Host "  Plutus is running at http://localhost:7777" -ForegroundColor Green
+} else {
+    Write-Host "  Plutus may take a moment to start..." -ForegroundColor Yellow
+    Write-Host "  If your browser doesn't open, visit http://localhost:7777" -ForegroundColor Yellow
+    Start-Process "http://localhost:7777"
+}
