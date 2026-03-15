@@ -92,7 +92,12 @@ try {
     & $pythonCmd -m pip install --upgrade pip 2>&1 | Out-Null
     $pipOutput = & $pythonCmd -m pip install --upgrade "plutus-ai[all]" 2>&1
     if ($LASTEXITCODE -ne 0) {
-        throw "pip install failed: $pipOutput"
+        # If upgrade failed (e.g. missing RECORD file), retry with --force-reinstall
+        Write-Host "       Retrying with --force-reinstall..." -ForegroundColor Yellow
+        $pipOutput = & $pythonCmd -m pip install --force-reinstall "plutus-ai[all]" 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            throw "pip install failed: $pipOutput"
+        }
     }
     Write-Host "       Plutus installed successfully." -ForegroundColor Green
 } catch {
@@ -100,7 +105,7 @@ try {
     Write-Host "[ERROR] Failed to install Plutus." -ForegroundColor Red
     Write-Host "        $($_.Exception.Message)" -ForegroundColor Red
     Write-Host ""
-    Write-Host "        Try running manually: $pythonCmd -m pip install plutus-ai[all]" -ForegroundColor Yellow
+    Write-Host "        Try running manually: $pythonCmd -m pip install --force-reinstall plutus-ai[all]" -ForegroundColor Yellow
     Exit-WithPause 1
 }
 
