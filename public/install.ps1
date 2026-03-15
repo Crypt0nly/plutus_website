@@ -60,14 +60,51 @@ if (-not $pythonCmd) {
         Write-Host "       Using winget to install Python 3.11..." -ForegroundColor DarkGray
         winget install Python.Python.3.11 --accept-package-agreements --accept-source-agreements
 
-        # Refresh PATH
+        # Give the installer a moment to finalize registry/PATH changes
+        Start-Sleep -Seconds 3
+
+        # Refresh PATH from registry so this session sees the new install
         $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + `
                      [System.Environment]::GetEnvironmentVariable("Path", "User")
 
         $pythonCmd = Get-PythonCommand
+
+        # Fallback: probe common install directories if PATH refresh didn't work
+        if (-not $pythonCmd) {
+            $probePaths = @(
+                "$env:LOCALAPPDATA\Programs\Python\Python311",
+                "$env:LOCALAPPDATA\Programs\Python\Python312",
+                "$env:LOCALAPPDATA\Programs\Python\Python313",
+                "C:\Python311",
+                "C:\Python312",
+                "C:\Python313"
+            )
+            foreach ($dir in $probePaths) {
+                $probe = Join-Path $dir "python.exe"
+                if (Test-Path $probe) {
+                    try {
+                        $version = & $probe --version 2>&1
+                        if ($version -match "Python (\d+)\.(\d+)") {
+                            $major = [int]$Matches[1]; $minor = [int]$Matches[2]
+                            if ($major -ge 3 -and $minor -ge 11) {
+                                # Add to user PATH permanently so it works after install too
+                                $userPath = [System.Environment]::GetEnvironmentVariable("Path", "User")
+                                if ($userPath -notlike "*$dir*") {
+                                    [System.Environment]::SetEnvironmentVariable("Path", "$userPath;$dir", "User")
+                                }
+                                $env:Path = "$env:Path;$dir"
+                                $pythonCmd = $probe
+                                break
+                            }
+                        }
+                    } catch { continue }
+                }
+            }
+        }
+
         if (-not $pythonCmd) {
             Write-Host ""
-            Write-Host "[ERROR] Python was installed but isn't on PATH yet." -ForegroundColor Red
+            Write-Host "[ERROR] Python was installed but could not be found." -ForegroundColor Red
             Write-Host "        Close this terminal, open a new one, and run this installer again." -ForegroundColor Yellow
             Exit-WithPause 1
         }
