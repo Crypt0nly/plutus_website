@@ -125,17 +125,85 @@ if (-not $pythonCmd) {
 
 Write-Host "[2/4] Installing Plutus..." -ForegroundColor Cyan
 
+$frames = @('|', '/', '-', '\')
+
+# ── Upgrade pip (with spinner) ──
+$pipUpgradeJob = Start-Job -ScriptBlock {
+    param($py)
+    & $py -m pip install --upgrade pip 2>&1 | Out-Null
+    $LASTEXITCODE
+} -ArgumentList $pythonCmd
+
+$frameIdx = 0
+Write-Host "`r       Updating pip... " -NoNewline -ForegroundColor DarkGray
+while ($pipUpgradeJob.State -eq 'Running') {
+    Write-Host "`r       Updating pip... $($frames[$frameIdx])" -NoNewline -ForegroundColor DarkGray
+    $frameIdx = ($frameIdx + 1) % $frames.Count
+    Start-Sleep -Milliseconds 120
+}
+Receive-Job -Job $pipUpgradeJob | Out-Null
+Remove-Job -Job $pipUpgradeJob -Force
+Write-Host "`r       Updating pip... done.  " -ForegroundColor DarkGray
+
+# ── Install plutus-ai (with spinner) ──
+$pipInstallJob = Start-Job -ScriptBlock {
+    param($py)
+    $output = & $py -m pip install --upgrade "plutus-ai[all]" 2>&1
+    $LASTEXITCODE
+} -ArgumentList $pythonCmd
+
+$frameIdx = 0
+Write-Host "`r       Downloading and installing packages... " -NoNewline -ForegroundColor DarkGray
+while ($pipInstallJob.State -eq 'Running') {
+    Write-Host "`r       Downloading and installing packages... $($frames[$frameIdx])" -NoNewline -ForegroundColor DarkGray
+    $frameIdx = ($frameIdx + 1) % $frames.Count
+    Start-Sleep -Milliseconds 120
+}
+$pipResult = Receive-Job -Job $pipInstallJob
+Remove-Job -Job $pipInstallJob -Force
+Write-Host "`r       Downloading and installing packages... done.  " -ForegroundColor DarkGray
+
 try {
-    & $pythonCmd -m pip install --upgrade pip 2>&1 | Out-Null
-    $pipOutput = & $pythonCmd -m pip install --upgrade "plutus-ai[all]" 2>&1
-    if ($LASTEXITCODE -ne 0) {
+    if ($pipResult -ne 0) {
         # If upgrade failed (e.g. missing RECORD file), force-reinstall just plutus, then install deps
         Write-Host "       Retrying with --force-reinstall..." -ForegroundColor Yellow
-        & $pythonCmd -m pip install --force-reinstall --no-deps plutus-ai 2>&1 | Out-Null
-        $pipOutput = & $pythonCmd -m pip install "plutus-ai[all]" 2>&1
-        if ($LASTEXITCODE -ne 0) {
-            throw "pip install failed: $pipOutput"
+
+        $retryJob1 = Start-Job -ScriptBlock {
+            param($py)
+            & $py -m pip install --force-reinstall --no-deps plutus-ai 2>&1 | Out-Null
+            $LASTEXITCODE
+        } -ArgumentList $pythonCmd
+
+        $frameIdx = 0
+        Write-Host "`r       Reinstalling Plutus... " -NoNewline -ForegroundColor DarkGray
+        while ($retryJob1.State -eq 'Running') {
+            Write-Host "`r       Reinstalling Plutus... $($frames[$frameIdx])" -NoNewline -ForegroundColor DarkGray
+            $frameIdx = ($frameIdx + 1) % $frames.Count
+            Start-Sleep -Milliseconds 120
         }
+        Receive-Job -Job $retryJob1 | Out-Null
+        Remove-Job -Job $retryJob1 -Force
+        Write-Host "`r       Reinstalling Plutus... done.  " -ForegroundColor DarkGray
+
+        $retryJob2 = Start-Job -ScriptBlock {
+            param($py)
+            $output = & $py -m pip install "plutus-ai[all]" 2>&1
+            if ($LASTEXITCODE -ne 0) {
+                throw "pip install failed: $output"
+            }
+            $LASTEXITCODE
+        } -ArgumentList $pythonCmd
+
+        $frameIdx = 0
+        Write-Host "`r       Installing dependencies... " -NoNewline -ForegroundColor DarkGray
+        while ($retryJob2.State -eq 'Running') {
+            Write-Host "`r       Installing dependencies... $($frames[$frameIdx])" -NoNewline -ForegroundColor DarkGray
+            $frameIdx = ($frameIdx + 1) % $frames.Count
+            Start-Sleep -Milliseconds 120
+        }
+        $retryResult = Receive-Job -Job $retryJob2 -ErrorAction Stop
+        Remove-Job -Job $retryJob2 -Force
+        Write-Host "`r       Installing dependencies... done.  " -ForegroundColor DarkGray
     }
     Write-Host "       Plutus installed successfully." -ForegroundColor Green
 } catch {
@@ -176,6 +244,9 @@ $pythonFullPath = (Get-Command $pythonCmd).Source
 # Create launcher VBS script.
 # This runs Plutus without a visible console window.
 # If Plutus is already running, it just opens the browser instead.
+#
+# NOTE: --no-browser is passed to `plutus start` because this VBS launcher
+# handles opening the browser itself, preventing a duplicate tab.
 $vbsPath = "$plutusDir\start.vbs"
 $vbsContent = @"
 ' Plutus Launcher
@@ -199,7 +270,12 @@ If alreadyRunning Then
     WshShell.Run "http://localhost:7777"
 Else
     ' Start Plutus in the background (hidden console window)
-    WshShell.Run """$pythonFullPath"" -m plutus start", 0, False
+    ' --no-browser: we open the browser ourselves below to avoid duplicate tabs
+    WshShell.Run """$pythonFullPath"" -m plutus start --no-browser", 0, False
+
+    ' Wait a moment, then open the browser
+    WScript.Sleep 2000
+    WshShell.Run "http://localhost:7777"
 End If
 "@
 Set-Content -Path $vbsPath -Value $vbsContent -Encoding ASCII
@@ -261,6 +337,7 @@ Write-Host "  ──────────────────────
 Write-Host ""
 
 # Launch Plutus - try VBS launcher first, fall back to direct start
+# The VBS launcher handles opening the browser, so we don't open it here.
 $launched = $false
 
 # Try the VBS launcher (hidden console window)
@@ -288,7 +365,8 @@ if (-not $launched) {
 }
 
 if ($launched) {
-    Start-Process "http://localhost:7777"
+    # VBS launcher already opened the browser; only open here if we used the
+    # direct fallback (which doesn't have the VBS browser-open logic).
     Write-Host "  Plutus is running at http://localhost:7777" -ForegroundColor Green
 } else {
     Write-Host "  Plutus may take a moment to start..." -ForegroundColor Yellow
