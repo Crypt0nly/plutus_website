@@ -133,6 +133,9 @@ if (-not (Test-Path $plutusDir)) {
     $null = New-Item -ItemType Directory -Path $plutusDir -Force
 }
 
+# Get the full path to the Python executable (so shortcuts work from any context)
+$pythonFullPath = (Get-Command $pythonCmd).Source
+
 # Create launcher VBS script.
 # This runs Plutus without a visible console window.
 # If Plutus is already running, it just opens the browser instead.
@@ -159,7 +162,7 @@ If alreadyRunning Then
     WshShell.Run "http://localhost:7777"
 Else
     ' Start Plutus in the background (hidden console window)
-    WshShell.Run "cmd /c $pythonCmd -m plutus start", 0, False
+    WshShell.Run """$pythonFullPath"" -m plutus start", 0, False
 End If
 "@
 Set-Content -Path $vbsPath -Value $vbsContent -Encoding ASCII
@@ -238,7 +241,7 @@ if (Test-Path $vbsPath) {
 # Fallback: launch directly if VBS didn't work
 if (-not $launched) {
     Write-Host "       Starting Plutus directly..." -ForegroundColor DarkGray
-    Start-Process -FilePath $pythonCmd -ArgumentList "-m plutus start" -WindowStyle Hidden
+    Start-Process -FilePath $pythonFullPath -ArgumentList "-m plutus start" -WindowStyle Hidden
 
     Start-Sleep -Seconds 4
     try {
