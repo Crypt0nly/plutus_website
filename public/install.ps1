@@ -11,7 +11,12 @@
 # WSL is NOT installed by this script. Plutus will walk you through
 # setting up WSL from inside the app if you want Linux superpowers.
 
-$ErrorActionPreference = "Stop"
+function Exit-WithPause($code) {
+    Write-Host ""
+    Write-Host "  Press Enter to close this window..." -ForegroundColor DarkGray
+    $null = Read-Host
+    exit $code
+}
 
 Write-Host ""
 Write-Host "  ____  _       _             " -ForegroundColor Magenta
@@ -64,8 +69,7 @@ if (-not $pythonCmd) {
             Write-Host ""
             Write-Host "[ERROR] Python was installed but isn't on PATH yet." -ForegroundColor Red
             Write-Host "        Close this terminal, open a new one, and run this installer again." -ForegroundColor Yellow
-            Write-Host ""
-            exit 1
+            Exit-WithPause 1
         }
         Write-Host "       Python installed successfully." -ForegroundColor Green
     } else {
@@ -73,8 +77,7 @@ if (-not $pythonCmd) {
         Write-Host "[ERROR] Python 3.11+ is required but not installed." -ForegroundColor Red
         Write-Host "        Install it from https://www.python.org/downloads/" -ForegroundColor Yellow
         Write-Host "        Make sure to check 'Add Python to PATH' during install." -ForegroundColor Yellow
-        Write-Host ""
-        exit 1
+        Exit-WithPause 1
     }
 } else {
     $pyVer = & $pythonCmd --version 2>&1
@@ -98,8 +101,7 @@ try {
     Write-Host "        $($_.Exception.Message)" -ForegroundColor Red
     Write-Host ""
     Write-Host "        Try running manually: $pythonCmd -m pip install plutus-ai[all]" -ForegroundColor Yellow
-    Write-Host ""
-    exit 1
+    Exit-WithPause 1
 }
 
 # Refresh PATH so the plutus command is available in this session
