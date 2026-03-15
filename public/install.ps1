@@ -238,6 +238,14 @@ if (-not (Test-Path $plutusDir)) {
     $null = New-Item -ItemType Directory -Path $plutusDir -Force
 }
 
+# Create the workspace directory — Plutus uses this as its default
+# working directory for projects, code, downloads, and generated files.
+$workspaceDir = "$env:USERPROFILE\plutus-workspace"
+if (-not (Test-Path $workspaceDir)) {
+    $null = New-Item -ItemType Directory -Path $workspaceDir -Force
+    Write-Host "       Workspace created at $workspaceDir" -ForegroundColor Green
+}
+
 # Get the full path to the Python executable (so shortcuts work from any context)
 $pythonFullPath = (Get-Command $pythonCmd).Source
 
