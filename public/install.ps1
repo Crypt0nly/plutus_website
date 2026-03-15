@@ -92,9 +92,10 @@ try {
     & $pythonCmd -m pip install --upgrade pip 2>&1 | Out-Null
     $pipOutput = & $pythonCmd -m pip install --upgrade "plutus-ai[all]" 2>&1
     if ($LASTEXITCODE -ne 0) {
-        # If upgrade failed (e.g. missing RECORD file), retry with --force-reinstall
+        # If upgrade failed (e.g. missing RECORD file), force-reinstall just plutus, then install deps
         Write-Host "       Retrying with --force-reinstall..." -ForegroundColor Yellow
-        $pipOutput = & $pythonCmd -m pip install --force-reinstall "plutus-ai[all]" 2>&1
+        & $pythonCmd -m pip install --force-reinstall --no-deps plutus-ai 2>&1 | Out-Null
+        $pipOutput = & $pythonCmd -m pip install "plutus-ai[all]" 2>&1
         if ($LASTEXITCODE -ne 0) {
             throw "pip install failed: $pipOutput"
         }
