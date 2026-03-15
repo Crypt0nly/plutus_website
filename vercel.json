@@ -1,0 +1,11 @@
+{
+  "headers": [
+    {
+      "source": "/install.(ps1|sh)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" }
+      ]
+    }
+  ]
+}
