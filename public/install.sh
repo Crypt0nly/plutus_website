@@ -279,18 +279,52 @@ cat > "$LAUNCHER" << LAUNCHER_EOF
 
 PYTHON="$PYTHON_FULL_PATH"
 
-# Check if Plutus is already running
-if curl -sf http://localhost:7777/api/config > /dev/null 2>&1; then
-    # Already running — just open the browser
+# ── Open browser helper ──
+_open_browser() {
     if [ "\$(uname -s)" = "Darwin" ]; then
         open "http://localhost:7777"
     else
         xdg-open "http://localhost:7777" 2>/dev/null || sensible-browser "http://localhost:7777" 2>/dev/null || true
     fi
+}
+
+# Check if Plutus is already running
+if curl -sf http://localhost:7777/api/config > /dev/null 2>&1; then
+    # Already running — just open the browser
+    _open_browser
 else
     # Start Plutus in the background
     nohup "\$PYTHON" -m plutus start > "\$HOME/.plutus/plutus.log" 2>&1 &
     disown 2>/dev/null || true
+
+    # Wait for Plutus to be ready before opening the browser.
+    # Poll http://localhost:7777 with a spinner so the user sees progress.
+    _SPIN='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
+    _i=0
+    _waited=0
+    _ready=false
+    printf "  Starting Plutus..."
+    while [ "\$_waited" -lt 60 ]; do
+        if curl -sf http://localhost:7777/api/config > /dev/null 2>&1; then
+            _ready=true
+            break
+        fi
+        _char=\$(printf '%s' "\$_SPIN" | cut -c\$(( (\$_i % 10) + 1 )))
+        printf "\r  %s  Starting Plutus... (\${_waited}s)" "\$_char"
+        sleep 1
+        _i=\$(( _i + 1 ))
+        _waited=\$(( _waited + 1 ))
+    done
+
+    if [ "\$_ready" = true ]; then
+        printf "\r  ✓  Plutus is ready! Opening browser...         \n"
+        sleep 0.3
+        _open_browser
+    else
+        printf "\r  ⚠  Plutus is taking longer than expected.      \n"
+        printf "   Opening browser anyway — try refreshing if it shows an error.\n"
+        _open_browser
+    fi
 fi
 LAUNCHER_EOF
 chmod +x "$LAUNCHER"
