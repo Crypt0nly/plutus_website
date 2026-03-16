@@ -3,7 +3,7 @@
 # Usage: curl -sSL https://useplutus.ai/install.sh | sh
 #
 # What this script does:
-#   1. Ensures Python 3.11+ is available (auto-installs via Homebrew/apt/dnf if needed)
+#   1. Ensures Python 3.14+ is available (auto-installs via Homebrew/apt/dnf if needed)
 #   2. Installs Plutus via pip
 #   3. Creates a launcher shortcut (macOS .app / Linux .desktop)
 #   4. Launches Plutus in the background and opens the browser
@@ -25,7 +25,7 @@ echo ""
 
 OS="$(uname -s)"
 
-# ── Step 1: Ensure Python 3.11+ is available ─────────────
+# ── Step 1: Ensure Python 3.14+ is available ─────────────
 # We auto-install Python if it's missing — the user should never
 # have to do this manually.
 
@@ -47,8 +47,8 @@ check_python() {
     return 1
 }
 
-# Check common Python binary names first
-for _py_candidate in python3.13 python3.12 python3.11 python3 python; do
+# Check common Python binary names — prefer newest first
+for _py_candidate in python3.14 python3.13 python3.12 python3.11 python3 python; do
     if check_python "$_py_candidate"; then
         break
     fi
@@ -57,9 +57,11 @@ done
 # Also check Homebrew-managed paths on macOS (not always on PATH in non-interactive shells)
 if [ -z "$PYTHON_CMD" ] && [ "$OS" = "Darwin" ]; then
     for _brew_py in \
+        /opt/homebrew/bin/python3.14 \
         /opt/homebrew/bin/python3.13 \
         /opt/homebrew/bin/python3.12 \
         /opt/homebrew/bin/python3.11 \
+        /usr/local/bin/python3.14 \
         /usr/local/bin/python3.13 \
         /usr/local/bin/python3.12 \
         /usr/local/bin/python3.11; do
@@ -70,7 +72,7 @@ if [ -z "$PYTHON_CMD" ] && [ "$OS" = "Darwin" ]; then
 fi
 
 if [ -z "$PYTHON_CMD" ]; then
-    echo "[1/4] Python 3.11+ not found — installing automatically..."
+    echo "[1/4] Python 3.14+ not found — installing automatically..."
     echo ""
 
     if [ "$OS" = "Darwin" ]; then
@@ -96,31 +98,31 @@ if [ -z "$PYTHON_CMD" ]; then
         fi
 
         if command -v brew &>/dev/null; then
-            echo "       Installing Python 3.11 via Homebrew..."
-            brew install python@3.11 > /tmp/plutus_brew.log 2>&1 &
+            echo "       Installing Python 3.14 via Homebrew..."
+            brew install python@3.14 > /tmp/plutus_brew.log 2>&1 &
             _BREW_PID=$!
             _SPIN='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
             _i=0
             while kill -0 "$_BREW_PID" 2>/dev/null; do
                 _char=$(printf '%s' "$_SPIN" | cut -c$(( (_i % 10) + 1 )))
-                printf "\r       %s  Installing Python 3.11 via Homebrew... (this may take a minute)" "$_char"
+                printf "\r       %s  Installing Python 3.14 via Homebrew... (this may take a minute)" "$_char"
                 sleep 0.12
                 _i=$(( _i + 1 ))
             done
             wait "$_BREW_PID" || true
             printf "\r       ✓  Homebrew Python install complete.                              \n"
             rm -f /tmp/plutus_brew.log
-            brew link --overwrite python@3.11 2>/dev/null || true
+            brew link --overwrite python@3.14 2>/dev/null || true
             for _brew_py in \
-                "$(brew --prefix python@3.11 2>/dev/null)/bin/python3.11" \
-                /opt/homebrew/bin/python3.11 \
-                /usr/local/bin/python3.11; do
+                "$(brew --prefix python@3.14 2>/dev/null)/bin/python3.14" \
+                /opt/homebrew/bin/python3.14 \
+                /usr/local/bin/python3.14; do
                 if check_python "$_brew_py"; then
                     _brew_ok=true
                     break
                 fi
             done
-            check_python python3.11 || check_python python3 || true
+            check_python python3.14 || check_python python3 || true
             [ -n "$PYTHON_CMD" ] && _brew_ok=true
         fi
 
@@ -133,20 +135,20 @@ if [ -z "$PYTHON_CMD" ]; then
                 2>&1 | grep -E '(Installing|Downloading|==>|Error|already installed)' || true
             if [ -f /usr/local/bin/brew ]; then
                 eval "$(/usr/local/bin/brew shellenv)"
-                brew install python@3.11 > /tmp/plutus_brew_legacy.log 2>&1 &
+                brew install python@3.14 > /tmp/plutus_brew_legacy.log 2>&1 &
                 _BREW_PID=$!
                 _SPIN='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
                 _i=0
                 while kill -0 "$_BREW_PID" 2>/dev/null; do
                     _char=$(printf '%s' "$_SPIN" | cut -c$(( (_i % 10) + 1 )))
-                    printf "\r       %s  Installing Python 3.11 via Homebrew Legacy..." "$_char"
+                    printf "\r       %s  Installing Python 3.14 via Homebrew Legacy..." "$_char"
                     sleep 0.12
                     _i=$(( _i + 1 ))
                 done
                 wait "$_BREW_PID" || true
                 printf "\r       ✓  Homebrew Legacy Python install complete.                   \n"
                 rm -f /tmp/plutus_brew_legacy.log
-                check_python python3.11 || check_python python3 || true
+                check_python python3.14 || check_python python3 || true
                 [ -n "$PYTHON_CMD" ] && _brew_ok=true
             fi
         fi
@@ -157,13 +159,13 @@ if [ -z "$PYTHON_CMD" ]; then
         if [ -z "$PYTHON_CMD" ]; then
             echo ""
             echo "       Homebrew unavailable on this Mac."
-            echo "       Downloading Python 3.11 installer from python.org..."
+            echo "       Downloading Python 3.14.3 installer from python.org..."
             echo "       (This is a one-time ~43 MB download)"
             echo ""
-            _PKG_URL="https://www.python.org/ftp/python/3.11.9/python-3.11.9-macos11.pkg"
-            _PKG_FILE="/tmp/python-3.11.9-installer.pkg"
+            _PKG_URL="https://www.python.org/ftp/python/3.14.3/python-3.14.3-macos11.pkg"
+            _PKG_FILE="/tmp/python-3.14.3-installer.pkg"
             if curl -L --progress-bar -o "$_PKG_FILE" "$_PKG_URL"; then
-                echo "       Installing Python 3.11 (you may be prompted for your password)..."
+                echo "       Installing Python 3.14.3 (you may be prompted for your password)..."
                 echo ""
                 # Run the installer in the background and show a spinner so the
                 # user knows it hasn't stalled (the .pkg can take 1-3 minutes).
@@ -175,13 +177,13 @@ if [ -z "$PYTHON_CMD" ]; then
                 printf "       "
                 while kill -0 "$_PKG_PID" 2>/dev/null; do
                     _char=$(printf '%s' "$_SPIN" | cut -c$(( (_i % 10) + 1 )))
-                    printf "\r       %s  Installing Python 3.11... (this takes about a minute)" "$_char"
+                    printf "\r       %s  Installing Python 3.14.3... (this takes about a minute)" "$_char"
                     sleep 0.12
                     _i=$(( _i + 1 ))
                 done
                 wait "$_PKG_PID"
                 _PKG_EXIT=$?
-                printf "\r       ✓  Python 3.11 installed.                                    \n"
+                printf "\r       ✓  Python 3.14.3 installed.                                    \n"
                 echo ""
                 if [ "$_PKG_EXIT" -ne 0 ]; then
                     echo "[ERROR] Python installer failed. Log:"
@@ -191,18 +193,18 @@ if [ -z "$PYTHON_CMD" ]; then
                 rm -f "$_PKG_FILE" /tmp/plutus_pkg_install.log
                 # python.org installer puts Python in /Library/Frameworks
                 for _fw_py in \
-                    /Library/Frameworks/Python.framework/Versions/3.11/bin/python3.11 \
-                    /usr/local/bin/python3.11; do
+                    /Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14 \
+                    /usr/local/bin/python3.14; do
                     if check_python "$_fw_py"; then
                         break
                     fi
                 done
-                check_python python3.11 || check_python python3 || true
+                check_python python3.14 || check_python python3 || true
             else
                 echo ""
                 echo "[ERROR] Could not download the Python installer."
-                echo "  Please install Python 3.11 manually:"
-                echo "    https://www.python.org/ftp/python/3.11.9/python-3.11.9-macos11.pkg"
+                echo "  Please install Python 3.14.3 manually:"
+                echo "    https://www.python.org/ftp/python/3.14.3/python-3.14.3-macos11.pkg"
                 echo "  Then re-run this installer."
                 exit 1
             fi
@@ -211,29 +213,29 @@ if [ -z "$PYTHON_CMD" ]; then
     else
         # ── Linux: detect package manager and install ──
         if command -v apt-get &>/dev/null; then
-            echo "       Installing Python 3.11 via apt..."
+            echo "       Installing Python 3.14 via apt..."
             sudo apt-get update -qq 2>/dev/null || true
-            sudo apt-get install -y python3.11 python3.11-venv python3-pip 2>&1 \
+            sudo apt-get install -y python3.14 python3.14-venv python3-pip 2>&1 \
                 | grep -E '(Installing|Unpacking|Setting up|already)' || true
         elif command -v dnf &>/dev/null; then
-            echo "       Installing Python 3.11 via dnf..."
-            sudo dnf install -y python3.11 2>&1 | grep -E '(Installing|Installed|already)' || true
+            echo "       Installing Python 3.14 via dnf..."
+            sudo dnf install -y python3.14 2>&1 | grep -E '(Installing|Installed|already)' || true
         elif command -v pacman &>/dev/null; then
             echo "       Installing Python via pacman..."
             sudo pacman -Sy --noconfirm python 2>&1 | grep -E '(installing|installed|already)' || true
         elif command -v zypper &>/dev/null; then
-            echo "       Installing Python 3.11 via zypper..."
-            sudo zypper install -y python311 2>&1 | grep -E '(Installing|already)' || true
+            echo "       Installing Python 3.14 via zypper..."
+            sudo zypper install -y python314 2>&1 | grep -E '(Installing|already)' || true
         else
             echo ""
             echo "[ERROR] Could not auto-install Python — no supported package manager found."
-            echo "  Please install Python 3.11+ manually and re-run this installer:"
+            echo "  Please install Python 3.14+ manually and re-run this installer:"
             echo "    https://www.python.org/downloads/"
             exit 1
         fi
 
         # Re-check after install
-        for _py_candidate in python3.11 python3.12 python3.13 python3; do
+        for _py_candidate in python3.14 python3.13 python3.12 python3.11 python3; do
             if check_python "$_py_candidate"; then
                 break
             fi
@@ -260,7 +262,23 @@ echo "[1/4] $PY_VER found."
 echo "[2/4] Installing Plutus..."
 
 $PYTHON_CMD -m pip install --upgrade pip >/dev/null 2>&1 || true
-$PYTHON_CMD -m pip install --upgrade "plutus-ai[all]"
+
+# On Intel Macs (x86_64) running macOS 12+, older PyPI releases may only have
+# arm64 wheels.  We attempt a normal install first; if that fails we retry with
+# an explicit platform tag so pip can find the correct wheel.
+if ! $PYTHON_CMD -m pip install --upgrade "plutus-ai[all]" 2>/dev/null; then
+    ARCH="$(uname -m)"
+    if [ "$OS" = "Darwin" ] && [ "$ARCH" = "x86_64" ]; then
+        echo "       Retrying with explicit Intel Mac platform tag..."
+        $PYTHON_CMD -m pip install --upgrade \
+            --platform macosx_10_9_x86_64 \
+            --only-binary :all: \
+            "plutus-ai[all]" 2>/dev/null \
+        || $PYTHON_CMD -m pip install --upgrade "plutus-ai[all]"
+    else
+        $PYTHON_CMD -m pip install --upgrade "plutus-ai[all]"
+    fi
+fi
 
 echo "       Plutus installed."
 
@@ -298,143 +316,82 @@ else
     disown 2>/dev/null || true
 
     # Wait for Plutus to be ready before opening the browser.
-    # Poll http://localhost:7777 with a spinner so the user sees progress.
-    _SPIN='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
+    # Poll /api/config every 0.5 s for up to 60 s.
+    _MAX=120
     _i=0
-    _waited=0
-    _ready=false
-    printf "  Starting Plutus..."
-    while [ "\$_waited" -lt 60 ]; do
+    _SPIN='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
+    while [ \$_i -lt \$_MAX ]; do
         if curl -sf http://localhost:7777/api/config > /dev/null 2>&1; then
-            _ready=true
+            printf "\r       ✓  Plutus is ready.                          \n"
             break
         fi
         _char=\$(printf '%s' "\$_SPIN" | cut -c\$(( (\$_i % 10) + 1 )))
-        printf "\r  %s  Starting Plutus... (\${_waited}s)" "\$_char"
-        sleep 1
+        printf "\r       %s  Starting Plutus..." "\$_char"
+        sleep 0.5
         _i=\$(( _i + 1 ))
-        _waited=\$(( _waited + 1 ))
     done
 
-    if [ "\$_ready" = true ]; then
-        printf "\r  ✓  Plutus is ready! Opening browser...         \n"
-        sleep 0.3
-        _open_browser
-    else
-        printf "\r  ⚠  Plutus is taking longer than expected.      \n"
-        printf "   Opening browser anyway — try refreshing if it shows an error.\n"
-        _open_browser
-    fi
+    _open_browser
 fi
 LAUNCHER_EOF
 chmod +x "$LAUNCHER"
 
-SHORTCUT_CREATED=false
-
 if [ "$OS" = "Darwin" ]; then
-    # ── macOS: Create a .app bundle ──
+    # ── macOS: create a double-clickable .app bundle ──
     APP_DIR="$HOME/Applications/Plutus.app"
-    MACOS_DIR="$APP_DIR/Contents/MacOS"
-    mkdir -p "$MACOS_DIR"
-
-    # Info.plist
-    cat > "$APP_DIR/Contents/Info.plist" << 'PLIST_EOF'
+    mkdir -p "$APP_DIR/Contents/MacOS"
+    cat > "$APP_DIR/Contents/MacOS/Plutus" << APP_EOF
+#!/bin/bash
+bash "$LAUNCHER"
+APP_EOF
+    chmod +x "$APP_DIR/Contents/MacOS/Plutus"
+    cat > "$APP_DIR/Contents/Info.plist" << PLIST_EOF
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
-  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CFBundleExecutable</key>
-    <string>plutus-launcher</string>
-    <key>CFBundleIdentifier</key>
-    <string>ai.plutus.app</string>
-    <key>CFBundleName</key>
-    <string>Plutus</string>
-    <key>CFBundleDisplayName</key>
-    <string>Plutus</string>
-    <key>CFBundleVersion</key>
-    <string>1.0</string>
-    <key>CFBundleShortVersionString</key>
-    <string>1.0</string>
-    <key>CFBundlePackageType</key>
-    <string>APPL</string>
-    <key>LSBackgroundOnly</key>
-    <true/>
+    <key>CFBundleName</key><string>Plutus</string>
+    <key>CFBundleExecutable</key><string>Plutus</string>
+    <key>CFBundleIdentifier</key><string>ai.useplutus.plutus</string>
+    <key>CFBundleVersion</key><string>1.0</string>
+    <key>CFBundlePackageType</key><string>APPL</string>
+    <key>LSUIElement</key><true/>
 </dict>
 </plist>
 PLIST_EOF
-
-    # Executable
-    cat > "$MACOS_DIR/plutus-launcher" << EXEC_EOF
-#!/bin/bash
-exec "$LAUNCHER"
-EXEC_EOF
-    chmod +x "$MACOS_DIR/plutus-launcher"
-
-    SHORTCUT_CREATED=true
-    echo "       App created at ~/Applications/Plutus.app"
-    echo "       Tip: Drag it to your Dock for quick access."
-
+    echo "       Launcher created: ~/Applications/Plutus.app"
 else
-    # ── Linux: Create a .desktop file ──
+    # ── Linux: create a .desktop shortcut ──
     DESKTOP_DIR="$HOME/.local/share/applications"
     mkdir -p "$DESKTOP_DIR"
-
     cat > "$DESKTOP_DIR/plutus.desktop" << DESKTOP_EOF
 [Desktop Entry]
 Name=Plutus
-Comment=Autonomous AI Agent
-Exec=bash "$LAUNCHER"
+Comment=AI Assistant
+Exec=bash $LAUNCHER
 Terminal=false
 Type=Application
-Categories=Utility;Development;
-StartupNotify=false
+Categories=Utility;
 DESKTOP_EOF
     chmod +x "$DESKTOP_DIR/plutus.desktop"
-
-    # Also place on the user's Desktop if the directory exists
-    XDG_DESKTOP=$(xdg-user-dir DESKTOP 2>/dev/null || echo "$HOME/Desktop")
-    if [ -d "$XDG_DESKTOP" ]; then
-        cp "$DESKTOP_DIR/plutus.desktop" "$XDG_DESKTOP/plutus.desktop"
-        # Mark as trusted on GNOME so it's clickable without a warning
-        gio set "$XDG_DESKTOP/plutus.desktop" metadata::trusted true 2>/dev/null || true
-        chmod +x "$XDG_DESKTOP/plutus.desktop"
-    fi
-
-    SHORTCUT_CREATED=true
-    echo "       App shortcut created."
-    echo "       Search 'Plutus' in your app launcher to start it."
+    echo "       Launcher created: ~/.local/share/applications/plutus.desktop"
 fi
 
-# ── Step 4: Launch ────────────────────────────────────────
+# ── Step 4: Launch Plutus ─────────────────────────────────
 
-echo "[4/4] Launching Plutus..."
-echo ""
-echo "  ─────────────────────────────"
-echo ""
-echo "  Plutus is starting in the background..."
-echo "  Your browser will open to http://localhost:7777"
-echo "  First time? The setup wizard will guide you through everything."
+echo "[4/4] Starting Plutus..."
 echo ""
 
-if [ "$SHORTCUT_CREATED" = true ]; then
-    echo "  To start Plutus anytime:"
-    if [ "$OS" = "Darwin" ]; then
-        echo "    - Open 'Plutus' from ~/Applications or Spotlight"
-        echo "    - Or drag it to your Dock for one-click access"
-    else
-        echo "    - Search 'Plutus' in your app launcher"
-        echo "    - Or double-click 'Plutus' on your Desktop"
-    fi
-else
-    echo "  To start Plutus anytime, run:"
-    echo "    plutus start"
-fi
-
-echo ""
-echo "  To stop: plutus stop (or close the terminal)"
-echo "  ─────────────────────────────"
-echo ""
-
-# Launch via the launcher script
 bash "$LAUNCHER"
+
+echo ""
+echo "  ✓  Plutus is running at http://localhost:7777"
+echo ""
+echo "  To start Plutus in the future:"
+if [ "$OS" = "Darwin" ]; then
+    echo "    • Double-click Plutus in ~/Applications"
+else
+    echo "    • Search for 'Plutus' in your app launcher"
+fi
+echo "    • Or run: plutus start"
+echo ""
