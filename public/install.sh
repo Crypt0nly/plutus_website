@@ -97,7 +97,19 @@ if [ -z "$PYTHON_CMD" ]; then
 
         if command -v brew &>/dev/null; then
             echo "       Installing Python 3.11 via Homebrew..."
-            brew install python@3.11 2>&1 | grep -E '(Installing|Downloading|Pouring|==>|Error|already)' || true
+            brew install python@3.11 > /tmp/plutus_brew.log 2>&1 &
+            _BREW_PID=$!
+            _SPIN='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
+            _i=0
+            while kill -0 "$_BREW_PID" 2>/dev/null; do
+                _char=$(printf '%s' "$_SPIN" | cut -c$(( (_i % 10) + 1 )))
+                printf "\r       %s  Installing Python 3.11 via Homebrew... (this may take a minute)" "$_char"
+                sleep 0.12
+                _i=$(( _i + 1 ))
+            done
+            wait "$_BREW_PID" || true
+            printf "\r       ✓  Homebrew Python install complete.                              \n"
+            rm -f /tmp/plutus_brew.log
             brew link --overwrite python@3.11 2>/dev/null || true
             for _brew_py in \
                 "$(brew --prefix python@3.11 2>/dev/null)/bin/python3.11" \
@@ -121,7 +133,19 @@ if [ -z "$PYTHON_CMD" ]; then
                 2>&1 | grep -E '(Installing|Downloading|==>|Error|already installed)' || true
             if [ -f /usr/local/bin/brew ]; then
                 eval "$(/usr/local/bin/brew shellenv)"
-                brew install python@3.11 2>&1 | grep -E '(Installing|Downloading|Pouring|==>|Error|already)' || true
+                brew install python@3.11 > /tmp/plutus_brew_legacy.log 2>&1 &
+                _BREW_PID=$!
+                _SPIN='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
+                _i=0
+                while kill -0 "$_BREW_PID" 2>/dev/null; do
+                    _char=$(printf '%s' "$_SPIN" | cut -c$(( (_i % 10) + 1 )))
+                    printf "\r       %s  Installing Python 3.11 via Homebrew Legacy..." "$_char"
+                    sleep 0.12
+                    _i=$(( _i + 1 ))
+                done
+                wait "$_BREW_PID" || true
+                printf "\r       ✓  Homebrew Legacy Python install complete.                   \n"
+                rm -f /tmp/plutus_brew_legacy.log
                 check_python python3.11 || check_python python3 || true
                 [ -n "$PYTHON_CMD" ] && _brew_ok=true
             fi
@@ -140,8 +164,31 @@ if [ -z "$PYTHON_CMD" ]; then
             _PKG_FILE="/tmp/python-3.11.9-installer.pkg"
             if curl -L --progress-bar -o "$_PKG_FILE" "$_PKG_URL"; then
                 echo "       Installing Python 3.11 (you may be prompted for your password)..."
-                sudo installer -pkg "$_PKG_FILE" -target / 2>&1 | grep -E '(installer:|succeeded|failed|error)' || true
-                rm -f "$_PKG_FILE"
+                echo ""
+                # Run the installer in the background and show a spinner so the
+                # user knows it hasn't stalled (the .pkg can take 1-3 minutes).
+                sudo installer -pkg "$_PKG_FILE" -target / \
+                    > /tmp/plutus_pkg_install.log 2>&1 &
+                _PKG_PID=$!
+                _SPIN='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
+                _i=0
+                printf "       "
+                while kill -0 "$_PKG_PID" 2>/dev/null; do
+                    _char=$(printf '%s' "$_SPIN" | cut -c$(( (_i % 10) + 1 )))
+                    printf "\r       %s  Installing Python 3.11... (this takes about a minute)" "$_char"
+                    sleep 0.12
+                    _i=$(( _i + 1 ))
+                done
+                wait "$_PKG_PID"
+                _PKG_EXIT=$?
+                printf "\r       ✓  Python 3.11 installed.                                    \n"
+                echo ""
+                if [ "$_PKG_EXIT" -ne 0 ]; then
+                    echo "[ERROR] Python installer failed. Log:"
+                    cat /tmp/plutus_pkg_install.log
+                    exit 1
+                fi
+                rm -f "$_PKG_FILE" /tmp/plutus_pkg_install.log
                 # python.org installer puts Python in /Library/Frameworks
                 for _fw_py in \
                     /Library/Frameworks/Python.framework/Versions/3.11/bin/python3.11 \
