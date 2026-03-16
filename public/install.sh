@@ -74,45 +74,91 @@ if [ -z "$PYTHON_CMD" ]; then
     echo ""
 
     if [ "$OS" = "Darwin" ]; then
-        # ── macOS: use Homebrew (install it first if needed) ──
+        # ── macOS: 3-tier strategy ──────────────────────────────
+        # Tier 1: Try Homebrew (works on macOS 13 Ventura+)
+        # Tier 2: Try Homebrew Legacy (works on older macOS)
+        # Tier 3: Direct python.org .pkg installer (works on macOS 10.9+)
+        # ────────────────────────────────────────────────────────
+
+        _brew_ok=false
+
+        # ── Tier 1: Standard Homebrew ──
         if ! command -v brew &>/dev/null; then
-            echo "       Homebrew not found — installing Homebrew first..."
-            echo "       (This is a one-time setup and may take a minute)"
-            echo ""
+            echo "       Trying Homebrew..."
             NONINTERACTIVE=1 /bin/bash -c \
                 "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
-                2>&1 | grep -E '(Installing|Downloading|==>|Error)' || true
-            # Add Homebrew to PATH for the rest of this script
+                2>&1 | grep -E '(Installing|Downloading|==>|Error|already installed)' || true
             if [ -f /opt/homebrew/bin/brew ]; then
                 eval "$(/opt/homebrew/bin/brew shellenv)"
             elif [ -f /usr/local/bin/brew ]; then
                 eval "$(/usr/local/bin/brew shellenv)"
             fi
-            if ! command -v brew &>/dev/null; then
-                echo ""
-                echo "[ERROR] Homebrew installation failed."
-                echo "  Please install it manually from https://brew.sh and re-run this installer."
-                exit 1
-            fi
-            echo "       Homebrew installed."
-            echo ""
         fi
 
-        echo "       Installing Python 3.11 via Homebrew..."
-        brew install python@3.11 2>&1 | grep -E '(Installing|Downloading|Pouring|==>|Error|already)' || true
-        brew link --overwrite python@3.11 2>/dev/null || true
-
-        # Re-check after install
-        for _brew_py in \
-            "$(brew --prefix python@3.11 2>/dev/null)/bin/python3.11" \
-            /opt/homebrew/bin/python3.11 \
-            /usr/local/bin/python3.11; do
-            if check_python "$_brew_py"; then
-                break
-            fi
-        done
-        if [ -z "$PYTHON_CMD" ]; then
+        if command -v brew &>/dev/null; then
+            echo "       Installing Python 3.11 via Homebrew..."
+            brew install python@3.11 2>&1 | grep -E '(Installing|Downloading|Pouring|==>|Error|already)' || true
+            brew link --overwrite python@3.11 2>/dev/null || true
+            for _brew_py in \
+                "$(brew --prefix python@3.11 2>/dev/null)/bin/python3.11" \
+                /opt/homebrew/bin/python3.11 \
+                /usr/local/bin/python3.11; do
+                if check_python "$_brew_py"; then
+                    _brew_ok=true
+                    break
+                fi
+            done
             check_python python3.11 || check_python python3 || true
+            [ -n "$PYTHON_CMD" ] && _brew_ok=true
+        fi
+
+        # ── Tier 2: Homebrew Legacy (for macOS < 13 Ventura) ──
+        if [ "$_brew_ok" = false ] && ! command -v brew &>/dev/null; then
+            echo "       Standard Homebrew failed (likely an older macOS)."
+            echo "       Trying Homebrew Legacy for older Macs..."
+            NONINTERACTIVE=1 /bin/bash -c \
+                "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
+                2>&1 | grep -E '(Installing|Downloading|==>|Error|already installed)' || true
+            if [ -f /usr/local/bin/brew ]; then
+                eval "$(/usr/local/bin/brew shellenv)"
+                brew install python@3.11 2>&1 | grep -E '(Installing|Downloading|Pouring|==>|Error|already)' || true
+                check_python python3.11 || check_python python3 || true
+                [ -n "$PYTHON_CMD" ] && _brew_ok=true
+            fi
+        fi
+
+        # ── Tier 3: Direct python.org .pkg installer ──
+        # Supports macOS 10.9 (Mavericks) and later — covers all Macs
+        # from the last ~12 years without needing Homebrew at all.
+        if [ -z "$PYTHON_CMD" ]; then
+            echo ""
+            echo "       Homebrew unavailable on this Mac."
+            echo "       Downloading Python 3.11 installer from python.org..."
+            echo "       (This is a one-time ~43 MB download)"
+            echo ""
+            _PKG_URL="https://www.python.org/ftp/python/3.11.9/python-3.11.9-macos11.pkg"
+            _PKG_FILE="/tmp/python-3.11.9-installer.pkg"
+            if curl -L --progress-bar -o "$_PKG_FILE" "$_PKG_URL"; then
+                echo "       Installing Python 3.11 (you may be prompted for your password)..."
+                sudo installer -pkg "$_PKG_FILE" -target / 2>&1 | grep -E '(installer:|succeeded|failed|error)' || true
+                rm -f "$_PKG_FILE"
+                # python.org installer puts Python in /Library/Frameworks
+                for _fw_py in \
+                    /Library/Frameworks/Python.framework/Versions/3.11/bin/python3.11 \
+                    /usr/local/bin/python3.11; do
+                    if check_python "$_fw_py"; then
+                        break
+                    fi
+                done
+                check_python python3.11 || check_python python3 || true
+            else
+                echo ""
+                echo "[ERROR] Could not download the Python installer."
+                echo "  Please install Python 3.11 manually:"
+                echo "    https://www.python.org/ftp/python/3.11.9/python-3.11.9-macos11.pkg"
+                echo "  Then re-run this installer."
+                exit 1
+            fi
         fi
 
     else
