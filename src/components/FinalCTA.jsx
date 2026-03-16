@@ -1,14 +1,62 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+
+const DOWNLOAD_URLS = {
+  unix: 'https://useplutus.ai/install.sh',
+  windows: 'https://useplutus.ai/install.ps1',
+}
+
+const DOWNLOAD_FILENAMES = {
+  unix: 'install.sh',
+  windows: 'install.ps1',
+}
+
+const INSTALL_COMMANDS = {
+  unix: 'curl -fsSL https://useplutus.ai/install.sh | bash',
+  windows: 'iwr -useb https://useplutus.ai/install.ps1 | iex',
+}
+
+function detectOS() {
+  const ua = navigator.userAgent || ''
+  if (ua.includes('Win')) return 'windows'
+  return 'unix'
+}
+
+function DownloadIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="7 10 12 15 17 10" />
+      <line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+  )
+}
 
 export default function FinalCTA() {
   const [copied, setCopied] = useState(false)
+  const [dlHover, setDlHover] = useState(false)
+  const [os, setOs] = useState('unix')
+
+  useEffect(() => {
+    setOs(detectOS())
+  }, [])
 
   const copy = () => {
-    navigator.clipboard.writeText('curl -fsSL https://useplutus.ai/install.sh | bash')
+    navigator.clipboard.writeText(INSTALL_COMMANDS[os])
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
+
+  const download = () => {
+    const a = document.createElement('a')
+    a.href = DOWNLOAD_URLS[os]
+    a.download = DOWNLOAD_FILENAMES[os]
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+  }
+
+  const osLabel = os === 'windows' ? '🪟 Windows' : '🍎 macOS / Linux'
 
   return (
     <section style={{
@@ -88,10 +136,69 @@ export default function FinalCTA() {
             Join thousands of people who've already reclaimed hours of their week with a private, free AI assistant that actually gets things done.
           </p>
 
+          {/* Primary Download Button */}
+          <motion.button
+            onClick={download}
+            onMouseEnter={() => setDlHover(true)}
+            onMouseLeave={() => setDlHover(false)}
+            whileTap={{ scale: 0.97 }}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 10,
+              padding: '15px 32px',
+              borderRadius: 12,
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: 16,
+              fontWeight: 700,
+              letterSpacing: '-0.3px',
+              color: 'white',
+              background: dlHover
+                ? 'linear-gradient(135deg, #9333ea, #6d28d9)'
+                : 'linear-gradient(135deg, #a855f7, #7c3aed)',
+              boxShadow: dlHover
+                ? '0 8px 32px rgba(168,85,247,0.45), 0 0 0 1px rgba(168,85,247,0.3)'
+                : '0 4px 20px rgba(168,85,247,0.3), 0 0 0 1px rgba(168,85,247,0.2)',
+              transition: 'all 0.2s ease',
+              marginBottom: 16,
+            }}
+          >
+            <DownloadIcon />
+            Download for {osLabel}
+            <span style={{
+              fontSize: 11,
+              fontWeight: 500,
+              color: 'rgba(255,255,255,0.55)',
+              background: 'rgba(0,0,0,0.2)',
+              padding: '2px 8px',
+              borderRadius: 4,
+              letterSpacing: '0.5px',
+            }}>
+              {DOWNLOAD_FILENAMES[os]}
+            </span>
+          </motion.button>
+
+          {/* Divider */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            maxWidth: 520,
+            margin: '0 auto 16px',
+          }}>
+            <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
+            <span style={{ fontSize: 11, color: '#334155', fontWeight: 500, letterSpacing: '0.5px', textTransform: 'uppercase' }}>
+              or use the one-liner
+            </span>
+            <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
+          </div>
+
           {/* Install command */}
           <div style={{
             background: 'rgba(10,10,15,0.9)',
-            border: '1px solid rgba(168,85,247,0.25)',
+            border: '1px solid rgba(255,255,255,0.08)',
             borderRadius: 12,
             padding: '14px 18px',
             display: 'flex',
@@ -100,38 +207,38 @@ export default function FinalCTA() {
             gap: 12,
             maxWidth: 520,
             margin: '0 auto 16px',
-            boxShadow: '0 0 60px rgba(168,85,247,0.1)',
+            boxShadow: '0 0 60px rgba(168,85,247,0.08)',
           }}>
             <code style={{
               fontFamily: 'JetBrains Mono, monospace',
-              fontSize: 13,
-              color: '#e2e8f0',
+              fontSize: 12,
+              color: '#94a3b8',
               flex: 1,
               textAlign: 'left',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap',
             }}>
-              <span style={{ color: '#64748b', marginRight: 8 }}>$</span>
-              curl -fsSL https://useplutus.ai/install.sh | bash
+              <span style={{ color: '#475569', marginRight: 8 }}>$</span>
+              {INSTALL_COMMANDS[os]}
             </code>
             <button
               onClick={copy}
               style={{
-                background: copied ? 'rgba(34,197,94,0.15)' : 'linear-gradient(135deg, #a855f7, #7c3aed)',
-                border: copied ? '1px solid rgba(34,197,94,0.3)' : 'none',
-                color: copied ? '#22c55e' : 'white',
-                padding: '8px 18px',
+                background: copied ? 'rgba(34,197,94,0.15)' : 'rgba(255,255,255,0.06)',
+                border: copied ? '1px solid rgba(34,197,94,0.3)' : '1px solid rgba(255,255,255,0.1)',
+                color: copied ? '#22c55e' : '#64748b',
+                padding: '7px 16px',
                 borderRadius: 8,
                 cursor: 'pointer',
-                fontSize: 13,
+                fontSize: 12,
                 fontWeight: 700,
                 transition: 'all 0.2s',
                 whiteSpace: 'nowrap',
                 flexShrink: 0,
               }}
             >
-              {copied ? '✓ Copied!' : 'Install Now'}
+              {copied ? '✓ Copied!' : 'Copy'}
             </button>
           </div>
 

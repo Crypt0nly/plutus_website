@@ -6,7 +6,20 @@ const INSTALL_COMMANDS = {
   windows: 'iwr -useb https://useplutus.ai/install.ps1 | iex',
 }
 
-const OS_LABELS = { unix: 'macOS / Linux', windows: 'Windows' }
+const DOWNLOAD_URLS = {
+  unix: 'https://useplutus.ai/install.sh',
+  windows: 'https://useplutus.ai/install.ps1',
+}
+
+const DOWNLOAD_FILENAMES = {
+  unix: 'install.sh',
+  windows: 'install.ps1',
+}
+
+const OS_LABELS = {
+  unix: { short: 'macOS / Linux', icon: '🍎', hint: 'Shell script (.sh)' },
+  windows: { short: 'Windows', icon: '🪟', hint: 'PowerShell script (.ps1)' },
+}
 
 function detectOS() {
   const ua = navigator.userAgent || ''
@@ -54,6 +67,7 @@ function TerminalLine({ text, color, delay }) {
 export default function Hero() {
   const [os, setOs] = useState('unix')
   const [copied, setCopied] = useState(false)
+  const [downloadHover, setDownloadHover] = useState(false)
   const [installCount, setInstallCount] = useState(2847)
   const terminalRef = useRef(null)
 
@@ -73,6 +87,17 @@ export default function Hero() {
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
+
+  const download = () => {
+    const a = document.createElement('a')
+    a.href = DOWNLOAD_URLS[os]
+    a.download = DOWNLOAD_FILENAMES[os]
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+  }
+
+  const osInfo = OS_LABELS[os]
 
   return (
     <section style={{
@@ -172,16 +197,16 @@ export default function Hero() {
         automate tedious tasks, build software, or research anything — just tell it what you need in plain English.
       </motion.p>
 
-      {/* Install box */}
+      {/* ── Install / Download box ── */}
       <motion.div
         initial={{ opacity: 0, y: 24, scale: 0.97 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.6, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        style={{ width: '100%', maxWidth: 580, position: 'relative', zIndex: 1 }}
+        style={{ width: '100%', maxWidth: 600, position: 'relative', zIndex: 1 }}
       >
-        {/* OS tabs */}
-        <div style={{ display: 'flex', gap: 4, marginBottom: 8, justifyContent: 'center' }}>
-          {Object.entries(OS_LABELS).map(([key, label]) => (
+        {/* OS selector tabs */}
+        <div style={{ display: 'flex', gap: 4, marginBottom: 12, justifyContent: 'center' }}>
+          {Object.entries(OS_LABELS).map(([key, info]) => (
             <button
               key={key}
               onClick={() => setOs(key)}
@@ -198,57 +223,135 @@ export default function Hero() {
                 letterSpacing: '0.3px',
               }}
             >
-              {label}
+              {info.icon} {info.short}
             </button>
           ))}
+        </div>
+
+        {/* Primary Download Button */}
+        <motion.button
+          onClick={download}
+          onMouseEnter={() => setDownloadHover(true)}
+          onMouseLeave={() => setDownloadHover(false)}
+          whileTap={{ scale: 0.97 }}
+          style={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 10,
+            padding: '15px 24px',
+            borderRadius: 12,
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: 16,
+            fontWeight: 700,
+            letterSpacing: '-0.3px',
+            color: 'white',
+            background: downloadHover
+              ? 'linear-gradient(135deg, #9333ea, #6d28d9)'
+              : 'linear-gradient(135deg, #a855f7, #7c3aed)',
+            boxShadow: downloadHover
+              ? '0 8px 32px rgba(168,85,247,0.45), 0 0 0 1px rgba(168,85,247,0.3)'
+              : '0 4px 20px rgba(168,85,247,0.3), 0 0 0 1px rgba(168,85,247,0.2)',
+            transition: 'all 0.2s ease',
+            marginBottom: 12,
+          }}
+        >
+          {/* Download icon */}
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          Download for {osInfo.icon} {osInfo.short}
+          <span style={{
+            fontSize: 11,
+            fontWeight: 500,
+            color: 'rgba(255,255,255,0.55)',
+            background: 'rgba(0,0,0,0.2)',
+            padding: '2px 8px',
+            borderRadius: 4,
+            letterSpacing: '0.5px',
+          }}>
+            {DOWNLOAD_FILENAMES[os]}
+          </span>
+        </motion.button>
+
+        {/* Divider */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 12,
+          marginBottom: 12,
+        }}>
+          <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
+          <span style={{ fontSize: 11, color: '#334155', fontWeight: 500, letterSpacing: '0.5px', textTransform: 'uppercase' }}>
+            or use the one-liner
+          </span>
+          <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
         </div>
 
         {/* Command box */}
         <div style={{
           background: 'rgba(10,10,15,0.8)',
-          border: '1px solid rgba(168,85,247,0.25)',
-          borderRadius: 12,
-          padding: '14px 18px',
+          border: '1px solid rgba(255,255,255,0.08)',
+          borderRadius: 10,
+          padding: '12px 16px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: 12,
-          boxShadow: '0 0 40px rgba(168,85,247,0.1)',
         }}>
-          <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, color: '#e2e8f0', flex: 1, textAlign: 'left', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-            <span style={{ color: '#64748b', marginRight: 8 }}>$</span>
+          <code style={{
+            fontFamily: 'JetBrains Mono, monospace',
+            fontSize: 12,
+            color: '#94a3b8',
+            flex: 1,
+            textAlign: 'left',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}>
+            <span style={{ color: '#475569', marginRight: 8 }}>$</span>
             {INSTALL_COMMANDS[os]}
           </code>
           <button
             onClick={copy}
             style={{
-              background: copied ? 'rgba(34,197,94,0.15)' : 'rgba(168,85,247,0.15)',
-              border: copied ? '1px solid rgba(34,197,94,0.3)' : '1px solid rgba(168,85,247,0.3)',
-              color: copied ? '#22c55e' : '#a855f7',
-              padding: '6px 14px',
+              background: copied ? 'rgba(34,197,94,0.15)' : 'rgba(255,255,255,0.06)',
+              border: copied ? '1px solid rgba(34,197,94,0.3)' : '1px solid rgba(255,255,255,0.1)',
+              color: copied ? '#22c55e' : '#64748b',
+              padding: '5px 12px',
               borderRadius: 6,
               cursor: 'pointer',
-              fontSize: 12,
+              fontSize: 11,
               fontWeight: 600,
               transition: 'all 0.2s',
               whiteSpace: 'nowrap',
               flexShrink: 0,
             }}
           >
-            {copied ? '✓ Copied!' : 'Copy'}
+            {copied ? '✓ Copied' : 'Copy'}
           </button>
         </div>
 
-        {/* Install counter */}
-        <motion.div
-          key={installCount}
-          initial={{ opacity: 0, y: -4 }}
-          animate={{ opacity: 1, y: 0 }}
-          style={{ marginTop: 10, fontSize: 12, color: '#475569', textAlign: 'center' }}
-        >
-          <span style={{ color: '#22c55e', marginRight: 4 }}>🟢</span>
-          <span style={{ fontWeight: 600, color: '#64748b' }}>{installCount.toLocaleString()}</span> installs today
-        </motion.div>
+        {/* Install counter + hint */}
+        <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
+          <motion.span
+            key={installCount}
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            style={{ fontSize: 12, color: '#475569' }}
+          >
+            <span style={{ color: '#22c55e', marginRight: 4 }}>🟢</span>
+            <span style={{ fontWeight: 600, color: '#64748b' }}>{installCount.toLocaleString()}</span> installs today
+          </motion.span>
+          <span style={{ fontSize: 12, color: '#334155' }}>·</span>
+          <span style={{ fontSize: 12, color: '#334155' }}>Requires Python 3.10+</span>
+          <span style={{ fontSize: 12, color: '#334155' }}>·</span>
+          <span style={{ fontSize: 12, color: '#334155' }}>No account needed</span>
+        </div>
       </motion.div>
 
       {/* Terminal preview */}

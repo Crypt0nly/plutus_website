@@ -1,12 +1,23 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
+const DOWNLOAD_URLS = {
+  unix: 'https://useplutus.ai/install.sh',
+  windows: 'https://useplutus.ai/install.ps1',
+}
+
+const DOWNLOAD_FILENAMES = {
+  unix: 'install.sh',
+  windows: 'install.ps1',
+}
+
 const tabs = [
   {
     id: 'unix',
     label: '🍎 macOS / Linux',
+    downloadHint: 'Shell script (.sh)',
     steps: [
-      { cmd: 'curl -fsSL https://useplutus.ai/install.sh | bash', desc: 'Download & install Plutus' },
+      { cmd: 'curl -fsSL https://useplutus.ai/install.sh | bash', desc: 'Download & install Plutus', isInstall: true },
       { cmd: 'export ANTHROPIC_API_KEY=sk-ant-...', desc: 'Set your API key' },
       { cmd: 'plutus start', desc: 'Launch the agent' },
     ]
@@ -14,22 +25,43 @@ const tabs = [
   {
     id: 'windows',
     label: '🪟 Windows',
+    downloadHint: 'PowerShell script (.ps1)',
     steps: [
-      { cmd: 'iwr -useb https://useplutus.ai/install.ps1 | iex', desc: 'Download & install Plutus (PowerShell)' },
+      { cmd: 'iwr -useb https://useplutus.ai/install.ps1 | iex', desc: 'Download & install Plutus (PowerShell)', isInstall: true },
       { cmd: '$env:ANTHROPIC_API_KEY = "sk-ant-..."', desc: 'Set your API key' },
       { cmd: 'plutus start', desc: 'Launch the agent' },
     ]
   },
 ]
 
+function DownloadIcon() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="7 10 12 15 17 10" />
+      <line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+  )
+}
+
 export default function Install() {
   const [active, setActive] = useState('unix')
   const [copied, setCopied] = useState(null)
+  const [dlHover, setDlHover] = useState(false)
 
   const copyCmd = (cmd, idx) => {
     navigator.clipboard.writeText(cmd)
     setCopied(idx)
     setTimeout(() => setCopied(null), 1800)
+  }
+
+  const download = (tabId) => {
+    const a = document.createElement('a')
+    a.href = DOWNLOAD_URLS[tabId]
+    a.download = DOWNLOAD_FILENAMES[tabId]
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
   }
 
   const activeTab = tabs.find(t => t.id === active)
@@ -81,7 +113,7 @@ export default function Install() {
             </span>
           </h2>
           <p style={{ color: '#64748b', fontSize: 16 }}>
-            Three commands. No technical knowledge required. No nonsense.
+            Click to download and run, or paste the one-liner into your terminal.
           </p>
         </motion.div>
 
@@ -146,6 +178,87 @@ export default function Install() {
               transition={{ duration: 0.2 }}
               style={{ padding: '24px 20px' }}
             >
+              {/* Download button — prominent, above the steps */}
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                style={{ marginBottom: 24 }}
+              >
+                <div style={{
+                  fontSize: 11,
+                  color: '#334155',
+                  marginBottom: 8,
+                  fontFamily: 'JetBrains Mono, monospace',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px',
+                }}>
+                  # Option A — Download the installer script
+                </div>
+                <button
+                  onClick={() => download(active)}
+                  onMouseEnter={() => setDlHover(true)}
+                  onMouseLeave={() => setDlHover(false)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    padding: '11px 20px',
+                    borderRadius: 10,
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontSize: 14,
+                    fontWeight: 700,
+                    color: 'white',
+                    background: dlHover
+                      ? 'linear-gradient(135deg, #9333ea, #6d28d9)'
+                      : 'linear-gradient(135deg, #a855f7, #7c3aed)',
+                    boxShadow: dlHover
+                      ? '0 6px 24px rgba(168,85,247,0.4)'
+                      : '0 4px 16px rgba(168,85,247,0.25)',
+                    transition: 'all 0.2s ease',
+                    letterSpacing: '-0.2px',
+                  }}
+                >
+                  <DownloadIcon />
+                  Download {activeTab.label} Installer
+                  <span style={{
+                    fontSize: 10,
+                    fontWeight: 500,
+                    color: 'rgba(255,255,255,0.5)',
+                    background: 'rgba(0,0,0,0.2)',
+                    padding: '2px 7px',
+                    borderRadius: 4,
+                    letterSpacing: '0.3px',
+                  }}>
+                    {DOWNLOAD_FILENAMES[active]}
+                  </span>
+                </button>
+                <p style={{ marginTop: 8, fontSize: 11, color: '#334155', fontFamily: 'JetBrains Mono, monospace' }}>
+                  # Then double-click the file to run it — no terminal needed
+                </p>
+              </motion.div>
+
+              {/* Divider */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                marginBottom: 20,
+              }}>
+                <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.05)' }} />
+                <span style={{
+                  fontSize: 10,
+                  color: '#334155',
+                  fontFamily: 'JetBrains Mono, monospace',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                }}>
+                  # Option B — Terminal one-liner
+                </span>
+                <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.05)' }} />
+              </div>
+
               {activeTab.steps.map((step, i) => (
                 <motion.div
                   key={i}
