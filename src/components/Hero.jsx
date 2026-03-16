@@ -1,24 +1,15 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
+import InstallModal from './InstallModal'
 
 const INSTALL_COMMANDS = {
   unix: 'curl -fsSL https://useplutus.ai/install.sh | bash',
   windows: 'iwr -useb https://useplutus.ai/install.ps1 | iex',
 }
 
-const DOWNLOAD_URLS = {
-  unix: 'https://useplutus.ai/install.sh',
-  windows: 'https://useplutus.ai/install.ps1',
-}
-
-const DOWNLOAD_FILENAMES = {
-  unix: 'install.sh',
-  windows: 'install.ps1',
-}
-
 const OS_LABELS = {
-  unix: { short: 'macOS / Linux', icon: '🍎', hint: 'Shell script (.sh)' },
-  windows: { short: 'Windows', icon: '🪟', hint: 'PowerShell script (.ps1)' },
+  unix: { short: 'macOS / Linux', icon: '🍎' },
+  windows: { short: 'Windows', icon: '🪟' },
 }
 
 function detectOS() {
@@ -67,7 +58,8 @@ function TerminalLine({ text, color, delay }) {
 export default function Hero() {
   const [os, setOs] = useState('unix')
   const [copied, setCopied] = useState(false)
-  const [downloadHover, setDownloadHover] = useState(false)
+  const [installHover, setInstallHover] = useState(false)
+  const [showModal, setShowModal] = useState(false)
   const [installCount, setInstallCount] = useState(2847)
   const terminalRef = useRef(null)
 
@@ -88,327 +80,311 @@ export default function Hero() {
     setTimeout(() => setCopied(false), 2000)
   }
 
-  const download = () => {
-    const a = document.createElement('a')
-    a.href = DOWNLOAD_URLS[os]
-    a.download = DOWNLOAD_FILENAMES[os]
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-  }
-
   const osInfo = OS_LABELS[os]
 
   return (
-    <section style={{
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '120px 24px 80px',
-      position: 'relative',
-      zIndex: 1,
-      textAlign: 'center',
-    }}>
-      {/* Glow blobs */}
-      <div style={{
-        position: 'absolute',
-        top: '20%', left: '50%',
-        transform: 'translateX(-50%)',
-        width: 600, height: 600,
-        background: 'radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 70%)',
-        pointerEvents: 'none',
-        zIndex: 0,
-      }} />
+    <>
+      {showModal && <InstallModal os={os} onClose={() => setShowModal(false)} />}
 
-      {/* Badge */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 8,
-          background: 'rgba(168,85,247,0.1)',
-          border: '1px solid rgba(168,85,247,0.25)',
-          borderRadius: 100,
-          padding: '6px 16px',
-          fontSize: 13,
-          color: '#c084fc',
-          marginBottom: 28,
-          fontWeight: 500,
-        }}
-      >
-        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', display: 'inline-block', boxShadow: '0 0 8px #22c55e' }} />
-        Open Source · Free Forever · Private by Design · v1.2
-      </motion.div>
+      <section style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '120px 24px 80px',
+        position: 'relative',
+        zIndex: 1,
+        textAlign: 'center',
+      }}>
+        {/* Glow blobs */}
+        <div style={{
+          position: 'absolute',
+          top: '20%', left: '50%',
+          transform: 'translateX(-50%)',
+          width: 600, height: 600,
+          background: 'radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 70%)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }} />
 
-      {/* Headline */}
-      <motion.h1
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        style={{
-          fontSize: 'clamp(40px, 7vw, 80px)',
-          fontWeight: 900,
-          lineHeight: 1.05,
-          letterSpacing: '-3px',
-          maxWidth: 900,
-          marginBottom: 24,
-          position: 'relative', zIndex: 1,
-        }}
-      >
-        <span style={{
-          background: 'linear-gradient(135deg, #ffffff 0%, #e2d9f3 50%, #a855f7 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text',
-        }}>
-          Your Personal AI.
-        </span>
-        <br />
-        <span style={{
-          background: 'linear-gradient(135deg, #a855f7 0%, #06b6d4 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text',
-        }}>
-          Does the work for you.
-        </span>
-      </motion.h1>
-
-      {/* Subheadline */}
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.35 }}
-        style={{
-          fontSize: 18,
-          color: '#94a3b8',
-          maxWidth: 560,
-          marginBottom: 48,
-          lineHeight: 1.7,
-          position: 'relative', zIndex: 1,
-        }}
-      >
-        Plutus is a free AI assistant that lives on your computer. Write emails, organize files,
-        automate tedious tasks, build software, or research anything — just tell it what you need in plain English.
-      </motion.p>
-
-      {/* ── Install / Download box ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 24, scale: 0.97 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.6, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        style={{ width: '100%', maxWidth: 600, position: 'relative', zIndex: 1 }}
-      >
-        {/* OS selector tabs */}
-        <div style={{ display: 'flex', gap: 4, marginBottom: 12, justifyContent: 'center' }}>
-          {Object.entries(OS_LABELS).map(([key, info]) => (
-            <button
-              key={key}
-              onClick={() => setOs(key)}
-              style={{
-                background: os === key ? 'rgba(168,85,247,0.2)' : 'transparent',
-                border: os === key ? '1px solid rgba(168,85,247,0.4)' : '1px solid transparent',
-                color: os === key ? '#c084fc' : '#64748b',
-                padding: '4px 14px',
-                borderRadius: 6,
-                fontSize: 12,
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-                letterSpacing: '0.3px',
-              }}
-            >
-              {info.icon} {info.short}
-            </button>
-          ))}
-        </div>
-
-        {/* Primary Download Button */}
-        <motion.button
-          onClick={download}
-          onMouseEnter={() => setDownloadHover(true)}
-          onMouseLeave={() => setDownloadHover(false)}
-          whileTap={{ scale: 0.97 }}
+        {/* Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
           style={{
-            width: '100%',
-            display: 'flex',
+            display: 'inline-flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            gap: 10,
-            padding: '15px 24px',
-            borderRadius: 12,
-            border: 'none',
-            cursor: 'pointer',
-            fontSize: 16,
-            fontWeight: 700,
-            letterSpacing: '-0.3px',
-            color: 'white',
-            background: downloadHover
-              ? 'linear-gradient(135deg, #9333ea, #6d28d9)'
-              : 'linear-gradient(135deg, #a855f7, #7c3aed)',
-            boxShadow: downloadHover
-              ? '0 8px 32px rgba(168,85,247,0.45), 0 0 0 1px rgba(168,85,247,0.3)'
-              : '0 4px 20px rgba(168,85,247,0.3), 0 0 0 1px rgba(168,85,247,0.2)',
-            transition: 'all 0.2s ease',
-            marginBottom: 12,
+            gap: 8,
+            background: 'rgba(168,85,247,0.1)',
+            border: '1px solid rgba(168,85,247,0.25)',
+            borderRadius: 100,
+            padding: '6px 16px',
+            fontSize: 13,
+            color: '#c084fc',
+            marginBottom: 28,
+            fontWeight: 500,
           }}
         >
-          {/* Download icon */}
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-            <polyline points="7 10 12 15 17 10" />
-            <line x1="12" y1="15" x2="12" y2="3" />
-          </svg>
-          Download for {osInfo.icon} {osInfo.short}
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', display: 'inline-block', boxShadow: '0 0 8px #22c55e' }} />
+          Open Source · Free Forever · Private by Design · v1.2
+        </motion.div>
+
+        {/* Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            fontSize: 'clamp(40px, 7vw, 80px)',
+            fontWeight: 900,
+            lineHeight: 1.05,
+            letterSpacing: '-3px',
+            maxWidth: 900,
+            marginBottom: 24,
+            position: 'relative', zIndex: 1,
+          }}
+        >
           <span style={{
-            fontSize: 11,
-            fontWeight: 500,
-            color: 'rgba(255,255,255,0.55)',
-            background: 'rgba(0,0,0,0.2)',
-            padding: '2px 8px',
-            borderRadius: 4,
-            letterSpacing: '0.5px',
+            background: 'linear-gradient(135deg, #ffffff 0%, #e2d9f3 50%, #a855f7 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
           }}>
-            {DOWNLOAD_FILENAMES[os]}
+            Your Personal AI.
           </span>
-        </motion.button>
-
-        {/* Divider */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 12,
-          marginBottom: 12,
-        }}>
-          <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
-          <span style={{ fontSize: 11, color: '#334155', fontWeight: 500, letterSpacing: '0.5px', textTransform: 'uppercase' }}>
-            or use the one-liner
+          <br />
+          <span style={{
+            background: 'linear-gradient(135deg, #a855f7 0%, #06b6d4 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}>
+            Does the work for you.
           </span>
-          <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
-        </div>
+        </motion.h1>
 
-        {/* Command box */}
-        <div style={{
-          background: 'rgba(10,10,15,0.8)',
-          border: '1px solid rgba(255,255,255,0.08)',
-          borderRadius: 10,
-          padding: '12px 16px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 12,
-        }}>
-          <code style={{
-            fontFamily: 'JetBrains Mono, monospace',
-            fontSize: 12,
+        {/* Subheadline */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.35 }}
+          style={{
+            fontSize: 18,
             color: '#94a3b8',
-            flex: 1,
-            textAlign: 'left',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-          }}>
-            <span style={{ color: '#475569', marginRight: 8 }}>$</span>
-            {INSTALL_COMMANDS[os]}
-          </code>
-          <button
-            onClick={copy}
+            maxWidth: 560,
+            marginBottom: 48,
+            lineHeight: 1.7,
+            position: 'relative', zIndex: 1,
+          }}
+        >
+          Plutus is a free AI assistant that lives on your computer. Write emails, organize files,
+          automate tedious tasks, build software, or research anything — just tell it what you need in plain English.
+        </motion.p>
+
+        {/* ── Install box ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24, scale: 0.97 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          style={{ width: '100%', maxWidth: 560, position: 'relative', zIndex: 1 }}
+        >
+          {/* OS selector tabs */}
+          <div style={{ display: 'flex', gap: 4, marginBottom: 12, justifyContent: 'center' }}>
+            {Object.entries(OS_LABELS).map(([key, info]) => (
+              <button
+                key={key}
+                onClick={() => setOs(key)}
+                style={{
+                  background: os === key ? 'rgba(168,85,247,0.2)' : 'transparent',
+                  border: os === key ? '1px solid rgba(168,85,247,0.4)' : '1px solid transparent',
+                  color: os === key ? '#c084fc' : '#64748b',
+                  padding: '4px 14px',
+                  borderRadius: 6,
+                  fontSize: 12,
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  letterSpacing: '0.3px',
+                }}
+              >
+                {info.icon} {info.short}
+              </button>
+            ))}
+          </div>
+
+          {/* Primary Install Button */}
+          <motion.button
+            onClick={() => setShowModal(true)}
+            onMouseEnter={() => setInstallHover(true)}
+            onMouseLeave={() => setInstallHover(false)}
+            whileTap={{ scale: 0.97 }}
             style={{
-              background: copied ? 'rgba(34,197,94,0.15)' : 'rgba(255,255,255,0.06)',
-              border: copied ? '1px solid rgba(34,197,94,0.3)' : '1px solid rgba(255,255,255,0.1)',
-              color: copied ? '#22c55e' : '#64748b',
-              padding: '5px 12px',
-              borderRadius: 6,
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 10,
+              padding: '15px 24px',
+              borderRadius: 12,
+              border: 'none',
               cursor: 'pointer',
-              fontSize: 11,
-              fontWeight: 600,
-              transition: 'all 0.2s',
-              whiteSpace: 'nowrap',
-              flexShrink: 0,
+              fontSize: 16,
+              fontWeight: 700,
+              letterSpacing: '-0.3px',
+              color: 'white',
+              background: installHover
+                ? 'linear-gradient(135deg, #9333ea, #6d28d9)'
+                : 'linear-gradient(135deg, #a855f7, #7c3aed)',
+              boxShadow: installHover
+                ? '0 8px 32px rgba(168,85,247,0.45), 0 0 0 1px rgba(168,85,247,0.3)'
+                : '0 4px 20px rgba(168,85,247,0.3), 0 0 0 1px rgba(168,85,247,0.2)',
+              transition: 'all 0.2s ease',
+              marginBottom: 12,
             }}
           >
-            {copied ? '✓ Copied' : 'Copy'}
-          </button>
-        </div>
+            {/* Download/Install icon */}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Install Plutus for {osInfo.icon} {osInfo.short}
+          </motion.button>
 
-        {/* Install counter + hint */}
-        <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-          <motion.span
-            key={installCount}
-            initial={{ opacity: 0, y: -4 }}
-            animate={{ opacity: 1, y: 0 }}
-            style={{ fontSize: 12, color: '#475569' }}
-          >
-            <span style={{ color: '#22c55e', marginRight: 4 }}>🟢</span>
-            <span style={{ fontWeight: 600, color: '#64748b' }}>{installCount.toLocaleString()}</span> installs today
-          </motion.span>
-          <span style={{ fontSize: 12, color: '#334155' }}>·</span>
-          <span style={{ fontSize: 12, color: '#334155' }}>Requires Python 3.10+</span>
-          <span style={{ fontSize: 12, color: '#334155' }}>·</span>
-          <span style={{ fontSize: 12, color: '#334155' }}>No account needed</span>
-        </div>
-      </motion.div>
+          {/* Divider */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            marginBottom: 12,
+          }}>
+            <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
+            <span style={{ fontSize: 11, color: '#334155', fontWeight: 500, letterSpacing: '0.5px', textTransform: 'uppercase' }}>
+              or use the one-liner
+            </span>
+            <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
+          </div>
 
-      {/* Terminal preview */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        ref={terminalRef}
-        style={{
-          marginTop: 64,
-          width: '100%',
-          maxWidth: 640,
-          background: 'rgba(8,8,14,0.9)',
-          border: '1px solid rgba(255,255,255,0.08)',
-          borderRadius: 16,
-          overflow: 'hidden',
-          boxShadow: '0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(168,85,247,0.1)',
-          position: 'relative', zIndex: 1,
-        }}
-      >
-        {/* Terminal titlebar */}
-        <div style={{
-          padding: '12px 16px',
-          background: 'rgba(255,255,255,0.03)',
-          borderBottom: '1px solid rgba(255,255,255,0.06)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-        }}>
-          <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ff5f57' }} />
-          <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ffbd2e' }} />
-          <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#28c840' }} />
-          <span style={{ marginLeft: 8, fontSize: 12, color: '#475569', fontFamily: 'JetBrains Mono, monospace' }}>plutus — bash</span>
-        </div>
-        {/* Terminal body */}
-        <div style={{ padding: '20px 24px', minHeight: 180 }}>
-          {TERMINAL_LINES.map((line, i) => (
-            <TerminalLine key={i} {...line} />
-          ))}
-        </div>
-      </motion.div>
+          {/* Command box */}
+          <div style={{
+            background: 'rgba(10,10,15,0.8)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: 10,
+            padding: '12px 16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 12,
+          }}>
+            <code style={{
+              fontFamily: 'JetBrains Mono, monospace',
+              fontSize: 12,
+              color: '#94a3b8',
+              flex: 1,
+              textAlign: 'left',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}>
+              <span style={{ color: '#475569', marginRight: 8 }}>$</span>
+              {INSTALL_COMMANDS[os]}
+            </code>
+            <button
+              onClick={copy}
+              style={{
+                background: copied ? 'rgba(34,197,94,0.15)' : 'rgba(255,255,255,0.06)',
+                border: copied ? '1px solid rgba(34,197,94,0.3)' : '1px solid rgba(255,255,255,0.1)',
+                color: copied ? '#22c55e' : '#64748b',
+                padding: '5px 12px',
+                borderRadius: 6,
+                cursor: 'pointer',
+                fontSize: 11,
+                fontWeight: 600,
+                transition: 'all 0.2s',
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
+              }}
+            >
+              {copied ? '✓ Copied' : 'Copy'}
+            </button>
+          </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 3, duration: 1 }}
-        style={{ marginTop: 60, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, color: '#334155', fontSize: 12 }}
-      >
-        <span>Scroll to explore</span>
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
-        >
-          ↓
+          {/* Install counter + hint */}
+          <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
+            <motion.span
+              key={installCount}
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              style={{ fontSize: 12, color: '#475569' }}
+            >
+              <span style={{ color: '#22c55e', marginRight: 4 }}>🟢</span>
+              <span style={{ fontWeight: 600, color: '#64748b' }}>{installCount.toLocaleString()}</span> installs today
+            </motion.span>
+            <span style={{ fontSize: 12, color: '#334155' }}>·</span>
+            <span style={{ fontSize: 12, color: '#334155' }}>Requires Python 3.10+</span>
+            <span style={{ fontSize: 12, color: '#334155' }}>·</span>
+            <span style={{ fontSize: 12, color: '#334155' }}>No account needed</span>
+          </div>
         </motion.div>
-      </motion.div>
-    </section>
+
+        {/* Terminal preview */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          ref={terminalRef}
+          style={{
+            marginTop: 64,
+            width: '100%',
+            maxWidth: 640,
+            background: 'rgba(8,8,14,0.9)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: 16,
+            overflow: 'hidden',
+            boxShadow: '0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(168,85,247,0.1)',
+            position: 'relative', zIndex: 1,
+          }}
+        >
+          {/* Terminal titlebar */}
+          <div style={{
+            padding: '12px 16px',
+            background: 'rgba(255,255,255,0.03)',
+            borderBottom: '1px solid rgba(255,255,255,0.06)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+          }}>
+            <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ff5f57' }} />
+            <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ffbd2e' }} />
+            <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#28c840' }} />
+            <span style={{ marginLeft: 8, fontSize: 12, color: '#475569', fontFamily: 'JetBrains Mono, monospace' }}>plutus — bash</span>
+          </div>
+          {/* Terminal body */}
+          <div style={{ padding: '20px 24px', minHeight: 180 }}>
+            {TERMINAL_LINES.map((line, i) => (
+              <TerminalLine key={i} {...line} />
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 3, duration: 1 }}
+          style={{ marginTop: 60, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, color: '#334155', fontSize: 12 }}
+        >
+          <span>Scroll to explore</span>
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+          >
+            ↓
+          </motion.div>
+        </motion.div>
+      </section>
+    </>
   )
 }
