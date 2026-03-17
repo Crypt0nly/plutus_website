@@ -4,6 +4,7 @@ import Hero from './components/Hero'
 import SocialProof from './components/SocialProof'
 import Features from './components/Features'
 import HowItWorks from './components/HowItWorks'
+import Connectors from './components/Connectors'
 import Install from './components/Install'
 import FAQ from './components/FAQ'
 import FinalCTA from './components/FinalCTA'
@@ -31,6 +32,7 @@ export default function App() {
         <SocialProof />
         <Features />
         <HowItWorks />
+        <Connectors />
         <Install />
         <FAQ />
         <FinalCTA />
