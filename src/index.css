@@ -45,3 +45,44 @@ code, pre, .mono {
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.3); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(168,85,247,0.6); }
+
+/* ── Gradient text ─────────────────────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #a855f7, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Layout utilities ──────────────────────────────────────────────────────── */
+.section-padding {
+  padding: 100px 0;
+}
+
+.section-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+@media (max-width: 1024px) {
+  .section-container {
+    padding: 0 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding: 72px 0;
+  }
+  .section-container {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-container {
+    padding: 0 16px;
+  }
+}
