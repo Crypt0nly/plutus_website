@@ -213,8 +213,8 @@ export default function Connectors() {
   const innerRing = connectors.slice(0, 6)
   const outerRing = connectors.slice(6)
 
-  const innerSpeed = 18   // degrees per second
-  const outerSpeed = -12  // counter-clockwise
+  const innerSpeed = 5    // degrees per second — slow, elegant
+  const outerSpeed = -3.5 // counter-clockwise, slightly slower
 
   return (
     <section id="connectors" style={{ padding: '100px 0', overflow: 'hidden' }}>
