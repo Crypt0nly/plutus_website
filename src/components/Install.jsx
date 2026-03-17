@@ -1,51 +1,65 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import InstallModal from './InstallModal'
 
-const tabs = [
-  {
-    id: 'unix',
-    label: '🍎 macOS / Linux',
-    steps: [
-      { cmd: 'curl -fsSL https://useplutus.ai/install.sh | bash', desc: 'Download & install Plutus' },
-      { cmd: 'export ANTHROPIC_API_KEY=sk-ant-...', desc: 'Set your API key' },
-      { cmd: 'plutus start', desc: 'Launch the agent' },
-    ]
+function detectOS() {
+  const ua = navigator.userAgent
+  if (ua.includes('Win')) return 'windows'
+  if (ua.includes('Mac')) return 'mac'
+  return 'linux'
+}
+
+const osConfig = {
+  windows: {
+    label: 'Windows',
+    icon: '🪟',
+    version: 'Windows 10 / 11',
+    cmd: 'iwr -useb https://useplutus.ai/install.ps1 | iex',
   },
-  {
-    id: 'windows',
-    label: '🪟 Windows',
-    steps: [
-      { cmd: 'iwr -useb https://useplutus.ai/install.ps1 | iex', desc: 'Download & install Plutus (PowerShell)' },
-      { cmd: '$env:ANTHROPIC_API_KEY = "sk-ant-..."', desc: 'Set your API key' },
-      { cmd: 'plutus start', desc: 'Launch the agent' },
-    ]
+  mac: {
+    label: 'macOS',
+    icon: '🍎',
+    version: 'macOS 12+',
+    cmd: 'curl -fsSL https://useplutus.ai/install.sh | bash',
   },
-]
+  linux: {
+    label: 'Linux',
+    icon: '🐧',
+    version: 'Ubuntu, Debian, Arch & more',
+    cmd: 'curl -fsSL https://useplutus.ai/install.sh | bash',
+  },
+}
 
 export default function Install() {
-  const [active, setActive] = useState('unix')
-  const [copied, setCopied] = useState(null)
+  const [os, setOs] = useState('windows')
+  const [showAdvanced, setShowAdvanced] = useState(false)
+  const [copied, setCopied] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [btnHover, setBtnHover] = useState(false)
 
-  const copyCmd = (cmd, idx) => {
-    navigator.clipboard.writeText(cmd)
-    setCopied(idx)
-    setTimeout(() => setCopied(null), 1800)
-  }
+  useEffect(() => {
+    setOs(detectOS())
+  }, [])
 
-  const activeTab = tabs.find(t => t.id === active)
+  const current = osConfig[os]
+
+  const copyCmd = () => {
+    navigator.clipboard.writeText(current.cmd)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   return (
     <>
-      {showModal && <InstallModal os={active} onClose={() => setShowModal(false)} />}
+      {showModal && <InstallModal os={os} onClose={() => setShowModal(false)} />}
 
       <section id="install" style={{
-        padding: '100px 24px',
-        position: 'relative', zIndex: 1,
+        padding: '100px 0',
+        position: 'relative',
+        zIndex: 1,
       }}>
-        <div style={{ maxWidth: 760, margin: '0 auto' }}>
+        <div className="section-container" style={{ maxWidth: 700 }}>
+
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -66,7 +80,7 @@ export default function Install() {
               textTransform: 'uppercase',
               marginBottom: 16,
             }}>
-              Quick Install
+              Free Download
             </div>
             <h2 style={{
               fontSize: 'clamp(28px, 4vw, 44px)',
@@ -74,250 +88,245 @@ export default function Install() {
               letterSpacing: '-1.5px',
               color: '#f8fafc',
               lineHeight: 1.1,
-              marginBottom: 12,
+              marginBottom: 14,
             }}>
-              Up and running{' '}
+              Your AI assistant,{' '}
               <span style={{
                 background: 'linear-gradient(135deg, #22c55e, #06b6d4)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
               }}>
-                in 60 seconds
+                ready in minutes
               </span>
             </h2>
-            <p style={{ color: '#64748b', fontSize: 16 }}>
-              Click the button for a guided walkthrough, or paste the one-liner into your terminal.
+            <p style={{ color: '#55556a', fontSize: 16, lineHeight: 1.7, maxWidth: 460, margin: '0 auto' }}>
+              One click. No technical setup. Plutus installs itself and walks you through everything.
             </p>
           </motion.div>
 
-          {/* Terminal window */}
+          {/* Main card */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.55 }}
             style={{
-              background: 'rgba(8,8,14,0.95)',
+              background: 'rgba(255,255,255,0.02)',
               border: '1px solid rgba(255,255,255,0.08)',
-              borderRadius: 16,
+              borderRadius: 20,
               overflow: 'hidden',
-              boxShadow: '0 24px 80px rgba(0,0,0,0.4)',
             }}
           >
-            {/* Title bar */}
+            {/* OS selector */}
             <div style={{
-              padding: '12px 16px',
-              background: 'rgba(255,255,255,0.03)',
+              padding: '16px 24px',
               borderBottom: '1px solid rgba(255,255,255,0.06)',
               display: 'flex',
-              alignItems: 'center',
               gap: 8,
+              flexWrap: 'wrap',
             }}>
-              <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ff5f57' }} />
-              <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ffbd2e' }} />
-              <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#28c840' }} />
-
-              {/* OS tabs */}
-              <div style={{ marginLeft: 16, display: 'flex', gap: 4 }}>
-                {tabs.map(t => (
-                  <button
-                    key={t.id}
-                    onClick={() => setActive(t.id)}
-                    style={{
-                      background: active === t.id ? 'rgba(168,85,247,0.2)' : 'transparent',
-                      border: active === t.id ? '1px solid rgba(168,85,247,0.35)' : '1px solid transparent',
-                      color: active === t.id ? '#c084fc' : '#475569',
-                      padding: '3px 10px',
-                      borderRadius: 5,
-                      fontSize: 11,
-                      fontWeight: 600,
-                      cursor: 'pointer',
-                      transition: 'all 0.2s',
-                    }}
-                  >
-                    {t.label}
-                  </button>
-                ))}
-              </div>
+              {Object.entries(osConfig).map(([key, cfg]) => (
+                <button
+                  key={key}
+                  onClick={() => setOs(key)}
+                  style={{
+                    padding: '6px 16px',
+                    borderRadius: 8,
+                    border: os === key ? '1px solid rgba(168,85,247,0.4)' : '1px solid rgba(255,255,255,0.07)',
+                    background: os === key ? 'rgba(168,85,247,0.12)' : 'transparent',
+                    color: os === key ? '#c084fc' : '#475569',
+                    fontSize: 13,
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  {cfg.icon} {cfg.label}
+                </button>
+              ))}
             </div>
 
-            {/* Commands */}
+            {/* Content */}
             <AnimatePresence mode="wait">
               <motion.div
-                key={active}
-                initial={{ opacity: 0, x: 10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
+                key={os}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.2 }}
-                style={{ padding: '24px 20px' }}
+                style={{ padding: '32px 28px' }}
               >
-                {/* Guided install button */}
-                <motion.div
-                  initial={{ opacity: 0, y: -8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  style={{ marginBottom: 24 }}
-                >
-                  <div style={{
-                    fontSize: 11,
-                    color: '#334155',
-                    marginBottom: 8,
-                    fontFamily: 'JetBrains Mono, monospace',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px',
-                  }}>
-                    # Recommended — guided step-by-step install
-                  </div>
-                  <button
-                    onClick={() => setShowModal(true)}
-                    onMouseEnter={() => setBtnHover(true)}
-                    onMouseLeave={() => setBtnHover(false)}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 8,
-                      padding: '11px 20px',
-                      borderRadius: 10,
-                      border: 'none',
-                      cursor: 'pointer',
-                      fontSize: 14,
-                      fontWeight: 700,
-                      color: 'white',
-                      background: btnHover
-                        ? 'linear-gradient(135deg, #9333ea, #6d28d9)'
-                        : 'linear-gradient(135deg, #a855f7, #7c3aed)',
-                      boxShadow: btnHover
-                        ? '0 6px 24px rgba(168,85,247,0.4)'
-                        : '0 4px 16px rgba(168,85,247,0.25)',
-                      transition: 'all 0.2s ease',
-                      letterSpacing: '-0.2px',
-                    }}
-                  >
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <polyline points="7 10 12 15 17 10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                    Install Plutus — {activeTab.label}
-                  </button>
-                  <p style={{ marginTop: 6, fontSize: 11, color: '#334155', fontFamily: 'JetBrains Mono, monospace' }}>
-                    # Opens a step-by-step guide — no technical knowledge needed
-                  </p>
-                </motion.div>
-
-                {/* Divider */}
+                {/* OS info */}
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: 12,
-                  marginBottom: 20,
+                  marginBottom: 28,
                 }}>
-                  <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.05)' }} />
-                  <span style={{
-                    fontSize: 10,
-                    color: '#334155',
-                    fontFamily: 'JetBrains Mono, monospace',
-                    textTransform: 'uppercase',
-                    letterSpacing: '1px',
-                  }}>
-                    # or use the terminal directly
-                  </span>
-                  <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.05)' }} />
+                  <span style={{ fontSize: 32 }}>{current.icon}</span>
+                  <div>
+                    <div style={{ fontSize: 17, fontWeight: 700, color: '#f1f5f9' }}>
+                      Plutus for {current.label}
+                    </div>
+                    <div style={{ fontSize: 13, color: '#475569', marginTop: 2 }}>
+                      {current.version} · Free forever · ~50 MB
+                    </div>
+                  </div>
                 </div>
 
-                {activeTab.steps.map((step, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.08 }}
-                    style={{
-                      marginBottom: i < activeTab.steps.length - 1 ? 20 : 0,
-                    }}
-                  >
-                    <div style={{
-                      fontSize: 11,
-                      color: '#334155',
-                      marginBottom: 6,
-                      fontFamily: 'JetBrains Mono, monospace',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.5px',
-                    }}>
-                      # Step {i + 1} — {step.desc}
-                    </div>
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 12,
-                      background: 'rgba(255,255,255,0.03)',
-                      border: '1px solid rgba(255,255,255,0.06)',
-                      borderRadius: 8,
-                      padding: '10px 14px',
-                    }}>
-                      <span style={{ color: '#a855f7', fontFamily: 'JetBrains Mono, monospace', fontSize: 13, flexShrink: 0 }}>$</span>
-                      <code style={{
-                        fontFamily: 'JetBrains Mono, monospace',
-                        fontSize: 13,
-                        color: '#e2e8f0',
-                        flex: 1,
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
-                      }}>
-                        {step.cmd}
-                      </code>
-                      <button
-                        onClick={() => copyCmd(step.cmd, i)}
-                        style={{
-                          background: copied === i ? 'rgba(34,197,94,0.15)' : 'rgba(255,255,255,0.05)',
-                          border: copied === i ? '1px solid rgba(34,197,94,0.3)' : '1px solid rgba(255,255,255,0.08)',
-                          color: copied === i ? '#22c55e' : '#475569',
-                          padding: '4px 10px',
-                          borderRadius: 5,
-                          cursor: 'pointer',
-                          fontSize: 11,
-                          fontWeight: 600,
-                          transition: 'all 0.2s',
-                          flexShrink: 0,
-                        }}
-                      >
-                        {copied === i ? '✓' : 'Copy'}
-                      </button>
-                    </div>
-                  </motion.div>
-                ))}
-
-                {/* Done message */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.4 }}
+                {/* Big download button */}
+                <button
+                  onClick={() => setShowModal(true)}
+                  onMouseEnter={() => setBtnHover(true)}
+                  onMouseLeave={() => setBtnHover(false)}
                   style={{
-                    marginTop: 20,
-                    padding: '12px 16px',
-                    background: 'rgba(34,197,94,0.06)',
-                    border: '1px solid rgba(34,197,94,0.15)',
-                    borderRadius: 8,
-                    fontFamily: 'JetBrains Mono, monospace',
-                    fontSize: 12,
-                    color: '#22c55e',
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 10,
+                    padding: '16px 24px',
+                    borderRadius: 14,
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontSize: 16,
+                    fontWeight: 700,
+                    color: 'white',
+                    background: btnHover
+                      ? 'linear-gradient(135deg, #9333ea, #6d28d9)'
+                      : 'linear-gradient(135deg, #a855f7, #7c3aed)',
+                    boxShadow: btnHover
+                      ? '0 8px 32px rgba(168,85,247,0.45)'
+                      : '0 4px 20px rgba(168,85,247,0.3)',
+                    transition: 'all 0.2s ease',
+                    marginBottom: 12,
+                    letterSpacing: '-0.2px',
                   }}
                 >
-                  🎉 Plutus is running at http://localhost:7777
-                </motion.div>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                  </svg>
+                  Download Plutus for {current.label}
+                </button>
+
+                {/* Reassurance row */}
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  gap: 20,
+                  flexWrap: 'wrap',
+                  marginBottom: 24,
+                }}>
+                  {['✓ No account needed', '✓ No credit card', '✓ Guided setup included'].map(t => (
+                    <span key={t} style={{ fontSize: 12, color: '#475569', fontWeight: 500 }}>{t}</span>
+                  ))}
+                </div>
+
+                {/* Advanced toggle */}
+                <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 16 }}>
+                  <button
+                    onClick={() => setShowAdvanced(v => !v)}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: '#334155',
+                      fontSize: 12,
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 6,
+                      padding: 0,
+                      fontFamily: 'inherit',
+                    }}
+                  >
+                    <svg
+                      width="12" height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{
+                        transform: showAdvanced ? 'rotate(90deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.2s',
+                      }}
+                    >
+                      <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                    Advanced: install via command line
+                  </button>
+
+                  <AnimatePresence>
+                    {showAdvanced && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.2 }}
+                        style={{ overflow: 'hidden' }}
+                      >
+                        <div style={{
+                          marginTop: 12,
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 10,
+                          background: 'rgba(8,8,14,0.8)',
+                          border: '1px solid rgba(255,255,255,0.07)',
+                          borderRadius: 10,
+                          padding: '10px 14px',
+                        }}>
+                          <span style={{ color: '#a855f7', fontFamily: 'JetBrains Mono, monospace', fontSize: 13, flexShrink: 0 }}>$</span>
+                          <code style={{
+                            fontFamily: 'JetBrains Mono, monospace',
+                            fontSize: 12,
+                            color: '#94a3b8',
+                            flex: 1,
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                          }}>
+                            {current.cmd}
+                          </code>
+                          <button
+                            onClick={copyCmd}
+                            style={{
+                              background: copied ? 'rgba(34,197,94,0.12)' : 'rgba(255,255,255,0.05)',
+                              border: copied ? '1px solid rgba(34,197,94,0.3)' : '1px solid rgba(255,255,255,0.08)',
+                              color: copied ? '#22c55e' : '#475569',
+                              padding: '4px 10px',
+                              borderRadius: 6,
+                              cursor: 'pointer',
+                              fontSize: 11,
+                              fontWeight: 600,
+                              transition: 'all 0.2s',
+                              flexShrink: 0,
+                            }}
+                          >
+                            {copied ? '✓ Copied' : 'Copy'}
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               </motion.div>
             </AnimatePresence>
           </motion.div>
 
-          {/* Note */}
+          {/* Bottom note */}
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            style={{ textAlign: 'center', marginTop: 20, fontSize: 13, color: '#334155' }}
+            style={{ textAlign: 'center', marginTop: 20, fontSize: 13, color: '#2a2a3a' }}
           >
-            Works on macOS, Linux, and Windows · Requires Python 3.10+ · No complex setup needed
+            Works on Windows, macOS & Linux · Requires Python 3.14 · Open source
           </motion.p>
+
         </div>
       </section>
     </>
