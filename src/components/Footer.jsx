@@ -26,13 +26,7 @@ export default function Footer() {
       }}>
         {/* Logo */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{
-            width: 28, height: 28,
-            borderRadius: 7,
-            background: 'linear-gradient(135deg, #a855f7, #06b6d4)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 14, fontWeight: 800, color: 'white', fontFamily: 'serif',
-          }}>₱</div>
+          <img src="/logo.svg" alt="Plutus" style={{ width: 28, height: 28, objectFit: 'contain' }} />
           <span style={{ fontWeight: 700, color: '#94a3b8', fontSize: 15 }}>Plutus</span>
           <span style={{ color: '#334155', fontSize: 13, marginLeft: 8 }}>MIT License</span>
         </div>

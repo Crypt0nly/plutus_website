@@ -42,12 +42,7 @@ const styles = {
   },
   logoIcon: {
     width: 32, height: 32,
-    borderRadius: 8,
-    background: 'linear-gradient(135deg, #a855f7, #06b6d4)',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
-    fontSize: 16, fontWeight: 800,
-    color: 'white',
-    fontFamily: 'serif',
   },
   links: {
     display: 'flex',
@@ -98,7 +93,9 @@ export default function Navbar() {
       <div style={styles.inner}>
         {/* Logo */}
         <a href="#" style={styles.logo}>
-          <div style={styles.logoIcon}>₱</div>
+          <div style={styles.logoIcon}>
+            <img src="/logo.svg" alt="Plutus" style={{ width: 32, height: 32, objectFit: 'contain' }} />
+          </div>
           <span>Plutus</span>
         </a>
 

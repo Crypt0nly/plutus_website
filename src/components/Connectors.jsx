@@ -314,14 +314,10 @@ export default function Connectors() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: 30,
-            fontWeight: 900,
-            color: '#a855f7',
-            fontFamily: 'serif',
             boxShadow: '0 0 40px rgba(168,85,247,0.18)',
             zIndex: 5,
           }}>
-            ₱
+            <img src="/logo.svg" alt="Plutus" style={{ width: 48, height: 48, objectFit: 'contain' }} />
           </div>
 
           {/* Pill layer — positioned relative to the center of the container */}
