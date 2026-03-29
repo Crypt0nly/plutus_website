@@ -36,7 +36,7 @@ export default function FinalCTA() {
       {showModal && <InstallModal os={os} onClose={() => setShowModal(false)} />}
 
       <section style={{
-        padding: '120px 24px',
+        padding: 'clamp(60px, 12vw, 120px) clamp(16px, 4vw, 24px)',
         position: 'relative', zIndex: 1,
         textAlign: 'center',
         overflow: 'hidden',
@@ -46,7 +46,7 @@ export default function FinalCTA() {
           position: 'absolute',
           top: '50%', left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: 700, height: 400,
+          width: 'min(700px, 100vw)', height: 'min(400px, 80vw)',
           background: 'radial-gradient(ellipse, rgba(168,85,247,0.12) 0%, transparent 70%)',
           pointerEvents: 'none',
         }} />
@@ -77,7 +77,7 @@ export default function FinalCTA() {
             </div>
 
             <h2 style={{
-              fontSize: 'clamp(32px, 5vw, 60px)',
+              fontSize: 'clamp(28px, 5vw, 60px)',
               fontWeight: 900,
               letterSpacing: '-2px',
               lineHeight: 1.05,
@@ -103,7 +103,7 @@ export default function FinalCTA() {
             </h2>
 
             <p style={{
-              fontSize: 17,
+              fontSize: 'clamp(15px, 3vw, 17px)',
               color: '#64748b',
               maxWidth: 480,
               margin: '0 auto 40px',
@@ -123,11 +123,11 @@ export default function FinalCTA() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: 10,
-                padding: '15px 32px',
+                padding: 'clamp(12px, 2.5vw, 15px) clamp(20px, 4vw, 32px)',
                 borderRadius: 12,
                 border: 'none',
                 cursor: 'pointer',
-                fontSize: 16,
+                fontSize: 'clamp(14px, 3vw, 16px)',
                 fontWeight: 700,
                 letterSpacing: '-0.3px',
                 color: 'white',
@@ -141,7 +141,7 @@ export default function FinalCTA() {
                 marginBottom: 16,
               }}
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                 <polyline points="7 10 12 15 17 10" />
                 <line x1="12" y1="15" x2="12" y2="3" />
@@ -158,7 +158,7 @@ export default function FinalCTA() {
               margin: '0 auto 16px',
             }}>
               <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
-              <span style={{ fontSize: 11, color: '#334155', fontWeight: 500, letterSpacing: '0.5px', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: 11, color: '#334155', fontWeight: 500, letterSpacing: '0.5px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
                 or use the one-liner
               </span>
               <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
@@ -169,7 +169,7 @@ export default function FinalCTA() {
               background: 'rgba(10,10,15,0.9)',
               border: '1px solid rgba(255,255,255,0.08)',
               borderRadius: 12,
-              padding: '14px 18px',
+              padding: 'clamp(10px, 2vw, 14px) clamp(12px, 2.5vw, 18px)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -180,13 +180,14 @@ export default function FinalCTA() {
             }}>
               <code style={{
                 fontFamily: 'JetBrains Mono, monospace',
-                fontSize: 12,
+                fontSize: 'clamp(10px, 2.2vw, 12px)',
                 color: '#94a3b8',
                 flex: 1,
                 textAlign: 'left',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
+                minWidth: 0,
               }}>
                 <span style={{ color: '#475569', marginRight: 8 }}>$</span>
                 {INSTALL_COMMANDS[os]}

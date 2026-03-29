@@ -54,7 +54,7 @@ export default function Install() {
       {showModal && <InstallModal os={os} onClose={() => setShowModal(false)} />}
 
       <section id="install" style={{
-        padding: '100px 0',
+        padding: 'clamp(60px, 10vw, 100px) 0',
         position: 'relative',
         zIndex: 1,
       }}>
@@ -100,7 +100,7 @@ export default function Install() {
                 ready in minutes
               </span>
             </h2>
-            <p style={{ color: '#55556a', fontSize: 16, lineHeight: 1.7, maxWidth: 460, margin: '0 auto' }}>
+            <p style={{ color: '#55556a', fontSize: 'clamp(14px, 2.5vw, 16px)', lineHeight: 1.7, maxWidth: 460, margin: '0 auto' }}>
               One click. No technical setup. Plutus installs itself and walks you through everything.
             </p>
           </motion.div>
@@ -114,13 +114,13 @@ export default function Install() {
             style={{
               background: 'rgba(255,255,255,0.02)',
               border: '1px solid rgba(255,255,255,0.08)',
-              borderRadius: 20,
+              borderRadius: 'clamp(14px, 3vw, 20px)',
               overflow: 'hidden',
             }}
           >
             {/* OS selector */}
             <div style={{
-              padding: '16px 24px',
+              padding: 'clamp(12px, 2vw, 16px) clamp(16px, 3vw, 24px)',
               borderBottom: '1px solid rgba(255,255,255,0.06)',
               display: 'flex',
               gap: 8,
@@ -155,7 +155,7 @@ export default function Install() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.2 }}
-                style={{ padding: '32px 28px' }}
+                style={{ padding: 'clamp(20px, 4vw, 32px) clamp(16px, 3vw, 28px)' }}
               >
                 {/* OS info */}
                 <div style={{
@@ -164,9 +164,9 @@ export default function Install() {
                   gap: 12,
                   marginBottom: 28,
                 }}>
-                  <span style={{ fontSize: 32 }}>{current.icon}</span>
+                  <span style={{ fontSize: 'clamp(24px, 5vw, 32px)' }}>{current.icon}</span>
                   <div>
-                    <div style={{ fontSize: 17, fontWeight: 700, color: '#f1f5f9' }}>
+                    <div style={{ fontSize: 'clamp(15px, 3vw, 17px)', fontWeight: 700, color: '#f1f5f9' }}>
                       Plutus for {current.label}
                     </div>
                     <div style={{ fontSize: 13, color: '#475569', marginTop: 2 }}>
@@ -186,11 +186,11 @@ export default function Install() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: 10,
-                    padding: '16px 24px',
+                    padding: 'clamp(13px, 2.5vw, 16px) clamp(16px, 3vw, 24px)',
                     borderRadius: 14,
                     border: 'none',
                     cursor: 'pointer',
-                    fontSize: 16,
+                    fontSize: 'clamp(14px, 3vw, 16px)',
                     fontWeight: 700,
                     color: 'white',
                     background: btnHover
@@ -204,7 +204,7 @@ export default function Install() {
                     letterSpacing: '-0.2px',
                   }}
                 >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                     <polyline points="7 10 12 15 17 10"/>
                     <line x1="12" y1="15" x2="12" y2="3"/>
@@ -216,7 +216,7 @@ export default function Install() {
                 <div style={{
                   display: 'flex',
                   justifyContent: 'center',
-                  gap: 20,
+                  gap: 'clamp(10px, 2vw, 20px)',
                   flexWrap: 'wrap',
                   marginBottom: 24,
                 }}>
@@ -282,12 +282,13 @@ export default function Install() {
                           <span style={{ color: '#a855f7', fontFamily: 'JetBrains Mono, monospace', fontSize: 13, flexShrink: 0 }}>$</span>
                           <code style={{
                             fontFamily: 'JetBrains Mono, monospace',
-                            fontSize: 12,
+                            fontSize: 'clamp(10px, 2.2vw, 12px)',
                             color: '#94a3b8',
                             flex: 1,
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
+                            minWidth: 0,
                           }}>
                             {current.cmd}
                           </code>

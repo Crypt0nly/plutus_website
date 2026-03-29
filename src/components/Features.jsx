@@ -80,7 +80,7 @@ export default function Features() {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
           gap: 20,
         }}>
           {features.map((f, i) => (
@@ -96,7 +96,7 @@ export default function Features() {
                 boxShadow: `0 0 40px ${f.color}15`,
               }}
               style={{
-                padding: 32,
+                padding: 'clamp(20px, 4vw, 32px)',
                 background: 'rgba(255,255,255,0.02)',
                 border: '1px solid rgba(255,255,255,0.06)',
                 borderRadius: 16,

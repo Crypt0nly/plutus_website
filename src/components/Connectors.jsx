@@ -193,9 +193,9 @@ export default function Connectors() {
     const update = () => {
       if (wrapRef.current) {
         const vw = window.innerWidth
-        // inner radius scales with viewport, outer is inner + gap
-        const inner = Math.min(Math.max(vw * 0.22, 140), 220)
-        const outer = inner + 100
+        // Scale down more aggressively on mobile
+        const inner = Math.min(Math.max(vw * 0.18, 90), 220)
+        const outer = inner + Math.min(Math.max(vw * 0.1, 60), 100)
         const total = (outer + 70) * 2
         setSize({ inner, outer, total })
       }
@@ -217,7 +217,7 @@ export default function Connectors() {
   const outerSpeed = -3.5 // counter-clockwise, slightly slower
 
   return (
-    <section id="connectors" style={{ padding: '100px 0', overflow: 'hidden' }}>
+    <section id="connectors" style={{ padding: 'clamp(60px, 10vw, 100px) 0', overflow: 'hidden' }}>
       <div className="section-container">
 
         {/* Header */}
@@ -226,7 +226,7 @@ export default function Connectors() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          style={{ textAlign: 'center', marginBottom: 72 }}
+          style={{ textAlign: 'center', marginBottom: 'clamp(36px, 8vw, 72px)' }}
         >
           <p style={{
             fontSize: 13,
@@ -239,7 +239,7 @@ export default function Connectors() {
             Connectors
           </p>
           <h2 style={{
-            fontSize: 'clamp(28px, 4vw, 44px)',
+            fontSize: 'clamp(24px, 4vw, 44px)',
             fontWeight: 800,
             letterSpacing: '-0.02em',
             marginBottom: 16,
@@ -248,7 +248,7 @@ export default function Connectors() {
             <span className="gradient-text">Instantly.</span>
           </h2>
           <p style={{
-            fontSize: 16,
+            fontSize: 'clamp(14px, 2.5vw, 16px)',
             color: '#55556a',
             maxWidth: 520,
             margin: '0 auto',
@@ -296,8 +296,8 @@ export default function Connectors() {
           {/* Center glow */}
           <div style={{
             position: 'absolute',
-            width: 180,
-            height: 180,
+            width: 'clamp(100px, 25vw, 180px)',
+            height: 'clamp(100px, 25vw, 180px)',
             borderRadius: '50%',
             background: 'radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%)',
             pointerEvents: 'none',
@@ -306,8 +306,8 @@ export default function Connectors() {
           {/* Center symbol */}
           <div style={{
             position: 'absolute',
-            width: 76,
-            height: 76,
+            width: 'clamp(48px, 12vw, 76px)',
+            height: 'clamp(48px, 12vw, 76px)',
             borderRadius: '50%',
             background: 'linear-gradient(135deg, rgba(168,85,247,0.22), rgba(6,182,212,0.12))',
             border: '1.5px solid rgba(168,85,247,0.38)',
@@ -317,7 +317,7 @@ export default function Connectors() {
             boxShadow: '0 0 40px rgba(168,85,247,0.18)',
             zIndex: 5,
           }}>
-            <img src="/logo.svg" alt="Plutus" style={{ width: 48, height: 48, objectFit: 'contain' }} />
+            <img src="/logo.svg" alt="Plutus" style={{ width: 'clamp(28px, 8vw, 48px)', height: 'clamp(28px, 8vw, 48px)', objectFit: 'contain' }} />
           </div>
 
           {/* Pill layer — positioned relative to the center of the container */}
@@ -398,14 +398,14 @@ export default function Connectors() {
             display: 'inline-flex',
             alignItems: 'center',
             gap: 10,
-            padding: '12px 24px',
+            padding: 'clamp(10px, 2vw, 12px) clamp(16px, 3vw, 24px)',
             background: 'rgba(139,92,246,0.06)',
             border: '1px solid rgba(139,92,246,0.18)',
             borderRadius: 14,
             maxWidth: 500,
             textAlign: 'center',
           }}>
-            <span style={{ fontSize: 18 }}>🔌</span>
+            <span style={{ fontSize: 18, flexShrink: 0 }}>🔌</span>
             <p style={{ fontSize: 13, color: '#9a8abf', lineHeight: 1.6, margin: 0 }}>
               <strong style={{ color: '#c4b5fd' }}>Connect anything.</strong>{' '}
               If it has an API, Plutus can use it. Define any endpoint once and control it with plain English.

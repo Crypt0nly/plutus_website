@@ -86,3 +86,13 @@ code, pre, .mono {
     padding: 0 16px;
   }
 }
+
+/* ── Navbar: hide desktop links on mobile, show hamburger ──────────────────── */
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .mobile-menu-btn {
+    display: flex !important;
+  }
+}

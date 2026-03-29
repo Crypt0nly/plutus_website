@@ -16,8 +16,9 @@ const steps = [
         border: '1px solid rgba(168,85,247,0.2)',
         borderRadius: 12,
         width: 'fit-content',
+        maxWidth: '100%',
       }}>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a855f7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a855f7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
           <polyline points="7 10 12 15 17 10"/>
           <line x1="12" y1="15" x2="12" y2="3"/>
@@ -85,8 +86,8 @@ const steps = [
             background: 'rgba(168,85,247,0.06)',
             borderRadius: 8,
           }}>
-            <span style={{ fontSize: 13, color: '#64748b' }}>💬</span>
-            <span style={{ fontSize: 13, color: '#94a3b8', fontStyle: 'italic' }}>"{example}"</span>
+            <span style={{ fontSize: 13, color: '#64748b', flexShrink: 0 }}>💬</span>
+            <span style={{ fontSize: 'clamp(12px, 2.5vw, 13px)', color: '#94a3b8', fontStyle: 'italic' }}>"{example}"</span>
           </div>
         ))}
       </div>
@@ -98,7 +99,7 @@ const steps = [
 export default function HowItWorks() {
   return (
     <section id="how-it-works" style={{
-      padding: '100px 0',
+      padding: 'clamp(60px, 10vw, 100px) 0',
       position: 'relative',
       zIndex: 1,
       background: 'linear-gradient(180deg, transparent 0%, rgba(168,85,247,0.03) 50%, transparent 100%)',
@@ -110,7 +111,7 @@ export default function HowItWorks() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          style={{ textAlign: 'center', marginBottom: 72 }}
+          style={{ textAlign: 'center', marginBottom: 'clamp(40px, 8vw, 72px)' }}
         >
           <div style={{
             display: 'inline-block',
@@ -146,7 +147,7 @@ export default function HowItWorks() {
             </span>
           </h2>
           <p style={{
-            fontSize: 16,
+            fontSize: 'clamp(14px, 2.5vw, 16px)',
             color: '#55556a',
             maxWidth: 480,
             margin: '0 auto',
@@ -158,8 +159,8 @@ export default function HowItWorks() {
 
         {/* Steps */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 28, position: 'relative' }}>
-          {/* Vertical connector line */}
-          <div style={{
+          {/* Vertical connector line — hidden on very small screens */}
+          <div className="timeline-line" style={{
             position: 'absolute',
             left: 27,
             top: 56,
@@ -177,12 +178,13 @@ export default function HowItWorks() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.55, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-              style={{ display: 'flex', gap: 24, alignItems: 'flex-start' }}
+              className="step-row"
+              style={{ display: 'flex', gap: 'clamp(14px, 3vw, 24px)', alignItems: 'flex-start' }}
             >
               {/* Step bubble */}
               <div style={{
-                width: 54,
-                height: 54,
+                width: 'clamp(42px, 8vw, 54px)',
+                height: 'clamp(42px, 8vw, 54px)',
                 borderRadius: '50%',
                 background: `${step.color}12`,
                 border: `2px solid ${step.color}35`,
@@ -191,15 +193,15 @@ export default function HowItWorks() {
                 justifyContent: 'center',
                 flexShrink: 0,
                 zIndex: 1,
-                fontSize: 22,
+                fontSize: 'clamp(16px, 3vw, 22px)',
               }}>
                 {step.emoji}
               </div>
 
               {/* Content */}
-              <div style={{ flex: 1, paddingTop: 6 }}>
+              <div style={{ flex: 1, paddingTop: 6, minWidth: 0 }}>
                 <h3 style={{
-                  fontSize: 19,
+                  fontSize: 'clamp(16px, 3vw, 19px)',
                   fontWeight: 700,
                   color: '#f1f5f9',
                   marginBottom: 8,
@@ -209,7 +211,7 @@ export default function HowItWorks() {
                 </h3>
                 <p style={{
                   color: '#64748b',
-                  fontSize: 15,
+                  fontSize: 'clamp(13px, 2.5vw, 15px)',
                   lineHeight: 1.7,
                   marginBottom: 16,
                   maxWidth: 520,
@@ -234,7 +236,7 @@ export default function HowItWorks() {
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'center',
-            gap: 24,
+            gap: 'clamp(12px, 3vw, 24px)',
           }}
         >
           {[

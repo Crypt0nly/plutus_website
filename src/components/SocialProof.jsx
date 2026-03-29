@@ -18,7 +18,7 @@ const providers = [
 export default function SocialProof() {
   return (
     <section style={{
-      padding: '40px 24px',
+      padding: 'clamp(24px, 5vw, 40px) clamp(16px, 4vw, 24px)',
       borderTop: '1px solid rgba(255,255,255,0.05)',
       borderBottom: '1px solid rgba(255,255,255,0.05)',
       position: 'relative', zIndex: 1,

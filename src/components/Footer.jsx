@@ -12,7 +12,7 @@ export default function Footer() {
   return (
     <footer style={{
       borderTop: '1px solid rgba(255,255,255,0.05)',
-      padding: '40px 24px',
+      padding: 'clamp(24px, 5vw, 40px) clamp(16px, 4vw, 24px)',
       position: 'relative', zIndex: 1,
     }}>
       <div style={{
@@ -22,7 +22,7 @@ export default function Footer() {
         alignItems: 'center',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
-        gap: 20,
+        gap: 'clamp(12px, 3vw, 20px)',
       }}>
         {/* Logo */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>

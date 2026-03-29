@@ -96,7 +96,8 @@ export default function InstallModal({ os, onClose }) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '24px',
+          padding: 'clamp(12px, 3vw, 24px)',
+          overflowY: 'auto',
         }}
       >
         {/* Modal */}
@@ -110,13 +111,15 @@ export default function InstallModal({ os, onClose }) {
           style={{
             background: 'rgb(12, 14, 22)',
             border: '1px solid rgba(168,85,247,0.25)',
-            borderRadius: 20,
-            padding: '32px',
+            borderRadius: 'clamp(14px, 3vw, 20px)',
+            padding: 'clamp(20px, 4vw, 32px)',
             maxWidth: 520,
             width: '100%',
             boxShadow: '0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(168,85,247,0.1)',
             position: 'relative',
             zIndex: 9999,
+            maxHeight: '90vh',
+            overflowY: 'auto',
           }}
         >
           {/* Close button */}
@@ -124,8 +127,8 @@ export default function InstallModal({ os, onClose }) {
             onClick={onClose}
             style={{
               position: 'absolute',
-              top: 16,
-              right: 16,
+              top: 12,
+              right: 12,
               background: 'rgba(255,255,255,0.06)',
               border: '1px solid rgba(255,255,255,0.1)',
               color: '#64748b',
@@ -138,6 +141,7 @@ export default function InstallModal({ os, onClose }) {
               alignItems: 'center',
               justifyContent: 'center',
               transition: 'all 0.15s',
+              flexShrink: 0,
             }}
             onMouseEnter={e => { e.target.style.color = '#e2e8f0'; e.target.style.background = 'rgba(255,255,255,0.1)' }}
             onMouseLeave={e => { e.target.style.color = '#64748b'; e.target.style.background = 'rgba(255,255,255,0.06)' }}
@@ -146,7 +150,7 @@ export default function InstallModal({ os, onClose }) {
           </button>
 
           {/* Header */}
-          <div style={{ marginBottom: 28 }}>
+          <div style={{ marginBottom: 'clamp(16px, 3vw, 28px)' }}>
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -164,7 +168,7 @@ export default function InstallModal({ os, onClose }) {
               {os === 'windows' ? '🪟' : '🍎'} {osLabel}
             </div>
             <h2 style={{
-              fontSize: 22,
+              fontSize: 'clamp(18px, 4vw, 22px)',
               fontWeight: 800,
               color: '#f8fafc',
               letterSpacing: '-0.5px',
@@ -172,7 +176,7 @@ export default function InstallModal({ os, onClose }) {
             }}>
               Install Plutus in 60 seconds
             </h2>
-            <p style={{ fontSize: 14, color: '#64748b', lineHeight: 1.6 }}>
+            <p style={{ fontSize: 'clamp(12px, 2.5vw, 14px)', color: '#64748b', lineHeight: 1.6 }}>
               Just open {termLabel} and run one command — Plutus sets everything up automatically.
             </p>
           </div>
@@ -187,7 +191,7 @@ export default function InstallModal({ os, onClose }) {
                 transition={{ delay: i * 0.08, duration: 0.3 }}
                 style={{
                   display: 'flex',
-                  gap: 14,
+                  gap: 'clamp(10px, 2vw, 14px)',
                   alignItems: 'flex-start',
                 }}
               >
@@ -213,9 +217,9 @@ export default function InstallModal({ os, onClose }) {
                 </div>
 
                 {/* Content */}
-                <div style={{ flex: 1 }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{
-                    fontSize: 14,
+                    fontSize: 'clamp(13px, 2.5vw, 14px)',
                     fontWeight: 700,
                     color: '#e2e8f0',
                     marginBottom: step.isCommand ? 10 : 4,
@@ -230,7 +234,7 @@ export default function InstallModal({ os, onClose }) {
                         background: 'rgba(0,0,0,0.4)',
                         border: '1px solid rgba(168,85,247,0.2)',
                         borderRadius: 10,
-                        padding: '12px 14px',
+                        padding: 'clamp(8px, 2vw, 12px) clamp(10px, 2vw, 14px)',
                         display: 'flex',
                         alignItems: 'center',
                         gap: 10,
@@ -244,12 +248,13 @@ export default function InstallModal({ os, onClose }) {
                         }}>$</span>
                         <code style={{
                           fontFamily: 'JetBrains Mono, monospace',
-                          fontSize: 12,
+                          fontSize: 'clamp(10px, 2.2vw, 12px)',
                           color: '#e2e8f0',
                           flex: 1,
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
                           whiteSpace: 'nowrap',
+                          minWidth: 0,
                         }}>
                           {cmd}
                         </code>
@@ -316,7 +321,7 @@ export default function InstallModal({ os, onClose }) {
                     /* Done step */
                     <p style={{ fontSize: 13, color: '#64748b', lineHeight: 1.6 }}>
                       {step.desc}{' '}
-                      <span style={{ color: '#22c55e', fontFamily: 'JetBrains Mono, monospace', fontSize: 12 }}>
+                      <span style={{ color: '#22c55e', fontFamily: 'JetBrains Mono, monospace', fontSize: 12, wordBreak: 'break-all' }}>
                         {step.link}
                       </span>
                     </p>
@@ -358,8 +363,8 @@ export default function InstallModal({ os, onClose }) {
 
           {/* Footer note */}
           <div style={{
-            marginTop: 24,
-            padding: '12px 16px',
+            marginTop: 'clamp(16px, 3vw, 24px)',
+            padding: 'clamp(10px, 2vw, 12px) clamp(12px, 2vw, 16px)',
             background: 'rgba(34,197,94,0.05)',
             border: '1px solid rgba(34,197,94,0.12)',
             borderRadius: 10,

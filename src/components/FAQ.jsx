@@ -37,7 +37,7 @@ export default function FAQ() {
 
   return (
     <section id="faq" style={{
-      padding: '100px 24px',
+      padding: 'clamp(60px, 10vw, 100px) clamp(16px, 4vw, 24px)',
       position: 'relative', zIndex: 1,
       background: 'linear-gradient(180deg, transparent 0%, rgba(6,182,212,0.02) 50%, transparent 100%)',
     }}>
@@ -122,7 +122,7 @@ function FAQItem({ q, a, index, isOpen, onToggle }) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '18px 20px',
+          padding: 'clamp(14px, 3vw, 18px) clamp(14px, 3vw, 20px)',
           background: 'transparent',
           border: 'none',
           cursor: 'pointer',
@@ -157,7 +157,7 @@ function FAQItem({ q, a, index, isOpen, onToggle }) {
             style={{ overflow: 'hidden' }}
           >
             <p style={{
-              padding: '0 20px 18px',
+              padding: '0 clamp(14px, 3vw, 20px) 18px',
               fontSize: 14,
               color: '#94a3b8',
               lineHeight: 1.7,

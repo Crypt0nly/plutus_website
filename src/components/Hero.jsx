@@ -48,7 +48,7 @@ function TerminalLine({ text, color, delay }) {
 
   if (!visible) return null
   return (
-    <div style={{ color, fontFamily: 'JetBrains Mono, monospace', fontSize: 13, lineHeight: '1.8', opacity: visible ? 1 : 0, transition: 'opacity 0.3s' }}>
+    <div style={{ color, fontFamily: 'JetBrains Mono, monospace', fontSize: 'clamp(11px, 2.5vw, 13px)', lineHeight: '1.8', opacity: visible ? 1 : 0, transition: 'opacity 0.3s', wordBreak: 'break-word' }}>
       {displayed}
       {displayed.length < text.length && <span style={{ opacity: 0.7 }}>_</span>}
     </div>
@@ -92,7 +92,7 @@ export default function Hero() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '120px 24px 80px',
+        padding: 'clamp(80px, 15vw, 120px) clamp(16px, 4vw, 24px) clamp(40px, 8vw, 80px)',
         position: 'relative',
         zIndex: 1,
         textAlign: 'center',
@@ -102,7 +102,7 @@ export default function Hero() {
           position: 'absolute',
           top: '20%', left: '50%',
           transform: 'translateX(-50%)',
-          width: 600, height: 600,
+          width: 'min(600px, 100vw)', height: 'min(600px, 100vw)',
           background: 'radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 70%)',
           pointerEvents: 'none',
           zIndex: 0,
@@ -121,13 +121,16 @@ export default function Hero() {
             border: '1px solid rgba(168,85,247,0.25)',
             borderRadius: 100,
             padding: '6px 16px',
-            fontSize: 13,
+            fontSize: 'clamp(11px, 2.5vw, 13px)',
             color: '#c084fc',
             marginBottom: 28,
             fontWeight: 500,
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            textAlign: 'center',
           }}
         >
-          <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', display: 'inline-block', boxShadow: '0 0 8px #22c55e' }} />
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', display: 'inline-block', boxShadow: '0 0 8px #22c55e', flexShrink: 0 }} />
           Open Source · Free Forever · Private by Design · v1.2
         </motion.div>
 
@@ -137,10 +140,10 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            fontSize: 'clamp(40px, 7vw, 80px)',
+            fontSize: 'clamp(32px, 7vw, 80px)',
             fontWeight: 900,
             lineHeight: 1.05,
-            letterSpacing: '-3px',
+            letterSpacing: 'clamp(-1.5px, -0.5vw, -3px)',
             maxWidth: 900,
             marginBottom: 24,
             position: 'relative', zIndex: 1,
@@ -171,12 +174,13 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.35 }}
           style={{
-            fontSize: 18,
+            fontSize: 'clamp(15px, 3vw, 18px)',
             color: '#94a3b8',
             maxWidth: 560,
-            marginBottom: 64,
+            marginBottom: 'clamp(32px, 6vw, 64px)',
             lineHeight: 1.7,
             position: 'relative', zIndex: 1,
+            padding: '0 8px',
           }}
         >
           Plutus is a free AI assistant that lives on your computer. Write emails, organize files,
@@ -191,7 +195,7 @@ export default function Hero() {
           style={{ width: '100%', maxWidth: 560, position: 'relative', zIndex: 1 }}
         >
           {/* OS selector tabs */}
-          <div style={{ display: 'flex', gap: 4, marginBottom: 12, justifyContent: 'center' }}>
+          <div style={{ display: 'flex', gap: 4, marginBottom: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
             {Object.entries(OS_LABELS).map(([key, info]) => (
               <button
                 key={key}
@@ -226,11 +230,11 @@ export default function Hero() {
               alignItems: 'center',
               justifyContent: 'center',
               gap: 10,
-              padding: '17px 28px',
+              padding: 'clamp(13px, 3vw, 17px) clamp(16px, 4vw, 28px)',
               borderRadius: 12,
               border: 'none',
               cursor: 'pointer',
-              fontSize: 16,
+              fontSize: 'clamp(14px, 3vw, 16px)',
               fontWeight: 700,
               letterSpacing: '-0.3px',
               color: 'white',
@@ -245,7 +249,7 @@ export default function Hero() {
             }}
           >
             {/* Install icon */}
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
               <polyline points="7 10 12 15 17 10" />
               <line x1="12" y1="15" x2="12" y2="3" />
@@ -261,7 +265,7 @@ export default function Hero() {
             marginBottom: 16,
           }}>
             <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
-            <span style={{ fontSize: 11, color: '#334155', fontWeight: 500, letterSpacing: '0.5px', textTransform: 'uppercase' }}>
+            <span style={{ fontSize: 11, color: '#334155', fontWeight: 500, letterSpacing: '0.5px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
               or use the one-liner
             </span>
             <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
@@ -280,13 +284,14 @@ export default function Hero() {
           }}>
             <code style={{
               fontFamily: 'JetBrains Mono, monospace',
-              fontSize: 12,
+              fontSize: 'clamp(10px, 2.2vw, 12px)',
               color: '#94a3b8',
               flex: 1,
               textAlign: 'left',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap',
+              minWidth: 0,
             }}>
               <span style={{ color: '#475569', marginRight: 8 }}>$</span>
               {INSTALL_COMMANDS[os]}
@@ -312,7 +317,7 @@ export default function Hero() {
           </div>
 
           {/* Install counter + hint */}
-          <div style={{ marginTop: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
+          <div style={{ marginTop: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'clamp(8px, 2vw, 16px)', flexWrap: 'wrap' }}>
             <motion.span
               key={installCount}
               initial={{ opacity: 0, y: -4 }}
@@ -336,12 +341,12 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
           ref={terminalRef}
           style={{
-            marginTop: 80,
+            marginTop: 'clamp(40px, 8vw, 80px)',
             width: '100%',
             maxWidth: 640,
             background: 'rgba(8,8,14,0.9)',
             border: '1px solid rgba(255,255,255,0.08)',
-            borderRadius: 16,
+            borderRadius: 'clamp(10px, 2vw, 16px)',
             overflow: 'hidden',
             boxShadow: '0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(168,85,247,0.1)',
             position: 'relative', zIndex: 1,
@@ -349,20 +354,20 @@ export default function Hero() {
         >
           {/* Terminal titlebar */}
           <div style={{
-            padding: '12px 16px',
+            padding: '10px 16px',
             background: 'rgba(255,255,255,0.03)',
             borderBottom: '1px solid rgba(255,255,255,0.06)',
             display: 'flex',
             alignItems: 'center',
             gap: 8,
           }}>
-            <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ff5f57' }} />
-            <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ffbd2e' }} />
-            <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#28c840' }} />
-            <span style={{ marginLeft: 8, fontSize: 12, color: '#475569', fontFamily: 'JetBrains Mono, monospace' }}>plutus — bash</span>
+            <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ff5f57' }} />
+            <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ffbd2e' }} />
+            <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#28c840' }} />
+            <span style={{ marginLeft: 8, fontSize: 'clamp(10px, 2vw, 12px)', color: '#475569', fontFamily: 'JetBrains Mono, monospace' }}>plutus — bash</span>
           </div>
           {/* Terminal body */}
-          <div style={{ padding: '20px 24px', minHeight: 180 }}>
+          <div style={{ padding: 'clamp(12px, 3vw, 20px) clamp(12px, 3vw, 24px)', minHeight: 'clamp(120px, 25vw, 180px)' }}>
             {TERMINAL_LINES.map((line, i) => (
               <TerminalLine key={i} {...line} />
             ))}
@@ -374,7 +379,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 3, duration: 1 }}
-          style={{ marginTop: 60, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, color: '#334155', fontSize: 12 }}
+          style={{ marginTop: 'clamp(30px, 6vw, 60px)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, color: '#334155', fontSize: 12 }}
         >
           <span>Scroll to explore</span>
           <motion.div
