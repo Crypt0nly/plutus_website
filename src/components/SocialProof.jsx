@@ -1,8 +1,6 @@
 import { motion } from 'framer-motion'
 
 const stats = [
-  { value: '2.4k', label: 'GitHub Stars', icon: '⭐' },
-  { value: '4,200+', label: 'Users', icon: '👥' },
   { value: '3', label: 'Platforms', icon: '💻' },
   { value: 'MIT', label: 'License', icon: '📜' },
   { value: '100%', label: 'Private', icon: '🔒' },

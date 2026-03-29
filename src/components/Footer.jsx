@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 
 const links = [
-  { label: 'GitHub', href: 'https://github.com/Crypt0nly/plutus_website', external: true },
+  { label: 'GitHub', href: 'https://github.com/Crypt0nly/plutus', external: true },
   { label: 'Features', href: '#features' },
   { label: 'How it works', href: '#how-it-works' },
   { label: 'Install', href: '#install' },

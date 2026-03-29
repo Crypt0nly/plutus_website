@@ -60,18 +60,10 @@ export default function Hero() {
   const [copied, setCopied] = useState(false)
   const [installHover, setInstallHover] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [installCount, setInstallCount] = useState(2847)
   const terminalRef = useRef(null)
 
   useEffect(() => {
     setOs(detectOS())
-  }, [])
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setInstallCount(c => c + Math.floor(Math.random() * 3 + 1))
-    }, 8000 + Math.random() * 7000)
-    return () => clearInterval(interval)
   }, [])
 
   const copy = () => {
@@ -316,18 +308,8 @@ export default function Hero() {
             </button>
           </div>
 
-          {/* Install counter + hint */}
+          {/* Hints */}
           <div style={{ marginTop: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'clamp(8px, 2vw, 16px)', flexWrap: 'wrap' }}>
-            <motion.span
-              key={installCount}
-              initial={{ opacity: 0, y: -4 }}
-              animate={{ opacity: 1, y: 0 }}
-              style={{ fontSize: 12, color: '#475569' }}
-            >
-              <span style={{ color: '#22c55e', marginRight: 4 }}>🟢</span>
-              <span style={{ fontWeight: 600, color: '#64748b' }}>{installCount.toLocaleString()}</span> installs today
-            </motion.span>
-            <span style={{ fontSize: 12, color: '#334155' }}>·</span>
             <span style={{ fontSize: 12, color: '#334155' }}>Requires Python 3.10+</span>
             <span style={{ fontSize: 12, color: '#334155' }}>·</span>
             <span style={{ fontSize: 12, color: '#334155' }}>No account needed</span>

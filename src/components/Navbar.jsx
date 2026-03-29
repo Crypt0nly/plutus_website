@@ -106,7 +106,7 @@ export default function Navbar() {
 
           {/* Desktop CTA */}
           <a
-            href="https://github.com/Crypt0nly/plutus_website"
+            href="https://github.com/Crypt0nly/plutus"
             target="_blank"
             rel="noopener noreferrer"
             className="desktop-nav"
@@ -206,7 +206,7 @@ export default function Navbar() {
               </motion.a>
             ))}
             <motion.a
-              href="https://github.com/Crypt0nly/plutus_website"
+              href="https://github.com/Crypt0nly/plutus"
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, y: 20 }}
