@@ -4,31 +4,31 @@ import { motion, AnimatePresence } from 'framer-motion'
 const faqs = [
   {
     q: 'Do I need to be a developer to use Plutus?',
-    a: 'Not at all. Plutus is built for everyone — students, freelancers, small business owners, creators, and yes, developers too. You describe what you need in plain English, and Plutus acts on it autonomously. No coding required.',
+    a: 'Not at all. Plutus is built for everyone — students, freelancers, small business owners, creators, and yes, developers too. You just describe what you need in everyday language, and Plutus takes care of it. No coding, no technical skills required.',
   },
   {
     q: 'Is my data private and safe?',
-    a: 'Yes. Everything runs on your own computer. Your files, your conversations, and your API keys never leave your machine. There\'s zero tracking, zero telemetry, and zero cloud storage. Your data is yours alone.',
+    a: 'Yes. Everything runs on your own computer. Your files and conversations never leave your machine. There\'s no tracking, no data collection, and nothing stored in the cloud. Your data is yours alone.',
   },
   {
     q: 'How much does it cost?',
-    a: 'Plutus itself is 100% free and always will be. You only pay for the AI you use — typically a few cents per task through providers like OpenAI or Anthropic. You can also use Ollama to run AI models locally at zero cost.',
+    a: 'Plutus itself is 100% free and always will be. You only pay for the AI you use — typically a few cents per task through providers like ChatGPT or Claude. You can also choose a completely free AI option that runs offline on your computer.',
   },
   {
     q: 'What kinds of things can Plutus do?',
-    a: 'Almost anything you do on a computer — but autonomously. It browses the web, writes and executes code, organizes files, drafts emails, builds websites, creates spreadsheets, automates multi-step workflows, and much more. Unlike a chatbot, Plutus actually performs the tasks rather than just telling you how. And if it encounters something new, it teaches itself by creating new tools on the fly.',
+    a: 'Almost anything you\'d normally do on a computer. Write emails, organize files, do research, create documents and spreadsheets, build websites, browse the web, and much more. The key difference from a chatbot? Plutus actually does the work for you instead of just telling you how. And if it runs into something new, it figures it out on its own.',
   },
   {
     q: 'Do I need to install anything complicated?',
-    a: 'No. It\'s one command — copy, paste, done. No Docker, no servers, no complicated setup. It runs on your computer and opens a simple web interface in your browser at localhost:3000.',
+    a: 'No. Just click the download button and follow three simple steps. No complicated setup, no technical knowledge needed. Plutus installs itself and opens right in your browser, ready to use.',
   },
   {
     q: 'Which AI models can I use?',
-    a: 'Plutus works with all major AI providers: Anthropic (Claude), OpenAI (ChatGPT), Google Gemini, and Ollama for free local models. The model serves as the brain, while Plutus is the agent that takes action. You can switch models anytime based on your preference or budget.',
+    a: 'Plutus works with all the popular AI services: ChatGPT, Claude, Gemini, and even free offline AI. You pick which one you like best — the AI does the thinking, and Plutus does the doing. You can switch anytime.',
   },
   {
     q: 'Is it really free and open source?',
-    a: 'Yes — MIT license, which means the code is fully public and free to use. There\'s no hidden subscription, no premium tier, no catch. The full source code is available on GitHub for anyone to inspect.',
+    a: 'Yes — the code is fully public and free to use. There\'s no hidden subscription, no premium tier, no catch. Anyone can look at exactly how Plutus works.',
   },
 ]
 

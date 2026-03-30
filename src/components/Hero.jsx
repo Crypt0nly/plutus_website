@@ -21,11 +21,11 @@ function detectOS() {
 // Animated typing terminal lines
 const TERMINAL_LINES = [
   { text: '$ plutus start', delay: 0.2, color: '#a855f7' },
-  { text: '✓ Initializing agent runtime...', delay: 0.6, color: '#22c55e' },
-  { text: '✓ Connecting to AI provider...', delay: 1.0, color: '#22c55e' },
-  { text: '✓ Spawning 4 parallel workers...', delay: 1.4, color: '#22c55e' },
-  { text: '✓ All systems operational', delay: 1.8, color: '#22c55e' },
-  { text: '🤖 Plutus agent ready. Give me a task.', delay: 2.2, color: '#06b6d4' },
+  { text: '✓ Setting things up...', delay: 0.6, color: '#22c55e' },
+  { text: '✓ Connecting to your AI...', delay: 1.0, color: '#22c55e' },
+  { text: '✓ Getting everything ready...', delay: 1.4, color: '#22c55e' },
+  { text: '✓ All set!', delay: 1.8, color: '#22c55e' },
+  { text: '🤖 Plutus is ready. What do you need done?', delay: 2.2, color: '#06b6d4' },
 ]
 
 function TerminalLine({ text, color, delay }) {
@@ -175,7 +175,7 @@ export default function Hero() {
             padding: '0 8px',
           }}
         >
-          Plutus is a free, open-source AI agent that lives on your computer. It doesn't just answer questions — it takes action. It browses the web, writes and runs code, manages files, automates workflows, and executes real tasks autonomously.
+          Plutus is a free AI that lives on your computer. It doesn't just answer questions — it actually does things for you. It can write emails, organize your files, do research, build documents, and handle tasks you'd normally spend hours on.
         </motion.p>
 
         {/* ── Install box ── */}
@@ -257,7 +257,7 @@ export default function Hero() {
           }}>
             <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
             <span style={{ fontSize: 11, color: '#334155', fontWeight: 500, letterSpacing: '0.5px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
-              or use the one-liner
+              or copy this install command
             </span>
             <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
           </div>
@@ -309,7 +309,7 @@ export default function Hero() {
 
           {/* Hints */}
           <div style={{ marginTop: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'clamp(8px, 2vw, 16px)', flexWrap: 'wrap' }}>
-            <span style={{ fontSize: 12, color: '#334155' }}>Requires Python 3.10+</span>
+            <span style={{ fontSize: 12, color: '#334155' }}>Takes under 2 minutes</span>
             <span style={{ fontSize: 12, color: '#334155' }}>·</span>
             <span style={{ fontSize: 12, color: '#334155' }}>No account needed</span>
           </div>

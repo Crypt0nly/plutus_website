@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 const stats = [
   { value: '3', label: 'Platforms', icon: '💻' },
-  { value: 'MIT', label: 'License', icon: '📜' },
+  { value: 'Free', label: 'Forever', icon: '📜' },
   { value: '100%', label: 'Private', icon: '🔒' },
 ]
 
@@ -48,7 +48,7 @@ export default function SocialProof() {
         {/* Provider logos */}
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: 11, color: '#334155', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: 12 }}>
-            Agent powered by the best AI models
+            Works with the best AI models
           </div>
           <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
             {providers.map((p, i) => (

@@ -101,7 +101,7 @@ export default function Install() {
               </span>
             </h2>
             <p style={{ color: '#55556a', fontSize: 'clamp(14px, 2.5vw, 16px)', lineHeight: 1.7, maxWidth: 460, margin: '0 auto' }}>
-              One click. No technical setup. Your autonomous AI agent is up and running in minutes.
+              One click. No technical setup. Plutus is up and running in minutes.
             </p>
           </motion.div>
 
@@ -325,7 +325,7 @@ export default function Install() {
             viewport={{ once: true }}
             style={{ textAlign: 'center', marginTop: 20, fontSize: 13, color: '#2a2a3a' }}
           >
-            Works on Windows, macOS & Linux · Requires Python 3.14 · Open source
+            Works on Windows, Mac & Linux · Free forever · Open source
           </motion.p>
 
         </div>

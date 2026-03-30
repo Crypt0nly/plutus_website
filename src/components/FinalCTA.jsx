@@ -109,7 +109,7 @@ export default function FinalCTA() {
               margin: '0 auto 40px',
               lineHeight: 1.7,
             }}>
-              Join thousands of people who've already reclaimed hours of their week with a private, free AI agent that doesn't just chat — it takes action and gets real work done.
+              Thousands of people already use Plutus to save hours every week. It's free, private, and it doesn't just chat — it actually does the work for you.
             </p>
 
             {/* Primary Install Button */}
@@ -159,7 +159,7 @@ export default function FinalCTA() {
             }}>
               <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
               <span style={{ fontSize: 11, color: '#334155', fontWeight: 500, letterSpacing: '0.5px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
-                or use the one-liner
+                or copy this install command
               </span>
               <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
             </div>
@@ -213,7 +213,7 @@ export default function FinalCTA() {
             </div>
 
             <p style={{ fontSize: 12, color: '#334155' }}>
-              No credit card · No account · No cloud · Just run it
+              No credit card · No account · No cloud · 100% free
             </p>
           </motion.div>
         </div>

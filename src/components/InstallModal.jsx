@@ -373,7 +373,7 @@ export default function InstallModal({ os, onClose }) {
             lineHeight: 1.6,
           }}>
             <span style={{ color: '#22c55e', fontWeight: 600 }}>✓ Safe & open source</span>
-            {' '}— The installer only downloads Plutus via pip and creates a shortcut. No admin rights required.{' '}
+            {' '}— The installer simply downloads Plutus and sets it up for you. No special permissions needed.{' '}
             <a
               href="https://github.com/Crypt0nly/plutus"
               target="_blank"

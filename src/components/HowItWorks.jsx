@@ -5,7 +5,7 @@ const steps = [
     number: '1',
     emoji: '⬇️',
     title: 'Download & install',
-    desc: 'Click the download button, run the installer, and your AI agent launches automatically. No setup wizards, no configuration files — it just works.',
+    desc: 'Click the download button and follow the simple steps. Plutus sets itself up and opens automatically — no technical knowledge needed.',
     visual: (
       <div style={{
         display: 'flex',
@@ -32,7 +32,7 @@ const steps = [
     number: '2',
     emoji: '🔑',
     title: 'Connect your AI in 30 seconds',
-    desc: 'Paste your API key from ChatGPT or Claude — or skip this entirely and use a free local model. This gives your agent its brain. Plutus walks you through it in seconds.',
+    desc: 'Pick which AI you want to use — like ChatGPT or Claude — or choose a completely free option. Plutus walks you through it step by step, no tech skills needed.',
     visual: (
       <div style={{
         display: 'flex',
@@ -59,8 +59,8 @@ const steps = [
   {
     number: '3',
     emoji: '💬',
-    title: 'Give it a task and watch it work',
-    desc: 'Describe what you need in plain English. Plutus doesn\'t just reply — it takes action. It opens apps, writes code, moves files, browses the web, and delivers finished results.',
+    title: 'Tell it what you need',
+    desc: 'Just type what you want in everyday language. Need an email written? A folder organized? Research done? Plutus doesn\'t just suggest how — it actually does it for you and shows you the finished result.',
     visual: (
       <div style={{
         background: 'rgba(255,255,255,0.03)',
@@ -74,9 +74,9 @@ const steps = [
         maxWidth: 400,
       }}>
         {[
-          'Research competitors and build me a summary report',
-          'Organize my Downloads folder by file type',
-          'Build and deploy a landing page for my startup',
+          'Write a professional email to my client about the delay',
+          'Organize my messy Downloads folder',
+          'Research the best laptops under $1000 for me',
         ].map((example, i) => (
           <div key={i} style={{
             display: 'flex',

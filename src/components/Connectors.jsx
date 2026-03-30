@@ -236,7 +236,7 @@ export default function Connectors() {
             letterSpacing: '0.1em',
             marginBottom: 12,
           }}>
-            Connectors
+            Integrations
           </p>
           <h2 style={{
             fontSize: 'clamp(24px, 4vw, 44px)',
@@ -254,8 +254,8 @@ export default function Connectors() {
             margin: '0 auto',
             lineHeight: 1.7,
           }}>
-            Plutus doesn't just connect to your apps — it controls them. Send messages, manage calendars,
-            deploy code, and automate workflows across every service you use.
+            Plutus works with the apps you already use — and it can actually do things inside them.
+            Send messages, manage your calendar, organize files, and more — all hands-free.
           </p>
         </motion.div>
 
@@ -407,8 +407,8 @@ export default function Connectors() {
           }}>
             <span style={{ fontSize: 18, flexShrink: 0 }}>🔌</span>
             <p style={{ fontSize: 13, color: '#9a8abf', lineHeight: 1.6, margin: 0 }}>
-              <strong style={{ color: '#c4b5fd' }}>Connect anything.</strong>{' '}
-              If it has an API, Plutus can act on it. Define any endpoint once and let your agent control it with plain English.
+              <strong style={{ color: '#c4b5fd' }}>Works with almost anything.</strong>{' '}
+              If an app or service can be connected, Plutus can work with it. Just tell it what you want in plain English.
             </p>
           </div>
         </motion.div>
