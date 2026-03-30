@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 const faqs = [
   {
     q: 'Do I need to be a developer to use Plutus?',
-    a: 'Not at all. Plutus is built for everyone — students, freelancers, small business owners, creators, and yes, developers too. You just type what you want in plain English. If you can describe it, Plutus can do it.',
+    a: 'Not at all. Plutus is built for everyone — students, freelancers, small business owners, creators, and yes, developers too. You describe what you need in plain English, and Plutus acts on it autonomously. No coding required.',
   },
   {
     q: 'Is my data private and safe?',
@@ -16,7 +16,7 @@ const faqs = [
   },
   {
     q: 'What kinds of things can Plutus do?',
-    a: 'Almost anything you do on a computer. Organize files, draft emails, write documents, research topics, create spreadsheets, build websites, automate repetitive tasks, write and run code, browse the web — and much more. If it can\'t do something yet, it teaches itself how.',
+    a: 'Almost anything you do on a computer — but autonomously. It browses the web, writes and executes code, organizes files, drafts emails, builds websites, creates spreadsheets, automates multi-step workflows, and much more. Unlike a chatbot, Plutus actually performs the tasks rather than just telling you how. And if it encounters something new, it teaches itself by creating new tools on the fly.',
   },
   {
     q: 'Do I need to install anything complicated?',
@@ -24,7 +24,7 @@ const faqs = [
   },
   {
     q: 'Which AI models can I use?',
-    a: 'Plutus works with all major AI providers: Anthropic (Claude), OpenAI (ChatGPT), Google Gemini, and Ollama for free local models. You can switch between them anytime based on your preference or budget.',
+    a: 'Plutus works with all major AI providers: Anthropic (Claude), OpenAI (ChatGPT), Google Gemini, and Ollama for free local models. The model serves as the brain, while Plutus is the agent that takes action. You can switch models anytime based on your preference or budget.',
   },
   {
     q: 'Is it really free and open source?',

@@ -8,37 +8,37 @@ const features = [
   {
     icon: <IconKey size={24} />,
     title: '100% Private',
-    description: 'Your data never leaves your computer. No cloud uploads, no tracking, no data harvesting. Everything stays on your machine — always.',
+    description: 'Your data never leaves your computer. Every action Plutus takes happens locally — no cloud uploads, no tracking, no data harvesting. Full autonomy, full privacy.',
     color: '#8b5cf6',
   },
   {
     icon: <IconBrandOpenSource size={24} />,
     title: 'Free & Open Source',
-    description: 'Completely free to use, forever. Built in the open with an MIT license so anyone can inspect, trust, and improve it.',
+    description: 'Completely free to use, forever. Built in the open with an MIT license so anyone can inspect, trust, and extend its capabilities.',
     color: '#22d3ee',
   },
   {
     icon: <IconCpu size={24} />,
     title: 'Choose Your AI Brain',
-    description: 'Connect to Claude, ChatGPT, Gemini, or run models locally for free with Ollama. Pick the AI that fits your needs and budget.',
+    description: 'Plug in Claude, ChatGPT, Gemini, or run models locally for free with Ollama. The AI model is the brain — Plutus is the hands that do the work.',
     color: '#f59e0b',
   },
   {
     icon: <IconRocket size={24} />,
     title: 'Works in Parallel',
-    description: 'Give it multiple tasks and watch them happen simultaneously. Plutus spins up workers that tackle different parts of your request at the same time.',
+    description: 'Give it multiple tasks and watch them execute simultaneously. Plutus spins up parallel workers that tackle different parts of your request at the same time — like having a team of agents.',
     color: '#22c55e',
   },
   {
     icon: <IconBrain size={24} />,
     title: 'Gets Smarter Over Time',
-    description: 'Plutus learns new skills as you use it. It creates custom tools on the fly to handle tasks it couldn\'t before. The more you use it, the more powerful it gets.',
+    description: 'Plutus autonomously creates new tools and skills when it encounters something it can\'t handle yet. It adapts, learns, and becomes a more capable agent the more you use it.',
     color: '#ec4899',
   },
   {
     icon: <IconDevices size={24} />,
     title: 'Works on Any Computer',
-    description: 'Windows, macOS, or Linux — one simple install. If you have a computer, you can run Plutus.',
+    description: 'Windows, macOS, or Linux — one simple install. Plutus runs locally on your machine and takes action across your entire system.',
     color: '#8b5cf6',
   },
 ]
@@ -70,11 +70,11 @@ export default function Features() {
             letterSpacing: '-0.02em',
             marginBottom: 12,
           }}>
-            Everything you need.{' '}
-            <span className="gradient-text">Nothing you don't.</span>
+            An agent that acts.{' '}
+            <span className="gradient-text">Not a chatbot.</span>
           </h2>
           <p style={{ fontSize: 16, color: '#55556a', maxWidth: 500, margin: '0 auto' }}>
-            Built for anyone who wants to get more done with less effort.
+            Plutus doesn't just respond — it takes control, executes tasks, and delivers results.
           </p>
         </motion.div>
 

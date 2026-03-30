@@ -48,7 +48,7 @@ export default function SocialProof() {
         {/* Provider logos */}
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: 11, color: '#334155', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: 12 }}>
-            Powered by the best AI models
+            Agent powered by the best AI models
           </div>
           <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
             {providers.map((p, i) => (

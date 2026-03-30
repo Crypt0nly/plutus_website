@@ -109,7 +109,7 @@ export default function FinalCTA() {
               margin: '0 auto 40px',
               lineHeight: 1.7,
             }}>
-              Join thousands of people who've already reclaimed hours of their week with a private, free AI assistant that actually gets things done.
+              Join thousands of people who've already reclaimed hours of their week with a private, free AI agent that doesn't just chat — it takes action and gets real work done.
             </p>
 
             {/* Primary Install Button */}

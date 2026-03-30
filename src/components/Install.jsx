@@ -90,7 +90,7 @@ export default function Install() {
               lineHeight: 1.1,
               marginBottom: 14,
             }}>
-              Your AI assistant,{' '}
+              Your AI agent,{' '}
               <span style={{
                 background: 'linear-gradient(135deg, #22c55e, #06b6d4)',
                 WebkitBackgroundClip: 'text',
@@ -101,7 +101,7 @@ export default function Install() {
               </span>
             </h2>
             <p style={{ color: '#55556a', fontSize: 'clamp(14px, 2.5vw, 16px)', lineHeight: 1.7, maxWidth: 460, margin: '0 auto' }}>
-              One click. No technical setup. Plutus installs itself and walks you through everything.
+              One click. No technical setup. Your autonomous AI agent is up and running in minutes.
             </p>
           </motion.div>
 

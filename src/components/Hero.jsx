@@ -21,11 +21,11 @@ function detectOS() {
 // Animated typing terminal lines
 const TERMINAL_LINES = [
   { text: '$ plutus start', delay: 0.2, color: '#a855f7' },
-  { text: '✓ Setting things up...', delay: 0.6, color: '#22c55e' },
-  { text: '✓ Connecting to your AI provider...', delay: 1.0, color: '#22c55e' },
-  { text: '✓ Ready to multitask — 4 workers standing by', delay: 1.4, color: '#22c55e' },
-  { text: '✓ All systems go', delay: 1.8, color: '#22c55e' },
-  { text: '🤖 Plutus is ready. What can I help you with?', delay: 2.2, color: '#06b6d4' },
+  { text: '✓ Initializing agent runtime...', delay: 0.6, color: '#22c55e' },
+  { text: '✓ Connecting to AI provider...', delay: 1.0, color: '#22c55e' },
+  { text: '✓ Spawning 4 parallel workers...', delay: 1.4, color: '#22c55e' },
+  { text: '✓ All systems operational', delay: 1.8, color: '#22c55e' },
+  { text: '🤖 Plutus agent ready. Give me a task.', delay: 2.2, color: '#06b6d4' },
 ]
 
 function TerminalLine({ text, color, delay }) {
@@ -147,7 +147,7 @@ export default function Hero() {
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
           }}>
-            Your Personal AI.
+            Your Personal AI Agent.
           </span>
           <br />
           <span style={{
@@ -156,7 +156,7 @@ export default function Hero() {
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
           }}>
-            Does the work for you.
+            It doesn't chat. It acts.
           </span>
         </motion.h1>
 
@@ -175,8 +175,7 @@ export default function Hero() {
             padding: '0 8px',
           }}
         >
-          Plutus is a free AI assistant that lives on your computer. Write emails, organize files,
-          automate tedious tasks, build software, or research anything — just tell it what you need in plain English.
+          Plutus is a free, open-source AI agent that lives on your computer. It doesn't just answer questions — it takes action. It browses the web, writes and runs code, manages files, automates workflows, and executes real tasks autonomously.
         </motion.p>
 
         {/* ── Install box ── */}

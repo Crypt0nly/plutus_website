@@ -5,7 +5,7 @@ const steps = [
     number: '1',
     emoji: '⬇️',
     title: 'Download & install',
-    desc: 'Click the download button, run the installer, and Plutus opens automatically. No setup wizards, no configuration files — it just works.',
+    desc: 'Click the download button, run the installer, and your AI agent launches automatically. No setup wizards, no configuration files — it just works.',
     visual: (
       <div style={{
         display: 'flex',
@@ -32,7 +32,7 @@ const steps = [
     number: '2',
     emoji: '🔑',
     title: 'Connect your AI in 30 seconds',
-    desc: 'Paste your API key from ChatGPT or Claude — or skip this entirely and use a free local AI. Plutus walks you through it step by step with a friendly setup screen.',
+    desc: 'Paste your API key from ChatGPT or Claude — or skip this entirely and use a free local model. This gives your agent its brain. Plutus walks you through it in seconds.',
     visual: (
       <div style={{
         display: 'flex',
@@ -59,8 +59,8 @@ const steps = [
   {
     number: '3',
     emoji: '💬',
-    title: 'Just tell it what you need',
-    desc: 'Type naturally, like you\'re texting a friend. No commands, no menus to learn. Plutus understands what you mean and gets it done.',
+    title: 'Give it a task and watch it work',
+    desc: 'Describe what you need in plain English. Plutus doesn\'t just reply — it takes action. It opens apps, writes code, moves files, browses the web, and delivers finished results.',
     visual: (
       <div style={{
         background: 'rgba(255,255,255,0.03)',
@@ -74,9 +74,9 @@ const steps = [
         maxWidth: 400,
       }}>
         {[
-          'Write a professional email to my client',
-          'Organize my Downloads folder by type',
-          'Build me a simple landing page',
+          'Research competitors and build me a summary report',
+          'Organize my Downloads folder by file type',
+          'Build and deploy a landing page for my startup',
         ].map((example, i) => (
           <div key={i} style={{
             display: 'flex',
@@ -153,7 +153,7 @@ export default function HowItWorks() {
             margin: '0 auto',
             lineHeight: 1.7,
           }}>
-            No coding required. No technical knowledge needed. If you can type a message, you can use Plutus.
+            No coding required. No technical knowledge needed. Just describe what you want done — Plutus handles the rest.
           </p>
         </motion.div>
 
