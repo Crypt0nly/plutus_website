@@ -4,7 +4,7 @@
 #
 # What this script does:
 #   1. Ensures Python 3.14+ is available (auto-installs via Homebrew/apt/dnf if needed)
-#   2. Installs Plutus via pip
+#   2. Creates a virtual environment and installs Plutus into it
 #   3. Creates a launcher shortcut (macOS .app / Linux .desktop)
 #   4. Launches Plutus in the background and opens the browser
 #
@@ -257,26 +257,41 @@ PY_VER=$($PYTHON_CMD --version 2>&1)
 PYTHON_FULL_PATH=$(command -v "$PYTHON_CMD")
 echo "[1/4] $PY_VER found."
 
-# ── Step 2: Install Plutus ────────────────────────────────
+# ── Step 2: Install Plutus (inside a virtual environment) ─
 
 echo "[2/4] Installing Plutus..."
 
-$PYTHON_CMD -m pip install --upgrade pip >/dev/null 2>&1 || true
+PLUTUS_DIR="$HOME/.plutus"
+VENV_DIR="$PLUTUS_DIR/venv"
+mkdir -p "$PLUTUS_DIR"
+
+# Create (or re-use) a virtual environment so we never hit
+# PEP 668 "externally-managed-environment" errors on macOS/Homebrew
+# or modern Linux distros.
+if [ ! -d "$VENV_DIR/bin" ]; then
+    echo "       Creating virtual environment..."
+    $PYTHON_CMD -m venv "$VENV_DIR"
+fi
+
+# From here on, use the venv Python for all pip operations
+VENV_PYTHON="$VENV_DIR/bin/python"
+
+$VENV_PYTHON -m pip install --upgrade pip >/dev/null 2>&1 || true
 
 # On Intel Macs (x86_64) running macOS 12+, older PyPI releases may only have
 # arm64 wheels.  We attempt a normal install first; if that fails we retry with
 # an explicit platform tag so pip can find the correct wheel.
-if ! $PYTHON_CMD -m pip install --upgrade "plutus-ai[all]" 2>/dev/null; then
+if ! $VENV_PYTHON -m pip install --upgrade "plutus-ai[all]" 2>/dev/null; then
     ARCH="$(uname -m)"
     if [ "$OS" = "Darwin" ] && [ "$ARCH" = "x86_64" ]; then
         echo "       Retrying with explicit Intel Mac platform tag..."
-        $PYTHON_CMD -m pip install --upgrade \
+        $VENV_PYTHON -m pip install --upgrade \
             --platform macosx_10_9_x86_64 \
             --only-binary :all: \
             "plutus-ai[all]" 2>/dev/null \
-        || $PYTHON_CMD -m pip install --upgrade "plutus-ai[all]"
+        || $VENV_PYTHON -m pip install --upgrade "plutus-ai[all]"
     else
-        $PYTHON_CMD -m pip install --upgrade "plutus-ai[all]"
+        $VENV_PYTHON -m pip install --upgrade "plutus-ai[all]"
     fi
 fi
 
@@ -286,16 +301,14 @@ echo "       Plutus installed."
 
 echo "[3/4] Creating launcher..."
 
-PLUTUS_DIR="$HOME/.plutus"
-mkdir -p "$PLUTUS_DIR"
-
-# Create shared launcher script used by shortcuts
+# The launcher always uses the venv Python so Plutus and all its
+# dependencies are found regardless of system Python configuration.
 LAUNCHER="$PLUTUS_DIR/start.sh"
 cat > "$LAUNCHER" << LAUNCHER_EOF
 #!/bin/bash
 # Plutus Launcher — double-click or run to start Plutus
 
-PYTHON="$PYTHON_FULL_PATH"
+PYTHON="$VENV_DIR/bin/python"
 
 # ── Open browser helper ──
 _open_browser() {
@@ -335,6 +348,34 @@ else
 fi
 LAUNCHER_EOF
 chmod +x "$LAUNCHER"
+
+# Create a convenience wrapper so `plutus` command works from anywhere
+# by delegating to the venv's entry point.
+PLUTUS_BIN="$PLUTUS_DIR/plutus"
+cat > "$PLUTUS_BIN" << BIN_EOF
+#!/bin/bash
+# Plutus CLI wrapper — delegates to the venv installation
+exec "$VENV_DIR/bin/python" -m plutus "\$@"
+BIN_EOF
+chmod +x "$PLUTUS_BIN"
+
+# Add ~/.plutus to PATH if not already there (for `plutus` command)
+_SHELL_RC=""
+if [ -n "$ZSH_VERSION" ] || [ -f "$HOME/.zshrc" ]; then
+    _SHELL_RC="$HOME/.zshrc"
+elif [ -f "$HOME/.bashrc" ]; then
+    _SHELL_RC="$HOME/.bashrc"
+elif [ -f "$HOME/.bash_profile" ]; then
+    _SHELL_RC="$HOME/.bash_profile"
+fi
+if [ -n "$_SHELL_RC" ]; then
+    if ! grep -q '\.plutus' "$_SHELL_RC" 2>/dev/null; then
+        echo '' >> "$_SHELL_RC"
+        echo '# Plutus CLI' >> "$_SHELL_RC"
+        echo 'export PATH="$HOME/.plutus:$PATH"' >> "$_SHELL_RC"
+    fi
+fi
+export PATH="$PLUTUS_DIR:$PATH"
 
 if [ "$OS" = "Darwin" ]; then
     # ── macOS: create a double-clickable .app bundle ──
