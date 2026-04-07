@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 const links = [
   { label: 'Features', href: '#features' },
@@ -57,7 +58,7 @@ export default function Navbar() {
           justifyContent: 'space-between',
         }}>
           {/* Logo */}
-          <a href="#" style={{
+          <Link to="/" style={{
             display: 'flex',
             alignItems: 'center',
             gap: 10,
@@ -74,7 +75,7 @@ export default function Navbar() {
               <img src="/logo.svg" alt="Plutus" style={{ width: 32, height: 32, objectFit: 'contain' }} />
             </div>
             <span>Plutus</span>
-          </a>
+          </Link>
 
           {/* Desktop links */}
           <ul className="desktop-nav" style={{

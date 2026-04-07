@@ -1,12 +1,28 @@
-import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
-const links = [
-  { label: 'GitHub', href: 'https://github.com/Crypt0nly/plutus', external: true },
+const externalLinks = [
+  { label: 'GitHub', href: 'https://github.com/Crypt0nly/plutus' },
+]
+
+const anchorLinks = [
   { label: 'Features', href: '#features' },
   { label: 'How it works', href: '#how-it-works' },
   { label: 'Install', href: '#install' },
   { label: 'FAQ', href: '#faq' },
 ]
+
+const legalLinks = [
+  { label: 'Privacy Policy', to: '/privacy' },
+  { label: 'Terms of Service', to: '/terms' },
+]
+
+const linkStyle = {
+  color: '#475569',
+  textDecoration: 'none',
+  fontSize: 13,
+  fontWeight: 500,
+  transition: 'color 0.2s',
+}
 
 export default function Footer() {
   return (
@@ -32,25 +48,42 @@ export default function Footer() {
         </div>
 
         {/* Links */}
-        <nav style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
-          {links.map(l => (
+        <nav style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'center' }}>
+          {externalLinks.map(l => (
             <a
               key={l.label}
               href={l.href}
-              target={l.external ? '_blank' : undefined}
-              rel={l.external ? 'noopener noreferrer' : undefined}
-              style={{
-                color: '#475569',
-                textDecoration: 'none',
-                fontSize: 13,
-                fontWeight: 500,
-                transition: 'color 0.2s',
-              }}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={linkStyle}
               onMouseEnter={e => e.target.style.color = '#a855f7'}
               onMouseLeave={e => e.target.style.color = '#475569'}
             >
               {l.label}
             </a>
+          ))}
+          {anchorLinks.map(l => (
+            <a
+              key={l.label}
+              href={l.href}
+              style={linkStyle}
+              onMouseEnter={e => e.target.style.color = '#a855f7'}
+              onMouseLeave={e => e.target.style.color = '#475569'}
+            >
+              {l.label}
+            </a>
+          ))}
+          <span style={{ color: '#1e293b', fontSize: 13 }}>·</span>
+          {legalLinks.map(l => (
+            <Link
+              key={l.label}
+              to={l.to}
+              style={linkStyle}
+              onMouseEnter={e => e.currentTarget.style.color = '#a855f7'}
+              onMouseLeave={e => e.currentTarget.style.color = '#475569'}
+            >
+              {l.label}
+            </Link>
           ))}
         </nav>
 

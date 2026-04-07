@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import SocialProof from './components/SocialProof'
@@ -10,8 +11,10 @@ import FAQ from './components/FAQ'
 import FinalCTA from './components/FinalCTA'
 import Footer from './components/Footer'
 import ParticleField from './components/ParticleField'
+import PrivacyPolicy from './components/PrivacyPolicy'
+import TermsOfService from './components/TermsOfService'
 
-export default function App() {
+function HomePage() {
   useEffect(() => {
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(a => {
@@ -39,5 +42,17 @@ export default function App() {
       </main>
       <Footer />
     </div>
+  )
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<TermsOfService />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
