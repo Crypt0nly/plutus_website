@@ -44,7 +44,7 @@ export default function Footer() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <img src="/logo.svg" alt="Plutus" style={{ width: 28, height: 28, objectFit: 'contain' }} />
           <span style={{ fontWeight: 700, color: '#94a3b8', fontSize: 15 }}>Plutus</span>
-          <span style={{ color: '#334155', fontSize: 13, marginLeft: 8 }}>MIT License</span>
+          <span style={{ color: '#334155', fontSize: 13, marginLeft: 8 }}>AGPL-3.0 License</span>
         </div>
 
         {/* Links */}

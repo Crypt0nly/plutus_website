@@ -73,7 +73,7 @@ export default function FinalCTA() {
               marginBottom: 28,
             }}>
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 8px #22c55e', display: 'inline-block' }} />
-              Free · Open Source · MIT License
+              Free · Open Source · AGPL-3.0 License
             </div>
 
             <h2 style={{

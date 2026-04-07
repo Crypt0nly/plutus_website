@@ -5,7 +5,7 @@ import Footer from './Footer'
 const sections = [
   {
     title: '1. Overview',
-    content: `Plutus is a free, open-source AI desktop automation tool built by Felix Graef and released under the MIT License. This Privacy Policy explains how Plutus handles information when you use the application or visit this website. Because Plutus runs locally on your machine, your data never leaves your device by default.`,
+    content: `Plutus is a free, open-source AI desktop automation tool built by Felix Graef and released under the AGPL-3.0 License. This Privacy Policy explains how Plutus handles information when you use the application or visit this website. Because Plutus runs locally on your machine, your data never leaves your device by default.`,
   },
   {
     title: '2. Information We Collect',
@@ -21,7 +21,7 @@ const sections = [
   },
   {
     title: '5. Open-Source Transparency',
-    content: `Plutus is fully open source under the MIT License. The complete source code is publicly available on GitHub at github.com/Crypt0nly/plutus. You are welcome to inspect, audit, fork, and modify the code at any time. This transparency is our strongest privacy guarantee.`,
+    content: `Plutus is fully open source under the AGPL-3.0 License. The complete source code is publicly available on GitHub at github.com/Crypt0nly/plutus. You are welcome to inspect, audit, fork, and modify the code at any time. This transparency is our strongest privacy guarantee.`,
   },
   {
     title: '6. Data Retention',

@@ -13,11 +13,11 @@ const sections = [
   },
   {
     title: '3. Open-Source License',
-    content: `Plutus is released under the MIT License. You are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, subject to the conditions of the MIT License included with the source code.\n\nThe full MIT License text is available in the LICENSE file at github.com/Crypt0nly/plutus. Nothing in these Terms of Service limits or overrides the rights granted to you under the MIT License.`,
+    content: `Plutus is released under the GNU Affero General Public License v3.0 (AGPL-3.0). You are free to use, copy, modify, and distribute the Software, provided that any modified versions are also released under the AGPL-3.0 and that network-accessible deployments make their source code available.\n\nThe full AGPL-3.0 License text is available in the LICENSE file at github.com/Crypt0nly/plutus. Nothing in these Terms of Service limits or overrides the rights granted to you under the AGPL-3.0 License.`,
   },
   {
     title: '4. Permitted Use',
-    content: `You may use Plutus for any lawful purpose, including personal productivity, professional automation workflows, research, and education. You may integrate Plutus with third-party AI APIs and services as permitted by their respective terms of service.\n\nYou may modify, fork, and redistribute Plutus in accordance with the MIT License.`,
+    content: `You may use Plutus for any lawful purpose, including personal productivity, professional automation workflows, research, and education. You may integrate Plutus with third-party AI APIs and services as permitted by their respective terms of service.\n\nYou may modify, fork, and redistribute Plutus in accordance with the AGPL-3.0 License, provided that derivative works are also distributed under AGPL-3.0.`,
   },
   {
     title: '5. Prohibited Use',
@@ -41,7 +41,7 @@ const sections = [
   },
   {
     title: '10. Intellectual Property',
-    content: `The Plutus name, logo, and associated branding are the intellectual property of Felix Graef. The Software's source code is licensed under the MIT License as described in Section 3. Nothing in these Terms grants you the right to use the Plutus name or logo in a way that implies endorsement of a derivative product without prior written consent.`,
+    content: `The Plutus name, logo, and associated branding are the intellectual property of Felix Graef. The Software's source code is licensed under the AGPL-3.0 License as described in Section 3. Nothing in these Terms grants you the right to use the Plutus name or logo in a way that implies endorsement of a derivative product without prior written consent.`,
   },
   {
     title: '11. Changes to the Software and Terms',
@@ -142,7 +142,7 @@ export default function TermsOfService() {
             marginBottom: 40,
           }}>
             <p style={{ margin: 0, color: '#c084fc', fontSize: 15, lineHeight: 1.7 }}>
-              <strong style={{ color: '#a855f7' }}>Short version:</strong> Plutus is free, open-source software under the MIT License. Use it responsibly and lawfully. It is provided without warranty — you accept it as-is. Felix Graef is not liable for any damages arising from your use of the software.
+              <strong style={{ color: '#a855f7' }}>Short version:</strong> Plutus is free, open-source software under the AGPL-3.0 License. Use it responsibly and lawfully. It is provided without warranty — you accept it as-is. Felix Graef is not liable for any damages arising from your use of the software.
             </p>
           </div>
 
