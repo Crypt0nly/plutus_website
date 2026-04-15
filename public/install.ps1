@@ -246,6 +246,15 @@ if (-not (Test-Path $workspaceDir)) {
     Write-Host "       Workspace created at $workspaceDir" -ForegroundColor Green
 }
 
+# Stage the branded Plutus shortcut icon so desktop and Start Menu shortcuts
+# use the actual logo instead of the generic script icon.
+$iconPath = Join-Path $plutusDir "plutus-icon.ico"
+try {
+    Invoke-WebRequest -Uri "https://useplutus.ai/plutus-icon.ico" -OutFile $iconPath -UseBasicParsing -ErrorAction Stop | Out-Null
+} catch {
+    Write-Host "       Could not download the custom Plutus icon; using the default shortcut icon." -ForegroundColor Yellow
+}
+
 # Get the full path to the Python executable (so shortcuts work from any context)
 $pythonFullPath = (Get-Command $pythonCmd).Source
 
@@ -300,6 +309,9 @@ try {
     $shortcut.Arguments = "`"$vbsPath`""
     $shortcut.Description = "Launch Plutus AI Agent"
     $shortcut.WorkingDirectory = $plutusDir
+    if (Test-Path $iconPath) {
+        $shortcut.IconLocation = "$iconPath,0"
+    }
     $shortcut.Save()
 
     # Start Menu shortcut
@@ -309,6 +321,9 @@ try {
     $startShortcut.Arguments = "`"$vbsPath`""
     $startShortcut.Description = "Launch Plutus AI Agent"
     $startShortcut.WorkingDirectory = $plutusDir
+    if (Test-Path $iconPath) {
+        $startShortcut.IconLocation = "$iconPath,0"
+    }
     $startShortcut.Save()
 
     $shortcutCreated = $true

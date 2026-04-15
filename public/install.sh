@@ -377,10 +377,15 @@ if [ -n "$_SHELL_RC" ]; then
 fi
 export PATH="$PLUTUS_DIR:$PATH"
 
+ICON_PNG="$PLUTUS_DIR/plutus-icon.png"
+ICON_ICNS="$PLUTUS_DIR/plutus-icon.icns"
+curl -fsSL "https://useplutus.ai/plutus-icon.png" -o "$ICON_PNG" 2>/dev/null || true
+curl -fsSL "https://useplutus.ai/plutus-icon.icns" -o "$ICON_ICNS" 2>/dev/null || true
+
 if [ "$OS" = "Darwin" ]; then
     # ── macOS: create a double-clickable .app bundle ──
     APP_DIR="$HOME/Applications/Plutus.app"
-    mkdir -p "$APP_DIR/Contents/MacOS"
+    mkdir -p "$APP_DIR/Contents/MacOS" "$APP_DIR/Contents/Resources"
     cat > "$APP_DIR/Contents/MacOS/Plutus" << APP_EOF
 #!/bin/bash
 bash "$LAUNCHER"
@@ -396,10 +401,14 @@ APP_EOF
     <key>CFBundleIdentifier</key><string>ai.useplutus.plutus</string>
     <key>CFBundleVersion</key><string>1.0</string>
     <key>CFBundlePackageType</key><string>APPL</string>
+    <key>CFBundleIconFile</key><string>plutus-icon</string>
     <key>LSUIElement</key><true/>
 </dict>
 </plist>
 PLIST_EOF
+    if [ -f "$ICON_ICNS" ]; then
+        cp "$ICON_ICNS" "$APP_DIR/Contents/Resources/plutus-icon.icns"
+    fi
     echo "       Launcher created: ~/Applications/Plutus.app"
 else
     # ── Linux: create a .desktop shortcut ──
@@ -410,6 +419,7 @@ else
 Name=Plutus
 Comment=AI Assistant
 Exec=bash $LAUNCHER
+Icon=$ICON_PNG
 Terminal=false
 Type=Application
 Categories=Utility;
