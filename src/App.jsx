@@ -34,9 +34,9 @@ function HomePage() {
         <Hero />
         <SocialProof />
         <Features />
+        <Install />
         <HowItWorks />
         <Connectors />
-        <Install />
         <FAQ />
         <FinalCTA />
       </main>
