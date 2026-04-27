@@ -51,7 +51,7 @@ export default function Install() {
 
   return (
     <>
-      {showModal && <InstallModal os={os} onClose={() => setShowModal(false)} />}
+      {showModal && <InstallModal os={os === 'windows' ? 'windows' : 'unix'} onClose={() => setShowModal(false)} />}
 
       <section
         id="install"
