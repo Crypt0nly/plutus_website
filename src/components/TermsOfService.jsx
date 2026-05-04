@@ -9,7 +9,7 @@ const sections = [
   },
   {
     title: '2. Description of the Software',
-    content: `Plutus is an open-source AI-powered desktop automation tool that allows users to automate repetitive tasks on their computer using natural language instructions. The Software is developed and maintained by Felix Graef as a personal open-source project.\n\nPlutus is provided free of charge and is not a commercial SaaS product. There are no paid tiers, subscriptions, or service-level agreements unless explicitly stated otherwise.`,
+    content: `Plutus is an AI execution agent available in two modes: Plutus Cloud (a hosted web application) and Plutus Local (an open-source desktop agent). The Software is developed and maintained by Felix Graef.\n\nPlutus Cloud is a hosted service that may offer free and paid tiers. Plutus Local is provided free of charge under the AGPL-3.0 License. Service-level details for Cloud are described in the applicable plan documentation.`,
   },
   {
     title: '3. Open-Source License',
@@ -142,7 +142,7 @@ export default function TermsOfService() {
             marginBottom: 40,
           }}>
             <p style={{ margin: 0, color: '#c084fc', fontSize: 15, lineHeight: 1.7 }}>
-              <strong style={{ color: '#a855f7' }}>Short version:</strong> Plutus is free, open-source software under the AGPL-3.0 License. Use it responsibly and lawfully. It is provided without warranty — you accept it as-is. Felix Graef is not liable for any damages arising from your use of the software.
+              <strong style={{ color: '#a855f7' }}>Short version:</strong> Plutus Cloud is a hosted AI agent service. Plutus Local is free, open-source software under the AGPL-3.0 License. Use both responsibly and lawfully. The software is provided without warranty — you accept it as-is. Felix Graef is not liable for any damages arising from your use.
             </p>
           </div>
 

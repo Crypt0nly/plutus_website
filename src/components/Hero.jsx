@@ -15,12 +15,12 @@ const OS_LABELS = {
 }
 
 const TERMINAL_LINES = [
-  { text: '> launch plutus cloud workspace', delay: 0.2, color: '#a855f7' },
-  { text: '✓ Workspace ready', delay: 0.6, color: '#22c55e' },
-  { text: '✓ Connectors online', delay: 1.0, color: '#22c55e' },
-  { text: '✓ Shared channels listening', delay: 1.4, color: '#22c55e' },
-  { text: '✓ Local mode available anytime', delay: 1.8, color: '#06b6d4' },
-  { text: 'Plutus is ready. What should I get done?', delay: 2.2, color: '#e2e8f0' },
+  { text: '> plutus: research top 5 CRM tools and draft a comparison doc', delay: 0.2, color: '#a855f7' },
+  { text: '✓ Browsing 12 sources...', delay: 0.8, color: '#22c55e' },
+  { text: '✓ Comparison document created', delay: 1.4, color: '#22c55e' },
+  { text: '✓ Sent summary to your Gmail', delay: 1.9, color: '#22c55e' },
+  { text: '✓ Calendar reminder set for follow-up', delay: 2.3, color: '#06b6d4' },
+  { text: 'Done. What else should I handle?', delay: 2.7, color: '#e2e8f0' },
 ]
 
 function detectOS() {
@@ -148,7 +148,7 @@ export default function Hero() {
               flexShrink: 0,
             }}
           />
-          Plutus Cloud is live. Plutus Local stays open source and free.
+          Now with team workspaces, voice mode, and 12+ integrations
         </motion.div>
 
         <motion.h1
@@ -174,7 +174,7 @@ export default function Hero() {
               backgroundClip: 'text',
             }}
           >
-            One AI agent.
+            Stop chatting with AI.
           </span>
           <br />
           <span
@@ -185,7 +185,7 @@ export default function Hero() {
               backgroundClip: 'text',
             }}
           >
-            Two powerful ways to run it.
+            Start delegating to it.
           </span>
         </motion.h1>
 
@@ -204,9 +204,9 @@ export default function Hero() {
             padding: '0 8px',
           }}
         >
-          Start instantly in <strong style={{ color: '#f8fafc' }}>Plutus Cloud</strong> for the
-          fastest path to a working AI workspace, or run <strong style={{ color: '#f8fafc' }}>Plutus Local</strong>{' '}
-          on your own machine when you want maximum control, privacy, and open-source flexibility.
+          Plutus is an AI agent that <strong style={{ color: '#f8fafc' }}>actually does your work</strong> — research,
+          emails, file management, web browsing, coding, and more. It connects to your tools, remembers
+          context, and executes tasks end-to-end. Not another chatbot.
         </motion.p>
 
         <motion.div
@@ -249,7 +249,7 @@ export default function Hero() {
               minWidth: 220,
             }}
           >
-            Start in Cloud
+            Start Free in Cloud
           </a>
           <button
             onClick={() => setShowModal(true)}
@@ -274,7 +274,7 @@ export default function Hero() {
               minWidth: 220,
             }}
           >
-            Download Local
+            Download Local (Free)
           </button>
         </motion.div>
 
@@ -293,9 +293,9 @@ export default function Hero() {
           }}
         >
           {[
-            'Instant cloud onboarding',
-            'Shared connectors and team workflows',
-            'Open-source local edition',
+            'No credit card required',
+            'Works with ChatGPT, Claude & Gemini',
+            'Team workspaces included',
           ].map(item => (
             <span
               key={item}
@@ -370,14 +370,15 @@ export default function Hero() {
               Plutus Cloud
             </h3>
             <p style={{ fontSize: 15, color: '#dbe4f0', lineHeight: 1.7, marginBottom: 18 }}>
-              The fastest route from landing page to working agent. Launch instantly, connect shared
-              tools, and start chatting without worrying about local setup.
+              Sign in and start delegating in under 60 seconds. Your AI workspace with memory,
+              connectors, team collaboration, and voice mode — all hosted.
             </p>
             <div style={{ display: 'grid', gap: 10 }}>
               {[
-                'Best for fastest signup conversion',
-                'Ideal for shared inboxes, connectors, and hosted workflows',
-                'No install friction for new users',
+                'Instant setup — no downloads or config',
+                'Persistent memory that grows with you',
+                'Team workspaces with shared context',
+                '12+ integrations (Gmail, Discord, GitHub...)',
               ].map(item => (
                 <div
                   key={item}
@@ -423,7 +424,7 @@ export default function Hero() {
                 marginBottom: 16,
               }}
             >
-              Power users
+              Open Source
             </div>
             <h3
               style={{
@@ -437,14 +438,15 @@ export default function Hero() {
               Plutus Local
             </h3>
             <p style={{ fontSize: 15, color: '#cbd5e1', lineHeight: 1.7, marginBottom: 18 }}>
-              Keep Plutus on your own machine when control, local workflows, and open-source
-              flexibility matter most.
+              Full AI agent on your own machine. Same power, total privacy. Connect it to Cloud
+              via Bridge when you want the best of both worlds.
             </p>
             <div style={{ display: 'grid', gap: 10, marginBottom: 18 }}>
               {[
-                'Runs on Windows, macOS, and Linux',
-                'Privacy-first local workflow',
-                'Perfect for developers and advanced users',
+                'Windows, macOS, and Linux',
+                '100% private — nothing leaves your machine',
+                'Open-source and free forever',
+                'Bridge to Cloud for remote access',
               ].map(item => (
                 <div
                   key={item}
@@ -521,7 +523,7 @@ export default function Hero() {
                 Prefer local right away?
               </div>
               <div style={{ fontSize: 13, color: '#64748b', marginTop: 4 }}>
-                Copy the install command or open the guided installer.
+                One command. Full agent on your machine in under 2 minutes.
               </div>
             </div>
             <button
@@ -537,7 +539,7 @@ export default function Hero() {
                 fontWeight: 700,
               }}
             >
-              Guided local install
+              Guided install
             </button>
           </div>
           <div
@@ -645,7 +647,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 3, duration: 1 }}
+          transition={{ delay: 3.2, duration: 1 }}
           style={{
             marginTop: 'clamp(28px, 6vw, 58px)',
             display: 'flex',
@@ -656,7 +658,7 @@ export default function Hero() {
             fontSize: 12,
           }}
         >
-          <span>Scroll to compare Cloud and Local</span>
+          <span>See what Plutus can do</span>
           <motion.div
             animate={{ y: [0, 6, 0] }}
             transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}

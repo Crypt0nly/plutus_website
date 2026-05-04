@@ -87,12 +87,12 @@ export default function FinalCTA() {
                   width: 6,
                   height: 6,
                   borderRadius: '50%',
-                  background: '#a855f7',
-                  boxShadow: '0 0 8px #a855f7',
+                  background: '#22c55e',
+                  boxShadow: '0 0 8px #22c55e',
                   display: 'inline-block',
                 }}
               />
-              Cloud for speed. Local for control.
+              Ready when you are
             </div>
 
             <h2
@@ -112,7 +112,7 @@ export default function FinalCTA() {
                   backgroundClip: 'text',
                 }}
               >
-                Pick the Plutus mode that fits today.
+                Your to-do list won't
               </span>
               <br />
               <span
@@ -123,7 +123,7 @@ export default function FinalCTA() {
                   backgroundClip: 'text',
                 }}
               >
-                Start working in minutes.
+                finish itself. Or will it?
               </span>
             </h2>
 
@@ -136,8 +136,9 @@ export default function FinalCTA() {
                 lineHeight: 1.8,
               }}
             >
-              Launch in the cloud if you want the fastest route to a working AI workspace, or grab
-              the local edition if you prefer a self-managed, open-source setup on your own device.
+              Every hour you spend on repetitive work is an hour Plutus could handle for you.
+              Start in the cloud for the fastest path to a working AI workspace, or grab the
+              local edition for full control on your own machine.
             </p>
 
             <div
@@ -175,7 +176,7 @@ export default function FinalCTA() {
                   minWidth: 220,
                 }}
               >
-                Start in Cloud
+                Start Free in Cloud
               </a>
               <button
                 onClick={() => setShowModal(true)}
@@ -199,7 +200,7 @@ export default function FinalCTA() {
                   minWidth: 220,
                 }}
               >
-                Download Local
+                Download Local (Free)
               </button>
             </div>
 
@@ -222,11 +223,11 @@ export default function FinalCTA() {
                 }}
               >
                 <div style={{ fontSize: 12, fontWeight: 700, color: '#d8b4fe', marginBottom: 8 }}>
-                  Start in Cloud
+                  Plutus Cloud
                 </div>
                 <div style={{ fontSize: 14, color: '#f8fafc', lineHeight: 1.7 }}>
-                  Recommended for the fastest signup, instant browser access, and the smoothest path
-                  to a live Plutus workspace.
+                  No credit card. No install. Sign in and start delegating work to your AI agent
+                  in under 60 seconds.
                 </div>
               </div>
               <div
@@ -238,11 +239,11 @@ export default function FinalCTA() {
                 }}
               >
                 <div style={{ fontSize: 12, fontWeight: 700, color: '#67e8f9', marginBottom: 8 }}>
-                  Download Local
+                  Plutus Local
                 </div>
                 <div style={{ fontSize: 14, color: '#cbd5e1', lineHeight: 1.7 }}>
-                  Best for self-managed workflows, local control, and power users who want the
-                  desktop edition on {osLabel}.
+                  Open-source, free forever. Full agent on {osLabel} with total privacy and
+                  offline AI support via Ollama.
                 </div>
               </div>
             </div>
@@ -267,7 +268,7 @@ export default function FinalCTA() {
                   whiteSpace: 'nowrap',
                 }}
               >
-                Prefer local right away?
+                Quick install
               </span>
               <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
             </div>
@@ -324,8 +325,7 @@ export default function FinalCTA() {
             </div>
 
             <p style={{ fontSize: 12, color: '#475569' }}>
-              Start in Cloud for the fastest experience, or run Local on your own machine with the
-              open-source edition.
+              No credit card required. Start delegating in under a minute.
             </p>
           </motion.div>
         </div>

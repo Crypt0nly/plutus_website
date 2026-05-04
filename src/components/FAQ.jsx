@@ -3,32 +3,40 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 const faqs = [
   {
-    q: 'Do I need to be a developer to use Plutus?',
-    a: 'Not at all. Plutus is built for everyone — students, freelancers, small business owners, creators, and yes, developers too. You just describe what you need in everyday language, and Plutus takes care of it. No coding, no technical skills required.',
+    q: 'What makes Plutus different from ChatGPT or other AI chatbots?',
+    a: 'Chatbots give you answers. Plutus gives you results. It doesn\'t just tell you how to send an email — it sends the email. It doesn\'t explain how to organize files — it organizes them. Plutus is an execution agent: it connects to your real tools (Gmail, GitHub, Calendar, etc.), remembers your context, and completes tasks end-to-end without you lifting a finger.',
   },
   {
-    q: 'Is my data private and safe?',
-    a: 'Yes. Everything runs on your own computer. Your files and conversations never leave your machine. There\'s no tracking, no data collection, and nothing stored in the cloud. Your data is yours alone.',
+    q: 'Do I need technical skills to use Plutus?',
+    a: 'Not at all. You interact with Plutus in plain language — just describe what you need done. Whether you\'re a student, freelancer, founder, or developer, Plutus handles the complexity behind the scenes. No coding, no configuration wizards, no learning curve.',
+  },
+  {
+    q: 'What\'s the difference between Plutus Cloud and Plutus Local?',
+    a: 'Plutus Cloud is the hosted version — sign in from any browser and start working instantly. It includes team workspaces, persistent memory, all integrations, and voice mode. Plutus Local is the open-source desktop agent that runs entirely on your machine for maximum privacy. You can even connect both via Bridge: your cloud agent dispatches tasks to your local machine when needed.',
+  },
+  {
+    q: 'Is my data safe?',
+    a: 'In Cloud mode, your data is encrypted at rest, isolated per user via Clerk authentication, and never shared with other users or used for training. In Local mode, nothing ever leaves your machine — period. You choose the privacy level that fits your workflow.',
   },
   {
     q: 'How much does it cost?',
-    a: 'Plutus itself is 100% free and always will be. You only pay for the AI you use — typically a few cents per task through providers like ChatGPT or Claude. You can also choose a completely free AI option that runs offline on your computer.',
+    a: 'Plutus Cloud offers a free tier to get started. Paid plans unlock more workers, memory, and integrations. Plutus Local is 100% free and open-source forever. In both modes, you bring your own AI model key (OpenAI, Claude, Gemini) or use a free local model via Ollama.',
   },
   {
-    q: 'What kinds of things can Plutus do?',
-    a: 'Almost anything you\'d normally do on a computer. Write emails, organize files, do research, create documents and spreadsheets, build websites, browse the web, and much more. The key difference from a chatbot? Plutus actually does the work for you instead of just telling you how. And if it runs into something new, it figures it out on its own.',
+    q: 'What can Plutus actually do?',
+    a: 'Research topics across the web, draft and send emails, manage files and folders, browse websites autonomously, write and edit code, create documents and spreadsheets, schedule calendar events, monitor GitHub repos, post to Discord/Telegram, organize your Google Drive, run shell commands, and much more. If you can do it on a computer, Plutus can probably do it for you.',
   },
   {
-    q: 'Do I need to install anything complicated?',
-    a: 'No. Just click the download button and follow three simple steps. No complicated setup, no technical knowledge needed. Plutus installs itself and opens right in your browser, ready to use.',
+    q: 'Can my team use Plutus together?',
+    a: 'Yes. Plutus Cloud supports full team workspaces — create an organization, invite members, assign roles, and share context. Organization-wide memory means your team\'s AI agent knows your company\'s processes, preferences, and history. Teams within orgs let you scope access and context further.',
   },
   {
-    q: 'Which AI models can I use?',
-    a: 'Plutus works with all the popular AI services: ChatGPT, Claude, Gemini, and even free offline AI. You pick which one you like best — the AI does the thinking, and Plutus does the doing. You can switch anytime.',
+    q: 'Which AI models does Plutus support?',
+    a: 'Plutus works with OpenAI (GPT-4, GPT-4o), Anthropic (Claude 3.5, Claude 4), Google (Gemini), DeepSeek, and any model you can run locally via Ollama. You can switch models anytime or let Plutus route to the best model per task automatically.',
   },
   {
-    q: 'Is it really free and open source?',
-    a: 'Yes — the code is fully public and free to use. There\'s no hidden subscription, no premium tier, no catch. Anyone can look at exactly how Plutus works.',
+    q: 'What integrations are available?',
+    a: 'Gmail, Discord, Telegram, WhatsApp, GitHub, Google Calendar, Google Drive, Vercel, Netlify, and custom API connectors. More are added regularly. Each connector lets Plutus act inside that service — not just read from it, but send messages, create issues, schedule events, and deploy code.',
   },
 ]
 

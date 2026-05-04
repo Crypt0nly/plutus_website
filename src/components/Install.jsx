@@ -187,15 +187,14 @@ export default function Install() {
                 Plutus Cloud
               </h3>
               <p style={{ color: '#e2e8f0', fontSize: 15, lineHeight: 1.8, marginBottom: 22 }}>
-                Start instantly in your browser, connect your tools, and move straight into real AI
-                workflows without any device setup or install friction.
+                Sign in from any browser and start delegating real work to your AI agent. Persistent memory, 12+ integrations, team workspaces, voice mode, and parallel workers — all hosted.
               </p>
 
               <div style={{ display: 'grid', gap: 12, marginBottom: 26 }}>
                 {[
-                  'Fastest path from homepage to active workspace',
-                  'Best choice for hosted connectors, shared channels, and team use',
-                  'Perfect for customers who want speed and simplicity',
+                  'Sign in and start delegating work in under 60 seconds',
+                  'Memory, connectors, team workspaces, and voice mode included',
+                  '12+ integrations: Gmail, Discord, GitHub, Calendar, and more',
                 ].map(item => (
                   <div
                     key={item}
@@ -302,8 +301,7 @@ export default function Install() {
                 Plutus Local
               </h3>
               <p style={{ color: '#cbd5e1', fontSize: 15, lineHeight: 1.8, marginBottom: 22 }}>
-                Download the open-source desktop edition when you want Plutus running on your own
-                machine with a self-managed workflow.
+                Same powerful AI agent, running entirely on your machine. Total privacy, offline AI support, and Bridge connectivity to Cloud when you need remote access.
               </p>
 
               <div
@@ -522,9 +520,9 @@ export default function Install() {
                 }}
               >
                 {[
-                  'Ideal for developers, privacy-first users, and self-hosted workflows',
-                  'Open-source codebase with a lighter desktop footprint',
-                  'Great fallback option for users who prefer running everything locally',
+                  'Full AI agent on your machine — total privacy, nothing leaves your device',
+                  'Open-source and free forever, with offline AI via Ollama',
+                  'Connect to Cloud via Bridge for remote access when needed',
                 ].map(item => (
                   <div key={item} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
                     <span style={{ color: '#06b6d4', fontWeight: 800 }}>•</span>
@@ -546,8 +544,7 @@ export default function Install() {
               color: '#475569',
             }}
           >
-            Cloud for fastest onboarding. Local for maximum control. Both are part of the same
-            Plutus product.
+            Cloud for speed and collaboration. Local for privacy and control. Same Plutus agent, your choice of deployment.
           </motion.p>
         </div>
       </section>

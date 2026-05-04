@@ -3,9 +3,9 @@ import { motion } from 'framer-motion'
 const steps = [
   {
     number: '1',
-    label: 'Choose your path',
-    title: 'Start in Cloud or run Local',
-    desc: 'Plutus gives you two ways to begin. Start instantly in the cloud for the fastest onboarding, or download the local edition when you want full control on your own machine.',
+    label: 'Sign up in seconds',
+    title: 'Create your workspace — cloud or local',
+    desc: 'Start in the cloud with one click (no install, no config), or download the local agent for full privacy. Either way, you\'re up and running in under a minute.',
     visual: (
       <div
         style={{
@@ -25,10 +25,10 @@ const steps = [
           }}
         >
           <div style={{ fontSize: 12, fontWeight: 700, color: '#d8b4fe', marginBottom: 6 }}>
-            Plutus Cloud
+            Cloud (Recommended)
           </div>
           <div style={{ fontSize: 13, color: '#e2e8f0', lineHeight: 1.6 }}>
-            Browser-based setup with the shortest path to a working agent.
+            Instant browser access. Memory, connectors, and team workspaces included.
           </div>
         </div>
         <div
@@ -40,10 +40,10 @@ const steps = [
           }}
         >
           <div style={{ fontSize: 12, fontWeight: 700, color: '#67e8f9', marginBottom: 6 }}>
-            Plutus Local
+            Local (Open Source)
           </div>
           <div style={{ fontSize: 13, color: '#cbd5e1', lineHeight: 1.6 }}>
-            Downloadable desktop workflow for control, privacy, and open-source flexibility.
+            Full agent on your machine. Total privacy. Free forever.
           </div>
         </div>
       </div>
@@ -52,26 +52,26 @@ const steps = [
   },
   {
     number: '2',
-    label: 'Connect your stack',
-    title: 'Bring your models, tools, and channels',
-    desc: 'Connect Plutus to the AI models and workflows you already use. The same product philosophy applies across both modes: Plutus should plug into the tools that matter to your work.',
+    label: 'Connect your tools',
+    title: 'Plug in the services you already use',
+    desc: 'Link Gmail, Discord, Telegram, GitHub, Google Calendar, and more. Plutus works inside your tools — sending emails, managing repos, scheduling meetings — without you switching tabs.',
     visual: (
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', maxWidth: 520 }}>
-        {['OpenAI', 'Claude', 'Gemini', 'WhatsApp', 'Gmail', 'GitHub'].map((name, index) => (
+        {['Gmail', 'Discord', 'Telegram', 'GitHub', 'Google Calendar', 'WhatsApp', 'Google Drive'].map((name, index) => (
           <span
             key={name}
             style={{
               padding: '7px 14px',
               background:
-                index < 3 ? 'rgba(6,182,212,0.08)' : 'rgba(255,255,255,0.04)',
+                index < 4 ? 'rgba(6,182,212,0.08)' : 'rgba(255,255,255,0.04)',
               border:
-                index < 3
+                index < 4
                   ? '1px solid rgba(6,182,212,0.2)'
                   : '1px solid rgba(255,255,255,0.1)',
               borderRadius: 999,
               fontSize: 13,
               fontWeight: 600,
-              color: index < 3 ? '#67e8f9' : '#94a3b8',
+              color: index < 4 ? '#67e8f9' : '#94a3b8',
             }}
           >
             {name}
@@ -83,9 +83,9 @@ const steps = [
   },
   {
     number: '3',
-    label: 'Get work done',
-    title: 'Give Plutus a task and let it execute',
-    desc: 'Once your workspace is ready, Plutus moves from chat into action. Ask it to research, draft, organize, route, or follow through on the work that normally eats up your time.',
+    label: 'Delegate and done',
+    title: 'Tell Plutus what to do — it handles the rest',
+    desc: 'Give it a task in plain language. Plutus researches, writes, organizes, sends, schedules, and follows up. It remembers context from last time and gets better with every interaction.',
     visual: (
       <div
         style={{
@@ -101,9 +101,10 @@ const steps = [
         }}
       >
         {[
-          'Summarize these leads and draft follow-ups',
-          'Research the best providers and give me a recommendation',
-          'Organize my files and send me the finished result',
+          'Research competitors and draft a strategy memo',
+          'Send follow-up emails to everyone from yesterday\'s meeting',
+          'Monitor this GitHub repo and alert me on new issues',
+          'Organize my Drive folder and summarize key docs',
         ].map(example => (
           <div
             key={example}
@@ -179,7 +180,7 @@ export default function HowItWorks() {
               marginBottom: 16,
             }}
           >
-            Three steps to a working{' '}
+            From zero to{' '}
             <span
               style={{
                 background: 'linear-gradient(135deg, #06b6d4, #a855f7)',
@@ -188,8 +189,9 @@ export default function HowItWorks() {
                 backgroundClip: 'text',
               }}
             >
-              Plutus workflow
-            </span>
+              done
+            </span>{' '}
+            in three steps
           </h2>
           <p
             style={{
@@ -200,8 +202,8 @@ export default function HowItWorks() {
               lineHeight: 1.8,
             }}
           >
-            The cloud path is the fastest route for most buyers. The local path stays available for
-            users who want self-managed execution on their own machine.
+            No complicated setup. No learning curve. Sign up, connect your tools, and start
+            delegating work to your AI agent immediately.
           </p>
         </motion.div>
 
@@ -305,7 +307,7 @@ export default function HowItWorks() {
             gap: 'clamp(12px, 3vw, 24px)',
           }}
         >
-          {['Cloud for speed', 'Local for control', 'One Plutus experience'].map(text => (
+          {['Executes real tasks', 'Remembers everything', 'Gets smarter over time'].map(text => (
             <div
               key={text}
               style={{

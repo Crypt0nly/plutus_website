@@ -1,54 +1,54 @@
 import { motion } from 'framer-motion'
 import {
-  IconKey,
-  IconBrandOpenSource,
-  IconCpu,
   IconRocket,
   IconBrain,
-  IconDevices,
+  IconUsers,
+  IconPlugConnected,
+  IconMicrophone,
+  IconArrowsExchange,
 } from '@tabler/icons-react'
 
 const features = [
   {
     icon: <IconRocket size={24} />,
-    title: 'Start Instantly in Cloud',
+    title: 'Executes, Not Just Answers',
     description:
-      'Open a browser, sign in, and start using Plutus immediately. Cloud is the fastest path from curiosity to a working AI workflow.',
+      'Plutus doesn\'t just tell you how to do something — it does it. Research, write documents, send emails, organize files, browse the web, and manage your calendar. End-to-end task completion.',
     color: '#a855f7',
   },
   {
-    icon: <IconDevices size={24} />,
-    title: 'Run Local When You Need Control',
+    icon: <IconBrain size={24} />,
+    title: 'Persistent Memory & Skills',
     description:
-      'Prefer to keep Plutus on your own machine? The local edition stays available for Windows, macOS, and Linux with a lightweight setup flow.',
+      'Plutus remembers everything — your preferences, past conversations, and context. It builds reusable skills over time, getting smarter and faster the more you use it.',
     color: '#06b6d4',
   },
   {
-    icon: <IconCpu size={24} />,
-    title: 'Bring Your Own AI',
+    icon: <IconUsers size={24} />,
+    title: 'Team Workspaces',
     description:
-      'Use Plutus with ChatGPT, Claude, Gemini, or other models. Plutus is the execution layer that turns model output into completed work.',
-    color: '#f59e0b',
-  },
-  {
-    icon: <IconBrain size={24} />,
-    title: 'Actions, Not Empty Answers',
-    description:
-      'Plutus researches, writes, organizes, routes, and delivers results. It is designed to finish tasks, not just continue conversations.',
+      'Create organizations, build teams, and share context. Org-wide memory, team intelligence, and role-based access let your whole team delegate to the same AI agent.',
     color: '#22c55e',
   },
   {
-    icon: <IconKey size={24} />,
-    title: 'Secure by Design',
+    icon: <IconPlugConnected size={24} />,
+    title: '12+ Integrations',
     description:
-      'Choose the hosted convenience of cloud or the tighter control of local. Either way, the product is built around practical operational trust.',
+      'Connect Gmail, Discord, Telegram, WhatsApp, GitHub, Google Calendar, Google Drive, Vercel, and more. Plutus works inside your existing tools — not alongside them.',
+    color: '#f59e0b',
+  },
+  {
+    icon: <IconMicrophone size={24} />,
+    title: 'Voice Mode',
+    description:
+      'Talk to Plutus and it talks back — while executing tools in real time. Hands-free task delegation with the same full execution power as text mode.',
     color: '#ec4899',
   },
   {
-    icon: <IconBrandOpenSource size={24} />,
-    title: 'Open-Source Local Foundation',
+    icon: <IconArrowsExchange size={24} />,
+    title: 'Cloud + Local Bridge',
     description:
-      'Plutus Local remains open source and free forever, giving developers and privacy-first users a transparent version they can inspect and run themselves.',
+      'Run in the cloud for instant access, or locally for total privacy. The Bridge connects both: your cloud agent can execute tasks on your local machine when needed.',
     color: '#8b5cf6',
   },
 ]
@@ -74,7 +74,7 @@ export default function Features() {
               marginBottom: 12,
             }}
           >
-            Why Plutus
+            Capabilities
           </p>
           <h2
             style={{
@@ -84,12 +84,12 @@ export default function Features() {
               marginBottom: 12,
             }}
           >
-            A real execution layer for{' '}
-            <span className="gradient-text">modern AI work.</span>
+            An AI that works{' '}
+            <span className="gradient-text">as hard as you do.</span>
           </h2>
           <p style={{ fontSize: 16, color: '#55556a', maxWidth: 640, margin: '0 auto' }}>
-            Plutus gives you one product with two deployment paths: hosted speed in the cloud, or
-            local control on your own machine.
+            Other tools give you answers. Plutus gives you results. It connects to your stack,
+            remembers your context, and finishes the job.
           </p>
         </motion.div>
 

@@ -5,42 +5,46 @@ import Footer from './Footer'
 const sections = [
   {
     title: '1. Overview',
-    content: `Plutus is a free, open-source AI desktop automation tool built by Felix Graef and released under the AGPL-3.0 License. This Privacy Policy explains how Plutus handles information when you use the application or visit this website. Because Plutus runs locally on your machine, your data never leaves your device by default.`,
+    content: `Plutus is an AI execution agent available in two modes: Plutus Cloud (a hosted web application at app.useplutus.ai) and Plutus Local (an open-source desktop agent). This Privacy Policy explains how each mode handles your information. Your privacy model depends on which mode you use.`,
   },
   {
-    title: '2. Information We Collect',
-    content: `Plutus itself collects no personal information. The application runs entirely on your local machine and does not transmit usage data, telemetry, or personal identifiers to any remote server operated by this project.\n\nThis website (plutus-website) may collect standard web server logs (IP address, browser type, referring URL, pages visited, timestamp) solely for operational and security purposes. No tracking pixels, advertising networks, or cross-site identifiers are used.`,
+    title: '2. Plutus Cloud — Data We Collect',
+    content: `When you use Plutus Cloud, we collect and store the following to provide the service:\n\n• Account information (email, name) via Clerk authentication\n• Conversation history and messages\n• Agent memory (facts, preferences, context you provide)\n• Skills and scheduled tasks you create\n• Connector configurations (e.g., which integrations you enable)\n• Organization and team membership data\n\nThis data is stored in encrypted PostgreSQL databases with per-user isolation. Your data is never shared with other users, used for AI model training, or sold to third parties.`,
   },
   {
-    title: '3. How the Application Uses Data',
-    content: `When you use Plutus to automate desktop tasks, the application may process screen content, keystrokes, file paths, and application state locally on your device in order to execute automation workflows. This data is processed in memory and is not stored permanently unless you explicitly save a workflow or log file to disk yourself.\n\nAny integration with third-party AI providers (such as OpenAI or Anthropic APIs) is configured and initiated solely by you. API keys and request payloads are transmitted directly from your machine to the chosen provider under that provider's privacy policy — Felix Graef and the Plutus project have no access to this data.`,
+    title: '3. Plutus Local — Data Handling',
+    content: `When you use Plutus Local, all data remains on your machine. Conversations, memory, skills, and files are stored in a local SQLite database. Nothing is transmitted to our servers unless you explicitly enable Cloud Sync via the Bridge feature.\n\nIf you enable Bridge connectivity, only the data you choose to sync (memory, skills, tasks) is transmitted to Plutus Cloud servers over encrypted WebSocket connections.`,
   },
   {
-    title: '4. Third-Party Services',
-    content: `Plutus may optionally connect to external AI APIs (e.g., OpenAI, Anthropic, Ollama) as configured by you. Each of these services has its own privacy policy and data-handling practices. We encourage you to review the policies of any third-party service you choose to integrate.\n\nThis website is hosted on third-party infrastructure. Standard hosting provider logs may apply.`,
+    title: '4. Third-Party AI Providers',
+    content: `Both modes connect to third-party AI APIs (OpenAI, Anthropic, Google, etc.) as configured by you. Your prompts and conversations are sent directly to these providers under their respective privacy policies. In Cloud mode, API calls are made from our servers. In Local mode, API calls are made directly from your machine.\n\nWe encourage you to review the privacy policies of any AI provider you choose to use.`,
   },
   {
-    title: '5. Open-Source Transparency',
-    content: `Plutus is fully open source under the AGPL-3.0 License. The complete source code is publicly available on GitHub at github.com/Crypt0nly/plutus. You are welcome to inspect, audit, fork, and modify the code at any time. This transparency is our strongest privacy guarantee.`,
+    title: '5. Integrations and Connectors',
+    content: `When you connect third-party services (Gmail, Discord, GitHub, etc.), Plutus accesses those services on your behalf using OAuth tokens or API keys you provide. We store these credentials securely and use them only to execute tasks you request. You can revoke access at any time from your connector settings.`,
   },
   {
-    title: '6. Data Retention',
-    content: `Because Plutus operates locally, any retention of data is entirely within your control. Workflow files, logs, or automation scripts stored on disk can be deleted by you at any time. Felix Graef and the Plutus project retain no copies of your local data.`,
+    title: '6. Open-Source Transparency',
+    content: `Plutus Local is fully open source under the AGPL-3.0 License. The source code is publicly available on GitHub at github.com/Crypt0nly/plutus. You are welcome to inspect, audit, fork, and modify the code at any time.`,
   },
   {
-    title: '7. Children\'s Privacy',
-    content: `Plutus is not directed at children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has provided personal information through this website, please contact us so we can take appropriate action.`,
+    title: '7. Data Retention and Deletion',
+    content: `In Cloud mode, your data is retained as long as your account is active. You can delete conversations, memories, and skills at any time from the dashboard. Account deletion removes all associated data.\n\nIn Local mode, data retention is entirely within your control. Delete your local database files at any time.`,
   },
   {
-    title: '8. Security',
-    content: `We take reasonable precautions to protect this website from unauthorized access. However, no method of transmission over the internet is 100% secure. For the application itself, security is a shared responsibility — keep your operating system, dependencies, and API keys secure.`,
+    title: '8. Children\'s Privacy',
+    content: `Plutus is not directed at children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has provided personal information, please contact us so we can take appropriate action.`,
   },
   {
-    title: '9. Changes to This Policy',
+    title: '9. Security',
+    content: `Plutus Cloud uses industry-standard security measures including encrypted data at rest, TLS for data in transit, per-user data isolation via Clerk authentication, and regular security reviews. However, no method of transmission over the internet is 100% secure.\n\nFor Plutus Local, security is a shared responsibility — keep your operating system, dependencies, and API keys secure.`,
+  },
+  {
+    title: '10. Changes to This Policy',
     content: `We may update this Privacy Policy from time to time. Changes will be reflected on this page with an updated effective date. Continued use of Plutus or this website after changes constitutes acceptance of the revised policy.`,
   },
   {
-    title: '10. Contact',
+    title: '11. Contact',
     content: `If you have questions about this Privacy Policy, please open an issue on the GitHub repository at github.com/Crypt0nly/plutus or contact Felix Graef directly through GitHub.`,
   },
 ]
@@ -130,7 +134,7 @@ export default function PrivacyPolicy() {
             marginBottom: 40,
           }}>
             <p style={{ margin: 0, color: '#c084fc', fontSize: 15, lineHeight: 1.7 }}>
-              <strong style={{ color: '#a855f7' }}>Short version:</strong> Plutus runs entirely on your device. We do not collect, store, or sell your personal data. The source code is fully open and auditable on GitHub.
+              <strong style={{ color: '#a855f7' }}>Short version:</strong> Plutus Cloud stores your data securely with per-user encryption and never shares it. Plutus Local keeps everything on your device. In both modes, your data is never sold or used for AI training. The local edition is fully open-source and auditable on GitHub.
             </p>
           </div>
 

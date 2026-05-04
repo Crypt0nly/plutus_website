@@ -1,16 +1,17 @@
 import { motion } from 'framer-motion'
 
 const stats = [
+  { value: '12+', label: 'Integrations', icon: '🔗' },
   { value: '3', label: 'Platforms', icon: '💻' },
-  { value: 'Free', label: 'Forever', icon: '📜' },
-  { value: '100%', label: 'Private', icon: '🔒' },
+  { value: '∞', label: 'Memory', icon: '🧠' },
 ]
 
 const providers = [
-  { name: 'Anthropic', color: '#d97706' },
   { name: 'OpenAI', color: '#22c55e' },
-  { name: 'Ollama', color: '#06b6d4' },
+  { name: 'Claude', color: '#d97706' },
   { name: 'Gemini', color: '#a855f7' },
+  { name: 'Ollama', color: '#06b6d4' },
+  { name: 'DeepSeek', color: '#3b82f6' },
 ]
 
 export default function SocialProof() {
@@ -48,7 +49,7 @@ export default function SocialProof() {
         {/* Provider logos */}
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: 11, color: '#334155', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: 12 }}>
-            Works with the best AI models
+            Works with every major AI model
           </div>
           <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
             {providers.map((p, i) => (
@@ -59,7 +60,7 @@ export default function SocialProof() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.06 }}
                 style={{
-                  background: `rgba(${p.color === '#d97706' ? '217,119,6' : p.color === '#22c55e' ? '34,197,94' : p.color === '#06b6d4' ? '6,182,212' : '168,85,247'},0.08)`,
+                  background: `rgba(${p.color === '#d97706' ? '217,119,6' : p.color === '#22c55e' ? '34,197,94' : p.color === '#06b6d4' ? '6,182,212' : p.color === '#3b82f6' ? '59,130,246' : '168,85,247'},0.08)`,
                   border: `1px solid ${p.color}22`,
                   color: p.color,
                   padding: '5px 14px',
