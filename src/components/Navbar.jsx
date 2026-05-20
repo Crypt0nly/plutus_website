@@ -3,14 +3,13 @@ import { Link, NavLink } from 'react-router-dom'
 import { IconMenu2, IconX } from '@tabler/icons-react'
 
 const CLOUD_URL = 'https://app.useplutus.ai'
-const GITHUB_URL = 'https://github.com/Crypt0nly/plutus'
 
 const links = [
-  { label: 'Platform', to: '/platform' },
-  { label: 'Solutions', to: '/solutions' },
+  { label: 'How it works', to: '/platform' },
+  { label: 'Use cases', to: '/solutions' },
   { label: 'Enterprise', to: '/enterprise' },
   { label: 'Pricing', to: '/pricing' },
-  { label: 'Resources', to: '/resources' },
+  { label: 'Learn', to: '/resources' },
 ]
 
 export default function Navbar() {
@@ -48,8 +47,8 @@ export default function Navbar() {
         </nav>
 
         <div className="nav-actions desktop-nav">
-          <a href={GITHUB_URL} className="nav-secondary">GitHub</a>
-          <a href={CLOUD_URL} className="nav-primary">Start in Cloud</a>
+          <Link to="/solutions" className="nav-secondary">See examples</Link>
+          <a href={CLOUD_URL} className="nav-primary">Start free</a>
         </div>
 
         <button className="mobile-menu-btn" aria-label="Toggle navigation menu" onClick={() => setMenuOpen(value => !value)}>
@@ -67,8 +66,8 @@ export default function Navbar() {
             ))}
           </nav>
           <div className="mobile-actions">
-            <a href={CLOUD_URL} className="btn btn-primary" onClick={() => setMenuOpen(false)}>Start in Cloud</a>
-            <a href={GITHUB_URL} className="btn btn-secondary" onClick={() => setMenuOpen(false)}>View GitHub</a>
+            <a href={CLOUD_URL} className="btn btn-primary" onClick={() => setMenuOpen(false)}>Start free</a>
+            <Link to="/solutions" className="btn btn-secondary" onClick={() => setMenuOpen(false)}>See examples</Link>
           </div>
         </div>
       )}

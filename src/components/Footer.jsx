@@ -4,8 +4,8 @@ const columns = [
   {
     title: 'Product',
     links: [
-      { label: 'Platform', to: '/platform' },
-      { label: 'Solutions', to: '/solutions' },
+      { label: 'How it works', to: '/platform' },
+      { label: 'Use cases', to: '/solutions' },
       { label: 'Enterprise', to: '/enterprise' },
       { label: 'Pricing', to: '/pricing' },
     ],
@@ -13,10 +13,10 @@ const columns = [
   {
     title: 'Resources',
     links: [
-      { label: 'Resources', to: '/resources' },
-      { label: 'Plutus Local', href: 'https://github.com/Crypt0nly/plutus' },
-      { label: 'Plutus Cloud', href: 'https://github.com/Crypt0nly/plutus-cloud' },
-      { label: 'Launch Cloud', href: 'https://app.useplutus.ai' },
+      { label: 'Learn', to: '/resources' },
+      { label: 'Local privacy option', href: 'https://github.com/Crypt0nly/plutus' },
+      { label: 'Technical repositories', href: 'https://github.com/Crypt0nly/plutus-cloud' },
+      { label: 'Start free in Cloud', href: 'https://app.useplutus.ai' },
     ],
   },
   {
@@ -44,8 +44,8 @@ export default function Footer() {
             <img src="/logo.svg" alt="Plutus" />
             <span>Plutus</span>
           </Link>
-          <p>The enterprise AI agent platform for cloud workspaces, local computer control, memory, connectors, workflows, and governed execution.</p>
-          <span className="license">AGPL-3.0 local agent · Hosted cloud platform</span>
+          <p>Plutus is an AI work assistant that helps teams turn everyday requests into finished research, drafts, files, follow-ups, creative assets, and recurring routines.</p>
+          <span className="license">Plain-language cloud workspace · Optional local privacy path</span>
         </div>
 
         <div className="footer-columns">
@@ -59,7 +59,7 @@ export default function Footer() {
       </div>
       <div className="section-container footer-bottom">
         <span>© {new Date().getFullYear()} Plutus. Built by Felix Graef.</span>
-        <span>Designed for operators who need AI to finish the job.</span>
+        <span>Designed for teams that want AI to finish the busywork.</span>
       </div>
     </footer>
   )

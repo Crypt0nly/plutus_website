@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Link, Routes, Route } from 'react-router-dom'
 import {
   IconArrowRight,
   IconBrain,
@@ -39,134 +39,134 @@ const cloudRepoUrl = 'https://github.com/Crypt0nly/plutus-cloud'
 const capabilityPillars = [
   {
     icon: IconTerminal2,
-    title: 'Autonomous execution',
-    text: 'Delegate real work across files, shell commands, codebases, browsers, APIs, and cloud workspaces instead of stopping at advice.',
+    title: 'Finished work, not more instructions',
+    text: 'Ask for an outcome in normal language and Plutus can research, write, organize, create, and follow through across your everyday tools.',
   },
   {
     icon: IconBrain,
-    title: 'Persistent memory and skills',
-    text: 'Plutus remembers context, preferences, workflows, contacts, reusable skills, and the assets created during previous sessions.',
+    title: 'Remembers how you work',
+    text: 'Your preferences, contacts, past projects, reusable steps, and saved files stay available, so you do not have to explain everything again.',
   },
   {
     icon: IconPlugConnected,
-    title: 'Connected operating layer',
-    text: 'Connect GitHub, Gmail, Discord, Telegram, calendars, custom APIs, MCP servers, and your local machine through Bridge.',
+    title: 'Works inside the tools you already use',
+    text: 'Bring Plutus into email, calendars, chat, files, websites, business apps, and private computer tasks without forcing your team into a new workflow.',
   },
   {
     icon: IconShieldCheck,
-    title: 'Governed by design',
-    text: 'Guardrails, approvals, audit-friendly execution, organizations, and workspace controls make powerful automation usable in teams.',
+    title: 'People stay in control',
+    text: 'Approvals, team spaces, shared context, and clear activity trails help teams delegate confidently without giving up oversight.',
   },
 ]
 
 const proofStats = [
-  ['Cloud + local', 'Use the browser, private desktop agent, or both through Bridge.'],
-  ['40+ tools', 'Filesystem, shell, browser, GitHub, email, workflows, media assets, and more.'],
-  ['Always-on', 'Run scheduled tasks, reusable workflows, and persistent workspace automations.'],
-  ['Team ready', 'Organizations, shared context, contact history, feedback loops, and governance.'],
+  ['Start without setup', 'Open Plutus in a browser and describe the work in plain language.'],
+  ['Handles busywork', 'Research, writing, email drafts, files, calendars, websites, and creative assets.'],
+  ['Remembers context', 'Keep projects, preferences, contacts, and reusable routines in one workspace.'],
+  ['Team ready', 'Invite people, share knowledge, review work, and keep control over what gets done.'],
 ]
 
 const platformLayers = [
   {
     icon: IconCloud,
     title: 'Plutus Cloud',
-    description: 'A managed web workspace for chat, voice, tools, connectors, memory, organizations, workflows, scheduled tasks, and workspace assets.',
+    description: 'The easiest way to start: sign in from any browser, talk or type what you need, and let Plutus prepare work your team can use.',
   },
   {
     icon: IconDeviceDesktop,
     title: 'Local Bridge',
-    description: 'A secure bridge daemon lets the cloud agent execute approved tasks on your machine, including shell commands, file actions, app launching, and sync.',
+    description: 'When a task needs your private computer, Bridge lets Plutus complete approved work locally while you keep control of access.',
   },
   {
     icon: IconDatabase,
     title: 'Persistent context',
-    description: 'Memory, skills, tasks, contacts, generated files, and conversation history stay available so Plutus improves with every interaction.',
+    description: 'Plutus keeps the important details from projects, people, files, and past conversations so each new request starts with context.',
   },
   {
     icon: IconRoute,
     title: 'Workflow engine',
-    description: 'Turn repeatable work into durable workflows with agent steps, tool actions, notifications, approvals, handoffs, and auditable runs.',
+    description: 'Turn repeated routines into guided workflows with reminders, handoffs, approvals, saved outputs, and clear status updates.',
   },
 ]
 
 const toolGroups = [
   {
-    title: 'Engineering and code',
-    tools: ['Shell execution', 'File editing', 'Code analysis', 'GitHub automation', 'Dynamic tool creation'],
+    title: 'Everyday office work',
+    tools: ['Research summaries', 'Documents', 'Email drafts', 'Calendar help', 'File organization'],
   },
   {
-    title: 'Operations and research',
-    tools: ['Browser automation', 'Web research', 'Document drafting', 'Data processing', 'Scheduled reports'],
+    title: 'Business operations',
+    tools: ['Website research', 'Report preparation', 'Data cleanup', 'Recurring checklists', 'Status updates'],
   },
   {
-    title: 'Communication',
-    tools: ['Email intelligence', 'Contacts', 'Calendar actions', 'Discord and Telegram', 'Custom APIs'],
+    title: 'Customer and team communication',
+    tools: ['Inbox context', 'Follow-up drafts', 'Contact notes', 'Team chat', 'Connected apps'],
   },
   {
-    title: 'Creative assets',
-    tools: ['AI image generation', 'Saved workspace files', 'Website-ready assets', 'File delivery', 'Reusable outputs'],
+    title: 'Creative and technical support',
+    tools: ['Image generation', 'Website assets', 'Code assistance', 'GitHub work', 'Reusable files'],
   },
 ]
 
 const solutions = [
   {
     icon: IconCode,
-    title: 'Engineering teams',
-    text: 'Ship faster by letting Plutus inspect repositories, edit files, run commands, create tools, summarize diffs, and coordinate coding workflows.',
-    outcomes: ['Repository-aware task execution', 'GitHub and shell automation', 'Worker-style task delegation'],
+    title: 'Founders and managers',
+    text: 'Turn vague ideas into finished briefs, plans, launch assets, competitor research, and follow-up drafts without coordinating five different tools.',
+    outcomes: ['Project briefs and launch plans', 'Market and competitor summaries', 'Reusable team context'],
   },
   {
     icon: IconClipboardCheck,
-    title: 'Operations teams',
-    text: 'Automate recurring operational tasks, generate reports, monitor workflows, and connect internal tools without building a custom automation stack.',
-    outcomes: ['Scheduled task execution', 'Connector-driven workflows', 'Approval checkpoints'],
+    title: 'Operations and admin teams',
+    text: 'Let Plutus handle repeatable checklists, reports, file cleanup, information gathering, and handoffs so people spend less time on manual coordination.',
+    outcomes: ['Recurring reports and reminders', 'Organized files and records', 'Approval checkpoints'],
   },
   {
     icon: IconMail,
-    title: 'Sales and support',
-    text: 'Use contact history and connected inboxes to draft responses, classify intent, follow up, and keep customer context available across channels.',
-    outcomes: ['Contact-aware email handling', 'Draft-first support flows', 'Multi-channel context'],
+    title: 'Sales and customer teams',
+    text: 'Keep track of customer context, draft thoughtful replies, prepare follow-ups, and summarize conversations before the next meeting or support handoff.',
+    outcomes: ['Customer-aware email drafts', 'Follow-up reminders', 'Multi-channel context'],
   },
   {
     icon: IconBrowserCheck,
-    title: 'Research and strategy',
-    text: 'Ask Plutus to gather information, browse sources, compare options, build documents, analyze data, and turn outputs into reusable workspace files.',
-    outcomes: ['Browser-backed research', 'Document creation', 'Workspace knowledge reuse'],
+    title: 'Research, product, and engineering',
+    text: 'From customer research to product specs and code tasks, Plutus can collect context, prepare documents, create assets, and support technical execution when needed.',
+    outcomes: ['Research and decision memos', 'Product-ready documents', 'Optional code and GitHub support'],
   },
 ]
 
 const enterpriseControls = [
-  ['Identity and tenancy', 'Clerk-based authentication, organization views, member management, and isolated user workspaces.'],
-  ['Execution guardrails', 'Permission tiers, approval flows, audit-friendly tool events, and local-vs-cloud execution boundaries.'],
-  ['Deployment flexibility', 'Run fully managed in the cloud, operate locally, or combine both with Bridge for private machine access.'],
-  ['Integration strategy', 'Native connectors plus Custom API and MCP support for enterprise systems that do not fit a standard SaaS mold.'],
+  ['Simple team access', 'Invite members, separate workspaces, manage organizations, and keep each team’s context organized.'],
+  ['Human approval points', 'Choose what Plutus can do on its own, what needs review, and where sensitive work should run.'],
+  ['Flexible privacy choices', 'Use the hosted workspace, keep sensitive tasks local, or combine both depending on how your business works.'],
+  ['Fits existing systems', 'Connect common tools now and extend Plutus to the internal apps and processes your team depends on.'],
 ]
 
 const pricingPlans = [
   {
     name: 'Starter',
-    audience: 'For individuals evaluating autonomous work.',
+    audience: 'For anyone who wants to remove repetitive work from their day.',
     price: 'Start free',
-    cta: 'Launch Plutus Cloud',
+    cta: 'Start Free in Cloud',
     href: cloudUrl,
-    features: ['Browser chat workspace', 'Memory and skills', 'Core tools', 'Local open-source option'],
+    features: ['Plain-language task delegation', 'Memory for your work', 'Core work tools', 'Local open-source option'],
   },
   {
     name: 'Pro',
-    audience: 'For power users and builders running serious workflows.',
+    audience: 'For freelancers, founders, and teams running important recurring work.',
     price: 'Scale usage',
-    cta: 'Start building',
+    cta: 'Start delegating',
     href: cloudUrl,
     highlighted: true,
-    features: ['Advanced tools and connectors', 'Voice mode', 'Scheduled tasks', 'Workspace assets', 'Bridge connectivity'],
+    features: ['More connected tools', 'Voice mode', 'Scheduled routines', 'Saved workspace files', 'Cloud and local work'],
   },
   {
     name: 'Enterprise',
-    audience: 'For teams that need governance, support, and control.',
+    audience: 'For organizations that need shared knowledge, approvals, and control.',
     price: 'Custom',
     cta: 'Talk to us',
     href: githubUrl,
-    features: ['Organization workflows', 'Governance and approvals', 'Custom connectors', 'Deployment guidance', 'Priority roadmap alignment'],
+    features: ['Team workspaces', 'Approvals and oversight', 'Custom connections', 'Deployment guidance', 'Priority roadmap alignment'],
   },
 ]
 
@@ -192,8 +192,8 @@ function Eyebrow({ children }) {
 function CTAGroup({ compact = false }) {
   return (
     <div className={compact ? 'cta-row cta-row-compact' : 'cta-row'}>
-      <a className="btn btn-primary" href={cloudUrl}>Start in Cloud <IconArrowRight size={18} /></a>
-      <a className="btn btn-secondary" href={githubUrl}>View GitHub</a>
+      <a className="btn btn-primary" href={cloudUrl}>Start Free in Cloud <IconArrowRight size={18} /></a>
+      <Link className="btn btn-secondary" to="/solutions">See what Plutus can do</Link>
     </div>
   )
 }
@@ -214,34 +214,34 @@ function HomePage() {
       <section className="hero-section">
         <div className="hero-grid section-container">
           <div className="hero-copy">
-            <Eyebrow>Enterprise AI agent platform</Eyebrow>
-            <h1>Give every team an AI operator that can actually do the work.</h1>
+            <Eyebrow>AI work assistant for every team</Eyebrow>
+            <h1>Tell Plutus what needs to be done. It handles the busywork.</h1>
             <p className="hero-lede">
-              Plutus combines a cloud workspace, local machine control, persistent memory, connectors, workflows, voice, and governed tool execution into one autonomous AI platform.
+              Plutus helps non-technical teams research, write, follow up, organize files, create assets, and keep projects moving across the tools they already use. Technical teams can still go deeper when they need to.
             </p>
             <CTAGroup />
             <div className="hero-trust-row">
-              <span><IconShieldCheck size={16} /> Governed execution</span>
-              <span><IconDeviceMobile size={16} /> Mobile-ready UX</span>
-              <span><IconWorld size={16} /> Cloud and local</span>
+              <span><IconShieldCheck size={16} /> Human-approved work</span>
+              <span><IconDeviceMobile size={16} /> Works on any device</span>
+              <span><IconWorld size={16} /> Browser, voice, or local</span>
             </div>
           </div>
           <div className="hero-product-card" aria-label="Plutus product preview">
             <div className="product-toolbar"><span /> <span /> <span /><strong>plutus.run</strong></div>
             <div className="agent-card active">
-              <div><strong>Plutus</strong><p>Preparing the enterprise rollout workspace.</p></div>
-              <span className="status-pill">Working</span>
+              <div><strong>Plutus</strong><p>Preparing your launch plan and follow-up tasks.</p></div>
+              <span className="status-pill">In progress</span>
             </div>
             <div className="workflow-stack">
               <div><IconBrowserCheck size={18} /> Research competitors</div>
-              <div><IconCode size={18} /> Update landing page</div>
-              <div><IconPhoto size={18} /> Generate hero assets</div>
-              <div><IconMail size={18} /> Draft launch emails</div>
+              <div><IconCode size={18} /> Create launch checklist</div>
+              <div><IconPhoto size={18} /> Generate social visuals</div>
+              <div><IconMail size={18} /> Draft follow-up emails</div>
             </div>
             <div className="terminal-preview mono">
-              <span>$ plutus task "ship launch site"</span>
-              <span className="terminal-success">✓ synced workspace assets</span>
-              <span className="terminal-success">✓ opened pull request</span>
+              <span>Goal: prepare next week’s launch</span>
+              <span className="terminal-success">✓ research brief saved</span>
+              <span className="terminal-success">✓ email draft ready for review</span>
             </div>
           </div>
         </div>
@@ -253,7 +253,7 @@ function HomePage() {
 
       <section className="section-padding">
         <div className="section-container">
-          <SectionHeader centered eyebrow="Why Plutus" title="Built for outcomes, not chat transcripts." text="The platform is designed around persistent execution loops: understand context, choose tools, complete tasks, save assets, and keep improving." />
+          <SectionHeader centered eyebrow="Why Plutus" title="Built for results people can understand." text="Plutus turns a normal request into useful output: it understands the goal, gathers context, uses the right tools, saves the work, and tells you what changed." />
           <div className="feature-grid four">
             {capabilityPillars.map(({ icon: Icon, title, text }) => (
               <article className="feature-card" key={title}>
@@ -269,7 +269,7 @@ function HomePage() {
       <section className="split-section section-padding">
         <div className="section-container split-grid">
           <div>
-            <SectionHeader eyebrow="Complete operating model" title="Cloud convenience with local power when you need it." text="Start in a browser, add connectors, use voice, schedule recurring tasks, and optionally let Plutus operate on your private desktop through Bridge." />
+            <SectionHeader eyebrow="Simple when you start, powerful when you scale" title="Use it from the browser, by voice, or with private local work." text="Start with a simple request like “summarize this research” or “draft my follow-up emails.” Add connected tools, recurring routines, and local computer access only when your team needs them." />
             <CTAGroup compact />
           </div>
           <div className="layer-list">
@@ -285,7 +285,7 @@ function HomePage() {
 
       <section className="section-padding">
         <div className="section-container">
-          <SectionHeader centered eyebrow="Use cases" title="One agentic layer for the work every team repeats." text="Plutus is broad enough for cross-functional work, but concrete enough for production workflows." />
+          <SectionHeader centered eyebrow="Use cases" title="Useful for the work every team repeats." text="Plutus is not just for developers. It helps managers, operators, support teams, researchers, and technical teams finish routine work faster." />
           <div className="solution-grid">
             {solutions.map(({ icon: Icon, title, text, outcomes }) => (
               <article className="solution-card" key={title}>
@@ -301,8 +301,8 @@ function HomePage() {
 
       <section className="final-banner section-container">
         <div>
-          <span>Ready to delegate real work?</span>
-          <h2>Launch Plutus Cloud or inspect the open-source local agent today.</h2>
+          <span>Ready to hand off the busywork?</span>
+          <h2>Start with one task today. Plutus can grow with your team from there.</h2>
         </div>
         <CTAGroup compact />
       </section>
@@ -313,7 +313,7 @@ function HomePage() {
 function PlatformPage() {
   return (
     <PageShell>
-      <PageHero eyebrow="Platform" title="The execution stack for autonomous business work." text="Plutus unifies cloud collaboration, local execution, persistent memory, external connectors, generated assets, and workflow orchestration." />
+      <PageHero eyebrow="How it works" title="A work assistant that understands the goal and prepares the output." text="Plutus brings chat, voice, memory, connected tools, saved files, team workspaces, and optional local computer access into one simple experience." />
       <section className="section-padding">
         <div className="section-container platform-diagram">
           {platformLayers.map(({ icon: Icon, title, description }) => (
@@ -327,7 +327,7 @@ function PlatformPage() {
       </section>
       <section className="section-padding alt-section">
         <div className="section-container">
-          <SectionHeader centered eyebrow="Tooling" title="A broad tool catalog exposed through one model interface." text="Plutus can decide when to browse, write files, use connectors, run code, deliver files, generate images, or coordinate long-running workflows." />
+          <SectionHeader centered eyebrow="What it can help with" title="One assistant for everyday tasks and advanced work." text="Plutus can browse websites, prepare documents, organize files, draft messages, create images, connect apps, and support technical teams when needed." />
           <div className="tool-grid">
             {toolGroups.map(group => (
               <article className="tool-card" key={group.title}>
@@ -346,7 +346,7 @@ function PlatformPage() {
 function SolutionsPage() {
   return (
     <PageShell>
-      <PageHero eyebrow="Solutions" title="Practical AI operators for engineering, operations, research, and customer work." text="Every page, connector, workflow, and generated asset is designed to help Plutus complete tasks end-to-end." />
+      <PageHero eyebrow="Use cases" title="Practical AI help for business teams, not just technical teams." text="Give Plutus the outcome you want: a report, a follow-up, a cleaned-up workspace, a launch plan, a research summary, or a customer-ready draft." />
       <section className="section-padding">
         <div className="section-container solution-grid wide">
           {solutions.map(({ icon: Icon, title, text, outcomes }) => (
@@ -361,9 +361,9 @@ function SolutionsPage() {
       </section>
       <section className="section-padding alt-section">
         <div className="section-container workflow-panel">
-          <SectionHeader eyebrow="Workflow example" title="From prompt to shipped output." text="Plutus can understand the goal, inspect context, use tools, save files, request approval, and continue from memory later." />
+          <SectionHeader eyebrow="Workflow example" title="From request to ready-to-review work." text="Plutus can understand the goal, collect the needed context, prepare the output, ask for approval when needed, and remember the result for next time." />
           <div className="timeline">
-            {['Understand the goal', 'Gather context', 'Execute with tools', 'Save reusable assets', 'Report and iterate'].map((step, index) => <div key={step}><strong>0{index + 1}</strong><span>{step}</span></div>)}
+            {['Understand the goal', 'Gather context', 'Prepare the work', 'Save reusable files', 'Report and improve'].map((step, index) => <div key={step}><strong>0{index + 1}</strong><span>{step}</span></div>)}
           </div>
         </div>
       </section>
@@ -375,7 +375,7 @@ function SolutionsPage() {
 function EnterprisePage() {
   return (
     <PageShell>
-      <PageHero eyebrow="Enterprise" title="Powerful autonomy with the controls teams need." text="Plutus is designed for organizations that want AI execution without losing context, oversight, or deployment flexibility." />
+      <PageHero eyebrow="Enterprise" title="AI assistance your whole organization can trust." text="Plutus is designed for teams that want faster work, shared knowledge, privacy choices, approvals, and clear control over what AI is allowed to do." />
       <section className="section-padding">
         <div className="section-container enterprise-grid">
           {enterpriseControls.map(([title, text]) => (
@@ -390,12 +390,12 @@ function EnterprisePage() {
       <section className="section-padding alt-section">
         <div className="section-container compare-grid">
           <div>
-            <SectionHeader eyebrow="Deployment choice" title="Use the cloud, keep work local, or combine both." text="The enterprise story is not one-size-fits-all. Plutus supports a hosted experience, a local agent, and a bridge between the two for teams that need private-machine capabilities." />
+            <SectionHeader eyebrow="Privacy choice" title="Start in the cloud, keep sensitive work local, or combine both." text="Different teams have different comfort levels. Plutus supports a hosted workspace, a local option for private computer tasks, and Bridge when you want the convenience of both." />
           </div>
           <div className="comparison-card">
             <div><strong>Cloud</strong><span>Fast rollout, shared workspace, browser access.</span></div>
-            <div><strong>Local</strong><span>Private execution on the user machine.</span></div>
-            <div><strong>Bridge</strong><span>Cloud UX with local computer reach.</span></div>
+            <div><strong>Local</strong><span>Private work on the user’s own machine.</span></div>
+            <div><strong>Bridge</strong><span>Browser simplicity with local computer reach.</span></div>
           </div>
         </div>
       </section>
@@ -407,7 +407,7 @@ function EnterprisePage() {
 function PricingPage() {
   return (
     <PageShell>
-      <PageHero eyebrow="Pricing" title="Start fast. Scale into governed autonomous work." text="Choose the adoption path that matches your current stage: individual experimentation, serious workflow automation, or enterprise rollout." />
+      <PageHero eyebrow="Pricing" title="Start with one task. Scale when the value is clear." text="Choose the path that fits how your team works today: try it personally, delegate recurring work, or roll it out with shared controls." />
       <section className="section-padding">
         <div className="section-container pricing-grid">
           {pricingPlans.map(plan => (
@@ -428,34 +428,38 @@ function PricingPage() {
 
 function ResourcesPage() {
   const resourceCards = [
-    { icon: IconGitBranch, title: 'Open-source local agent', text: 'Inspect, run, and modify Plutus Local from GitHub.', href: githubUrl, label: 'Open GitHub' },
-    { icon: IconFileDescription, title: 'Cloud platform repository', text: 'Review the hosted backend, frontend, bridge, and cloud architecture.', href: cloudRepoUrl, label: 'View cloud repo' },
-    { icon: IconTerminal2, title: 'Install locally', text: 'Use the local Plutus runtime when you want private machine execution.', href: githubUrl, label: 'Read install guide' },
-    { icon: IconRocket, title: 'Launch hosted workspace', text: 'Start in the browser and connect Plutus to your daily tools.', href: cloudUrl, label: 'Open Cloud' },
+    { icon: IconRocket, title: 'Start in the browser', text: 'Open Plutus Cloud and try a real task without installing anything.', href: cloudUrl, label: 'Open Cloud' },
+    { icon: IconFileDescription, title: 'Understand the product', text: 'Learn how Plutus turns requests into research, drafts, files, workflows, and saved outputs.', to: '/solutions', label: 'See use cases' },
+    { icon: IconTerminal2, title: 'Use the local option', text: 'Choose Plutus Local when you want private work to happen on your own machine.', href: githubUrl, label: 'View local option' },
+    { icon: IconGitBranch, title: 'Technical details', text: 'Review the open-source repositories when your technical team is ready to go deeper.', href: cloudRepoUrl, label: 'View repository' },
   ]
 
   return (
     <PageShell>
-      <PageHero eyebrow="Resources" title="Everything evaluators need to understand and start Plutus." text="Explore the hosted product, open-source local agent, architecture, and deployment model from one place." />
+      <PageHero eyebrow="Learn" title="Start simple, then go deeper when you need to." text="Explore plain-language use cases first, then review the hosted workspace, local option, and technical repositories when your team is ready." />
       <section className="section-padding">
         <div className="section-container resource-grid">
-          {resourceCards.map(({ icon: Icon, title, text, href, label }) => (
-            <a className="resource-card" href={href} key={title}>
-              <Icon size={26} />
-              <h3>{title}</h3>
-              <p>{text}</p>
-              <span>{label} <IconArrowRight size={16} /></span>
-            </a>
-          ))}
+          {resourceCards.map(({ icon: Icon, title, text, href, to, label }) => {
+            const CardTag = to ? Link : 'a'
+            const cardProps = to ? { to } : { href }
+            return (
+              <CardTag className="resource-card" key={title} {...cardProps}>
+                <Icon size={26} />
+                <h3>{title}</h3>
+                <p>{text}</p>
+                <span>{label} <IconArrowRight size={16} /></span>
+              </CardTag>
+            )
+          })}
         </div>
       </section>
       <section className="section-padding alt-section">
         <div className="section-container faq-mini">
-          <SectionHeader centered eyebrow="Buyer questions" title="Common evaluation questions." />
+          <SectionHeader centered eyebrow="Buyer questions" title="Questions non-technical teams usually ask." />
           <div className="faq-grid">
-            <article><h3>Is Plutus only a chatbot?</h3><p>No. Plutus is built around tool execution, workflows, file outputs, memory, connectors, and local computer access through Bridge.</p></article>
-            <article><h3>Can it create reusable assets?</h3><p>Yes. Workspace files, delivered outputs, and generated images can be saved and reused in websites, apps, reports, and later sessions.</p></article>
-            <article><h3>Can teams control execution?</h3><p>Yes. The product includes organizations, guardrails, approvals, and a cloud/local architecture that can match different risk boundaries.</p></article>
+            <article><h3>Is Plutus only a chatbot?</h3><p>No. Chatbots mostly answer questions. Plutus is built to help produce finished work: research, drafts, files, follow-ups, assets, and workflows.</p></article>
+            <article><h3>Do I need to be technical?</h3><p>No. You can describe what you need in everyday language. Plutus handles the tool selection, context gathering, and output preparation behind the scenes.</p></article>
+            <article><h3>Can teams control what happens?</h3><p>Yes. Teams can use shared workspaces, approvals, privacy choices, and human review so Plutus helps without removing oversight.</p></article>
           </div>
         </div>
       </section>
@@ -478,8 +482,8 @@ function DeepDiveCTA() {
   return (
     <section className="final-banner section-container">
       <div>
-        <span>Make AI operational.</span>
-        <h2>Move from isolated prompts to persistent autonomous workflows.</h2>
+        <span>Make AI useful for real work.</span>
+        <h2>Move from asking questions to getting ready-to-review work back.</h2>
       </div>
       <CTAGroup compact />
     </section>
