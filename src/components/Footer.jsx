@@ -1,96 +1,65 @@
 import { Link } from 'react-router-dom'
 
-const externalLinks = [
-  { label: 'GitHub', href: 'https://github.com/Crypt0nly/plutus' },
+const columns = [
+  {
+    title: 'Product',
+    links: [
+      { label: 'Platform', to: '/platform' },
+      { label: 'Solutions', to: '/solutions' },
+      { label: 'Enterprise', to: '/enterprise' },
+      { label: 'Pricing', to: '/pricing' },
+    ],
+  },
+  {
+    title: 'Resources',
+    links: [
+      { label: 'Resources', to: '/resources' },
+      { label: 'Plutus Local', href: 'https://github.com/Crypt0nly/plutus' },
+      { label: 'Plutus Cloud', href: 'https://github.com/Crypt0nly/plutus-cloud' },
+      { label: 'Launch Cloud', href: 'https://app.useplutus.ai' },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { label: 'Privacy Policy', to: '/privacy' },
+      { label: 'Terms of Service', to: '/terms' },
+    ],
+  },
 ]
 
-const anchorLinks = [
-  { label: 'Features', href: '#features' },
-  { label: 'How it works', href: '#how-it-works' },
-  { label: 'Install', href: '#install' },
-  { label: 'FAQ', href: '#faq' },
-]
-
-const legalLinks = [
-  { label: 'Privacy Policy', to: '/privacy' },
-  { label: 'Terms of Service', to: '/terms' },
-]
-
-const linkStyle = {
-  color: '#475569',
-  textDecoration: 'none',
-  fontSize: 13,
-  fontWeight: 500,
-  transition: 'color 0.2s',
+function FooterLink({ link }) {
+  if (link.href) {
+    return <a href={link.href}>{link.label}</a>
+  }
+  return <Link to={link.to}>{link.label}</Link>
 }
 
 export default function Footer() {
   return (
-    <footer style={{
-      borderTop: '1px solid rgba(255,255,255,0.05)',
-      padding: 'clamp(24px, 5vw, 40px) clamp(16px, 4vw, 24px)',
-      position: 'relative', zIndex: 1,
-    }}>
-      <div style={{
-        maxWidth: 1100,
-        margin: '0 auto',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        gap: 'clamp(12px, 3vw, 20px)',
-      }}>
-        {/* Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <img src="/logo.svg" alt="Plutus" style={{ width: 28, height: 28, objectFit: 'contain' }} />
-          <span style={{ fontWeight: 700, color: '#94a3b8', fontSize: 15 }}>Plutus</span>
-          <span style={{ color: '#334155', fontSize: 13, marginLeft: 8 }}>AGPL-3.0 License</span>
+    <footer className="site-footer">
+      <div className="section-container footer-grid">
+        <div className="footer-brand">
+          <Link to="/" className="brand footer-logo">
+            <img src="/logo.svg" alt="Plutus" />
+            <span>Plutus</span>
+          </Link>
+          <p>The enterprise AI agent platform for cloud workspaces, local computer control, memory, connectors, workflows, and governed execution.</p>
+          <span className="license">AGPL-3.0 local agent · Hosted cloud platform</span>
         </div>
 
-        {/* Links */}
-        <nav style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'center' }}>
-          {externalLinks.map(l => (
-            <a
-              key={l.label}
-              href={l.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={linkStyle}
-              onMouseEnter={e => e.target.style.color = '#a855f7'}
-              onMouseLeave={e => e.target.style.color = '#475569'}
-            >
-              {l.label}
-            </a>
+        <div className="footer-columns">
+          {columns.map(column => (
+            <nav key={column.title} aria-label={column.title}>
+              <h3>{column.title}</h3>
+              {column.links.map(link => <FooterLink key={link.label} link={link} />)}
+            </nav>
           ))}
-          {anchorLinks.map(l => (
-            <a
-              key={l.label}
-              href={l.href}
-              style={linkStyle}
-              onMouseEnter={e => e.target.style.color = '#a855f7'}
-              onMouseLeave={e => e.target.style.color = '#475569'}
-            >
-              {l.label}
-            </a>
-          ))}
-          <span style={{ color: '#1e293b', fontSize: 13 }}>·</span>
-          {legalLinks.map(l => (
-            <Link
-              key={l.label}
-              to={l.to}
-              style={linkStyle}
-              onMouseEnter={e => e.currentTarget.style.color = '#a855f7'}
-              onMouseLeave={e => e.currentTarget.style.color = '#475569'}
-            >
-              {l.label}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Copyright */}
-        <div style={{ fontSize: 12, color: '#334155' }}>
-          © {new Date().getFullYear()} Plutus · Built with ❤️ by Felix Graef
         </div>
+      </div>
+      <div className="section-container footer-bottom">
+        <span>© {new Date().getFullYear()} Plutus. Built by Felix Graef.</span>
+        <span>Designed for operators who need AI to finish the job.</span>
       </div>
     </footer>
   )
