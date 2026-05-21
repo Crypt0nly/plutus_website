@@ -253,24 +253,43 @@ function SectionHeader({ eyebrow, title, text, centered = false }) {
 
 function HeroOutcomeVisual() {
   return (
-    <aside className="hero-outcome-card" aria-label="Example of Plutus handling business busywork">
-      <div className="outcome-card-glow" />
-      <div className="outcome-card-header">
-        <span>Morning brief</span>
-        <strong>Ready for approval</strong>
+    <aside className="hero-command-center" aria-label="Example of Plutus preparing work across connected tools">
+      <div className="command-ambient command-ambient-one" />
+      <div className="command-ambient command-ambient-two" />
+
+      <div className="command-topbar">
+        <div className="command-window-dots" aria-hidden="true"><span /><span /><span /></div>
+        <strong>Plutus workspace</strong>
+        <span>Live handoff</span>
       </div>
-      <div className="request-note">
-        <small>You asked</small>
-        <p>"Prepare the renewal follow-up and tell the team what changed."</p>
+
+      <div className="command-request-card">
+        <span>You asked</span>
+        <p>Prepare the renewal follow-up, pull the latest context, and tell the team what changed.</p>
       </div>
-      <div className="outcome-path">
-        <div><IconMail size={18} /><span>Draft reply</span></div>
-        <div><IconFiles size={18} /><span>Attach notes</span></div>
-        <div><IconUsers size={18} /><span>Notify owner</span></div>
+
+      <div className="command-canvas" aria-hidden="true">
+        <div className="command-flow-line flow-line-mail" />
+        <div className="command-flow-line flow-line-files" />
+        <div className="command-flow-line flow-line-team" />
+
+        <div className="command-core-node">
+          <div className="command-core-logo"><img src="/logo.svg" alt="" /></div>
+          <span>Plutus</span>
+          <strong>Coordinating work</strong>
+        </div>
+
+        <div className="command-tool-node tool-node-mail"><IconMail size={18} /><span>Draft reply</span></div>
+        <div className="command-tool-node tool-node-files"><IconFiles size={18} /><span>Attach notes</span></div>
+        <div className="command-tool-node tool-node-team"><IconUsers size={18} /><span>Notify owner</span></div>
       </div>
-      <div className="approval-strip">
+
+      <div className="command-approval-card">
         <IconCheck size={18} />
-        <span>Plutus prepared the work. You stay in control.</span>
+        <div>
+          <strong>Ready for approval</strong>
+          <span>Reply, notes, and owner update prepared.</span>
+        </div>
       </div>
     </aside>
   )
