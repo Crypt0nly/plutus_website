@@ -38,7 +38,7 @@ const cloudRepoUrl = 'https://github.com/Crypt0nly/plutus-cloud'
 
 const capabilityPillars = [
   {
-    icon: IconTerminal2,
+    icon: IconSparkles,
     title: 'Finished work, not more instructions',
     text: 'Ask for an outcome in normal language and Plutus can research, write, organize, create, and follow through across your everyday tools.',
   },
@@ -110,7 +110,7 @@ const toolGroups = [
 
 const solutions = [
   {
-    icon: IconCode,
+    icon: IconUsers,
     title: 'Founders and managers',
     text: 'Turn vague ideas into finished briefs, plans, launch assets, competitor research, and follow-up drafts without coordinating five different tools.',
     outcomes: ['Project briefs and launch plans', 'Market and competitor summaries', 'Reusable team context'],
@@ -132,6 +132,46 @@ const solutions = [
     title: 'Research, product, and engineering',
     text: 'From customer research to product specs and code tasks, Plutus can collect context, prepare documents, create assets, and support technical execution when needed.',
     outcomes: ['Research and decision memos', 'Product-ready documents', 'Optional code and GitHub support'],
+  },
+]
+
+const connectorPlanets = [
+  { name: 'Notion', role: 'customer notes', color: '#f8fafc', ring: 'inner' },
+  { name: 'Stripe', role: 'billing context', color: '#7c3aed', ring: 'inner' },
+  { name: 'Slack', role: 'team handoff', color: '#36c5f0', ring: 'inner' },
+  { name: 'Gmail', role: 'customer reply', color: '#ef4444', ring: 'inner' },
+  { name: 'Calendar', role: 'meeting follow-up', color: '#22c55e', ring: 'outer' },
+  { name: 'Drive', role: 'saved files', color: '#f59e0b', ring: 'outer' },
+  { name: 'CRM', role: 'account history', color: '#ec4899', ring: 'outer' },
+  { name: 'Jira', role: 'product tasks', color: '#3b82f6', ring: 'outer' },
+  { name: 'Shopify', role: 'orders', color: '#84cc16', ring: 'outer' },
+  { name: 'HubSpot', role: 'pipeline', color: '#fb923c', ring: 'outer' },
+]
+
+const workflowStory = [
+  {
+    icon: IconMicrophone,
+    kicker: 'A plain request',
+    title: '“A customer payment failed. Save the account and tell the right team.”',
+    text: 'Someone explains the outcome in everyday language. No workflow builder, no scripts, no technical setup.',
+  },
+  {
+    icon: IconDatabase,
+    kicker: 'Context gathered',
+    title: 'Plutus checks Notion for account notes and Stripe for the billing issue.',
+    text: 'It connects the dots between customer history, plan details, invoice status, open risks, and the account owner.',
+  },
+  {
+    icon: IconBrain,
+    kicker: 'Decision prepared',
+    title: 'It turns scattered information into a clear next-step summary.',
+    text: 'The team gets a plain-language explanation, recommended action, customer-ready reply, and approval checkpoint.',
+  },
+  {
+    icon: IconMail,
+    kicker: 'Team informed',
+    title: 'The right people receive the handoff with everything they need.',
+    text: 'Sales, finance, or support can review, send, update the workspace, and move the customer toward resolution.',
   },
 ]
 
@@ -208,6 +248,81 @@ function SectionHeader({ eyebrow, title, text, centered = false }) {
   )
 }
 
+
+function SolarSystemShowcase() {
+  const innerPlanets = connectorPlanets.filter(connector => connector.ring === 'inner')
+  const outerPlanets = connectorPlanets.filter(connector => connector.ring === 'outer')
+
+  return (
+    <div className="solar-showcase" aria-label="Animated Plutus connector solar system">
+      <div className="solar-rings" aria-hidden="true">
+        <span className="solar-ring ring-one" />
+        <span className="solar-ring ring-two" />
+        <span className="solar-ring ring-three" />
+      </div>
+      <div className="solar-center">
+        <div className="solar-logo-glow"><img src="/logo.svg" alt="Plutus" /></div>
+        <strong>Plutus</strong>
+        <span>coordinates the work</span>
+      </div>
+      <div className="connector-orbit orbit-inner" style={{ '--duration': '30s', '--radius': '112px' }}>
+        {innerPlanets.map((connector, index) => (
+          <div className="connector-planet" key={connector.name} style={{ '--i': index, '--total': innerPlanets.length, '--color': connector.color }}>
+            <span><b>{connector.name}</b><small>{connector.role}</small></span>
+          </div>
+        ))}
+      </div>
+      <div className="connector-orbit orbit-outer" style={{ '--duration': '46s', '--radius': '190px' }}>
+        {outerPlanets.map((connector, index) => (
+          <div className="connector-planet" key={connector.name} style={{ '--i': index, '--total': outerPlanets.length, '--color': connector.color }}>
+            <span><b>{connector.name}</b><small>{connector.role}</small></span>
+          </div>
+        ))}
+      </div>
+      <div className="solar-insight-card">
+        <span>In action</span>
+        <strong>Customer rescue workflow</strong>
+        <p>One request can pull context from tools, brief the team, draft the reply, and save the outcome.</p>
+      </div>
+    </div>
+  )
+}
+
+function WorkflowStory() {
+  return (
+    <div className="workflow-story">
+      <div className="workflow-story-copy">
+        <SectionHeader eyebrow="Plutus in action" title="Watch one request move through the business." text="Instead of showing technical layers, this story shows what a real user sees: Plutus understanding the goal, finding context, informing the right people, and helping finish the job." />
+        <div className="workflow-step-list">
+          {workflowStory.map(({ icon: Icon, kicker, title, text }, index) => (
+            <article className="workflow-step-card" key={title}>
+              <div className="workflow-step-index">0{index + 1}</div>
+              <Icon size={23} />
+              <div>
+                <span>{kicker}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+      <div className="workflow-action-stage" aria-label="Illustration of Plutus completing a customer workflow">
+        <div className="request-bubble user-bubble"><strong>User</strong><span>“Save this customer before they churn.”</span></div>
+        <div className="action-node notion-node"><b>Notion</b><span>Account notes found</span></div>
+        <div className="action-node stripe-node"><b>Stripe</b><span>Invoice failed today</span></div>
+        <div className="action-node plutus-node"><img src="/logo.svg" alt="" /><b>Plutus</b><span>Summary + next action ready</span></div>
+        <div className="action-node team-node"><b>Team</b><span>Support brief sent for review</span></div>
+        <div className="action-line line-a" />
+        <div className="action-line line-b" />
+        <div className="action-line line-c" />
+        <div className="action-line line-d" />
+        <div className="approval-card"><IconCheck size={18} /><span>Reply drafted, owner assigned, workspace updated.</span></div>
+      </div>
+    </div>
+  )
+}
+
 function HomePage() {
   return (
     <PageShell>
@@ -226,24 +341,7 @@ function HomePage() {
               <span><IconWorld size={16} /> Browser, voice, or local</span>
             </div>
           </div>
-          <div className="hero-product-card" aria-label="Plutus product preview">
-            <div className="product-toolbar"><span /> <span /> <span /><strong>plutus.run</strong></div>
-            <div className="agent-card active">
-              <div><strong>Plutus</strong><p>Preparing your launch plan and follow-up tasks.</p></div>
-              <span className="status-pill">In progress</span>
-            </div>
-            <div className="workflow-stack">
-              <div><IconBrowserCheck size={18} /> Research competitors</div>
-              <div><IconCode size={18} /> Create launch checklist</div>
-              <div><IconPhoto size={18} /> Generate social visuals</div>
-              <div><IconMail size={18} /> Draft follow-up emails</div>
-            </div>
-            <div className="terminal-preview mono">
-              <span>Goal: prepare next week’s launch</span>
-              <span className="terminal-success">✓ research brief saved</span>
-              <span className="terminal-success">✓ email draft ready for review</span>
-            </div>
-          </div>
+          <SolarSystemShowcase />
         </div>
       </section>
 
@@ -283,10 +381,10 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="section-padding">
+      <section className="section-padding use-case-stage-section">
         <div className="section-container">
-          <SectionHeader centered eyebrow="Use cases" title="Useful for the work every team repeats." text="Plutus is not just for developers. It helps managers, operators, support teams, researchers, and technical teams finish routine work faster." />
-          <div className="solution-grid">
+          <WorkflowStory />
+          <div className="solution-grid flashy-cards">
             {solutions.map(({ icon: Icon, title, text, outcomes }) => (
               <article className="solution-card" key={title}>
                 <div className="solution-icon"><Icon size={24} /></div>
@@ -346,9 +444,14 @@ function PlatformPage() {
 function SolutionsPage() {
   return (
     <PageShell>
-      <PageHero eyebrow="Use cases" title="Practical AI help for business teams, not just technical teams." text="Give Plutus the outcome you want: a report, a follow-up, a cleaned-up workspace, a launch plan, a research summary, or a customer-ready draft." />
-      <section className="section-padding">
-        <div className="section-container solution-grid wide">
+      <PageHero eyebrow="Use cases" title="Show people Plutus doing the work, not explaining the technology." text="Give Plutus a business outcome: rescue a customer, prepare a launch, clean up a process, brief a team, or turn scattered information into the next action." />
+      <section className="section-padding use-case-stage-section">
+        <div className="section-container">
+          <WorkflowStory />
+        </div>
+      </section>
+      <section className="section-padding alt-section">
+        <div className="section-container solution-grid wide flashy-cards">
           {solutions.map(({ icon: Icon, title, text, outcomes }) => (
             <article className="solution-card large" key={title}>
               <div className="solution-icon"><Icon size={26} /></div>
@@ -357,14 +460,6 @@ function SolutionsPage() {
               <ul>{outcomes.map(item => <li key={item}><IconCheck size={16} />{item}</li>)}</ul>
             </article>
           ))}
-        </div>
-      </section>
-      <section className="section-padding alt-section">
-        <div className="section-container workflow-panel">
-          <SectionHeader eyebrow="Workflow example" title="From request to ready-to-review work." text="Plutus can understand the goal, collect the needed context, prepare the output, ask for approval when needed, and remember the result for next time." />
-          <div className="timeline">
-            {['Understand the goal', 'Gather context', 'Prepare the work', 'Save reusable files', 'Report and improve'].map((step, index) => <div key={step}><strong>0{index + 1}</strong><span>{step}</span></div>)}
-          </div>
         </div>
       </section>
       <DeepDiveCTA />

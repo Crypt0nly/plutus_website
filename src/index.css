@@ -1342,3 +1342,565 @@ pre,
     height: 140px;
   }
 }
+
+
+/* Approachable product storytelling upgrade */
+.hero-grid {
+  grid-template-columns: minmax(0, 0.92fr) minmax(440px, 1.08fr);
+}
+
+.hero-copy h1,
+.page-hero h1,
+.section-heading h2,
+.final-banner h2 {
+  text-wrap: balance;
+}
+
+.solar-showcase {
+  position: relative;
+  min-height: 560px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 38px;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(168, 85, 247, 0.26), transparent 16rem),
+    radial-gradient(circle at 18% 18%, rgba(34, 211, 238, 0.18), transparent 18rem),
+    radial-gradient(circle at 82% 72%, rgba(251, 146, 60, 0.14), transparent 18rem),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.035));
+  box-shadow: 0 44px 130px rgba(0, 0, 0, 0.42), 0 0 100px rgba(168, 85, 247, 0.18);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.solar-showcase::before {
+  content: '';
+  position: absolute;
+  inset: -30%;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.32) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(34, 211, 238, 0.26) 1px, transparent 1.4px);
+  background-size: 58px 58px, 92px 92px;
+  opacity: 0.28;
+  animation: starDrift 24s linear infinite;
+  z-index: -2;
+}
+
+.solar-showcase::after {
+  content: '';
+  position: absolute;
+  inset: auto -10% -22% -10%;
+  height: 42%;
+  background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.32), transparent 68%);
+  filter: blur(14px);
+  z-index: -1;
+}
+
+.solar-rings,
+.connector-orbit {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.solar-ring {
+  position: absolute;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow: inset 0 0 28px rgba(168, 85, 247, 0.08);
+}
+
+.ring-one { width: 236px; height: 236px; }
+.ring-two { width: 386px; height: 386px; border-style: dashed; }
+.ring-three { width: 482px; height: 482px; opacity: 0.58; }
+
+.solar-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 156px;
+  min-height: 156px;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: linear-gradient(180deg, rgba(18, 18, 30, 0.94), rgba(82, 37, 134, 0.76));
+  box-shadow: 0 0 60px rgba(168, 85, 247, 0.42), inset 0 0 32px rgba(255, 255, 255, 0.06);
+  z-index: 5;
+  text-align: center;
+}
+
+.solar-logo-glow {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.solar-logo-glow img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.solar-center strong {
+  color: white;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.solar-center span {
+  max-width: 110px;
+  color: #ddd6fe;
+  font-size: 12px;
+  line-height: 1.25;
+  font-weight: 750;
+}
+
+.connector-orbit {
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  width: 0;
+  height: 0;
+  animation: orbitSpin var(--duration) linear infinite;
+  z-index: 4;
+}
+
+.orbit-outer {
+  animation-direction: reverse;
+  z-index: 3;
+}
+
+.connector-planet {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: rotate(calc((360deg / var(--total)) * var(--i))) translateX(var(--radius)) rotate(calc((-360deg / var(--total)) * var(--i)));
+  transform-origin: center;
+}
+
+.connector-planet span {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 104px;
+  padding: 10px 12px;
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--color), transparent 58%);
+  background: color-mix(in srgb, var(--color), rgba(10, 10, 18, 0.92) 87%);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.24), 0 0 22px color-mix(in srgb, var(--color), transparent 78%);
+  color: white;
+  animation: counterSpin var(--duration) linear infinite;
+  backdrop-filter: blur(14px);
+}
+
+.orbit-outer .connector-planet span {
+  animation-direction: reverse;
+}
+
+.connector-planet b {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.connector-planet small {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 10px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.solar-insight-card {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 22px;
+  z-index: 7;
+  padding: 17px 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: rgba(6, 6, 12, 0.72);
+  backdrop-filter: blur(20px);
+}
+
+.solar-insight-card span {
+  color: #c4b5fd;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.solar-insight-card strong {
+  display: block;
+  margin-top: 4px;
+  color: white;
+  font-size: 18px;
+}
+
+.solar-insight-card p {
+  margin-top: 5px;
+  color: var(--text-soft);
+  font-size: 14px;
+}
+
+.use-case-stage-section {
+  background:
+    radial-gradient(circle at 20% 5%, rgba(34, 211, 238, 0.1), transparent 28rem),
+    radial-gradient(circle at 82% 18%, rgba(168, 85, 247, 0.14), transparent 32rem);
+}
+
+.workflow-story {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr);
+  gap: 34px;
+  align-items: center;
+}
+
+.workflow-step-list {
+  display: grid;
+  gap: 12px;
+}
+
+.workflow-step-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+.workflow-step-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--purple), var(--cyan));
+  opacity: 0.8;
+}
+
+.workflow-step-card svg {
+  color: #c4b5fd;
+  margin-top: 3px;
+}
+
+.workflow-step-index {
+  color: rgba(255, 255, 255, 0.34);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.workflow-step-card span {
+  color: #c4b5fd;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.workflow-step-card h3 {
+  margin-top: 5px;
+  color: white;
+  font-size: 17px;
+  line-height: 1.22;
+  letter-spacing: -0.025em;
+}
+
+.workflow-step-card p {
+  margin-top: 8px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.workflow-action-stage {
+  position: relative;
+  min-height: 620px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 36px;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(168, 85, 247, 0.24), transparent 18rem),
+    radial-gradient(circle at 20% 70%, rgba(34, 211, 238, 0.13), transparent 18rem),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.035));
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.workflow-action-stage::before {
+  content: '';
+  position: absolute;
+  inset: 22px;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+}
+
+.request-bubble,
+.action-node,
+.approval-card {
+  position: absolute;
+  z-index: 3;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: rgba(10, 10, 18, 0.78);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px);
+}
+
+.request-bubble {
+  left: 24px;
+  top: 26px;
+  max-width: 285px;
+  padding: 16px 18px;
+  border-radius: 24px 24px 24px 8px;
+}
+
+.request-bubble strong,
+.action-node b {
+  display: block;
+  color: white;
+  line-height: 1.1;
+}
+
+.request-bubble span,
+.action-node span,
+.approval-card span {
+  display: block;
+  margin-top: 6px;
+  color: var(--text-soft);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.action-node {
+  width: 154px;
+  min-height: 96px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px;
+  border-radius: 24px;
+}
+
+.notion-node { left: 42px; top: 220px; }
+.stripe-node { right: 40px; top: 162px; }
+.plutus-node {
+  left: 50%;
+  top: 48%;
+  width: 186px;
+  min-height: 136px;
+  transform: translate(-50%, -50%);
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(124, 58, 237, 0.88), rgba(12, 12, 24, 0.86));
+  border-color: rgba(196, 181, 253, 0.35);
+  box-shadow: 0 0 65px rgba(168, 85, 247, 0.36), 0 26px 70px rgba(0, 0, 0, 0.34);
+}
+
+.plutus-node img {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 10px;
+}
+
+.team-node { right: 46px; bottom: 128px; }
+
+.action-line {
+  position: absolute;
+  z-index: 1;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.85), rgba(168, 85, 247, 0.88), transparent);
+  transform-origin: left center;
+  opacity: 0.78;
+  animation: pulseLine 2.8s ease-in-out infinite;
+}
+
+.line-a { left: 168px; top: 267px; width: 178px; transform: rotate(-17deg); }
+.line-b { right: 178px; top: 221px; width: 160px; transform: rotate(156deg); animation-delay: .45s; }
+.line-c { right: 176px; top: 358px; width: 172px; transform: rotate(37deg); animation-delay: .9s; }
+.line-d { left: 150px; top: 160px; width: 198px; transform: rotate(23deg); animation-delay: 1.3s; }
+
+.approval-card {
+  left: 26px;
+  right: 26px;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 18px;
+  border-radius: 22px;
+  color: #86efac;
+  border-color: rgba(34, 197, 94, 0.22);
+  background: rgba(20, 83, 45, 0.22);
+}
+
+.approval-card span {
+  margin-top: 0;
+  color: #dcfce7;
+}
+
+.flashy-cards {
+  margin-top: 34px;
+}
+
+.flashy-cards .solution-card {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(168, 85, 247, 0.18), transparent 16rem),
+    rgba(255, 255, 255, 0.055);
+}
+
+.flashy-cards .solution-card::after {
+  content: '';
+  position: absolute;
+  inset: auto -20% -35% 20%;
+  height: 120px;
+  background: radial-gradient(ellipse at center, rgba(34, 211, 238, 0.2), transparent 70%);
+}
+
+@keyframes orbitSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes counterSpin {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes starDrift {
+  to { transform: translate3d(58px, 58px, 0); }
+}
+
+@keyframes pulseLine {
+  0%, 100% { opacity: 0.28; filter: blur(0); }
+  50% { opacity: 0.95; filter: blur(0.5px); }
+}
+
+@media (max-width: 1080px) {
+  .workflow-story,
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .solar-showcase {
+    min-height: 540px;
+  }
+}
+
+@media (max-width: 620px) {
+  .solar-showcase {
+    min-height: 500px;
+    border-radius: 28px;
+  }
+
+  .ring-one { width: 178px; height: 178px; }
+  .ring-two { width: 280px; height: 280px; }
+  .ring-three { width: 340px; height: 340px; }
+
+  .solar-center {
+    width: 122px;
+    min-height: 122px;
+  }
+
+  .solar-logo-glow {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+  }
+
+  .solar-logo-glow img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .solar-center strong { font-size: 17px; }
+  .solar-center span { font-size: 11px; }
+
+  .orbit-inner { --radius: 82px !important; }
+  .orbit-outer { --radius: 124px !important; }
+
+  .connector-planet span {
+    min-width: 68px;
+    max-width: 84px;
+    padding: 8px 9px;
+    border-radius: 15px;
+  }
+
+  .connector-planet b { font-size: 11px; }
+  .connector-planet small { display: none; }
+
+  .solar-insight-card {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    padding: 14px;
+  }
+
+  .workflow-story {
+    gap: 24px;
+  }
+
+  .workflow-step-card {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .workflow-step-card svg {
+    display: none;
+  }
+
+  .workflow-action-stage {
+    min-height: 610px;
+    border-radius: 28px;
+  }
+
+  .request-bubble {
+    left: 16px;
+    right: 16px;
+    max-width: none;
+    top: 18px;
+  }
+
+  .action-node {
+    width: calc(50% - 24px);
+    min-height: 94px;
+    padding: 13px;
+    border-radius: 20px;
+  }
+
+  .notion-node { left: 14px; top: 172px; }
+  .stripe-node { right: 14px; top: 172px; }
+  .plutus-node {
+    width: 164px;
+    min-height: 124px;
+    top: 390px;
+  }
+  .team-node { left: 50%; right: auto; bottom: 88px; transform: translateX(-50%); width: calc(100% - 32px); }
+
+  .action-line { display: none; }
+
+  .approval-card {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .connector-orbit,
+  .connector-planet span,
+  .solar-showcase::before,
+  .action-line {
+    animation: none !important;
+  }
+}
