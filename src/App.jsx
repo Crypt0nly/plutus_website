@@ -13,6 +13,7 @@ import {
   IconDeviceDesktop,
   IconDeviceMobile,
   IconFileDescription,
+  IconFiles,
   IconGitBranch,
   IconMail,
   IconMicrophone,
@@ -139,9 +140,9 @@ const connectorPlanets = [
   { name: 'Notion', logo: '/connectors/notion.svg', color: '#f8fafc', ring: 'inner' },
   { name: 'Stripe', logo: '/connectors/stripe.svg', color: '#635bff', ring: 'inner' },
   { name: 'Slack', logo: '/connectors/slack.svg', color: '#36c5f0', ring: 'inner' },
-  { name: 'Gmail', logo: '/connectors/gmail.svg', color: '#ea4335', ring: 'inner' },
-  { name: 'Calendar', logo: '/connectors/googlecalendar.svg', color: '#4285f4', ring: 'outer' },
-  { name: 'Drive', logo: '/connectors/googledrive.svg', color: '#fbbc04', ring: 'outer' },
+  { name: 'Gmail', logo: '/connectors/gmail.svg', color: '#ea4335', ring: 'middle' },
+  { name: 'Calendar', logo: '/connectors/googlecalendar.svg', color: '#4285f4', ring: 'middle' },
+  { name: 'Drive', logo: '/connectors/googledrive.svg', color: '#fbbc04', ring: 'middle' },
   { name: 'Jira', logo: '/connectors/jira.svg', color: '#2684ff', ring: 'outer' },
   { name: 'Shopify', logo: '/connectors/shopify.svg', color: '#7ab55c', ring: 'outer' },
   { name: 'HubSpot', logo: '/connectors/hubspot.svg', color: '#ff7a59', ring: 'outer' },
@@ -249,18 +250,50 @@ function SectionHeader({ eyebrow, title, text, centered = false }) {
 }
 
 
-function SolarSystemShowcase() {
-  const innerPlanets = connectorPlanets.filter(connector => connector.ring === 'inner')
-  const outerPlanets = connectorPlanets.filter(connector => connector.ring === 'outer')
 
-  const renderPlanet = (connector, index, total) => (
-    <div className="connector-planet" key={connector.name} style={{ '--i': index, '--total': total, '--color': connector.color }}>
-      <span className="connector-logo-card">
-        <img src={connector.logo} alt={`${connector.name} logo`} />
-        <b>{connector.name}</b>
-      </span>
-    </div>
+function HeroOutcomeVisual() {
+  return (
+    <aside className="hero-outcome-card" aria-label="Example of Plutus handling business busywork">
+      <div className="outcome-card-glow" />
+      <div className="outcome-card-header">
+        <span>Morning brief</span>
+        <strong>Ready for approval</strong>
+      </div>
+      <div className="request-note">
+        <small>You asked</small>
+        <p>"Prepare the renewal follow-up and tell the team what changed."</p>
+      </div>
+      <div className="outcome-path">
+        <div><IconMail size={18} /><span>Draft reply</span></div>
+        <div><IconFiles size={18} /><span>Attach notes</span></div>
+        <div><IconUsers size={18} /><span>Notify owner</span></div>
+      </div>
+      <div className="approval-strip">
+        <IconCheck size={18} />
+        <span>Plutus prepared the work. You stay in control.</span>
+      </div>
+    </aside>
   )
+}
+
+function SolarSystemShowcase() {
+  const orbitGroups = [
+    { ring: 'inner', className: 'orbit-inner', duration: '34s', radius: '118px', offset: -90 },
+    { ring: 'middle', className: 'orbit-middle', duration: '44s', radius: '169px', offset: 30 },
+    { ring: 'outer', className: 'orbit-outer', duration: '56s', radius: '222px', offset: 45 },
+  ]
+
+  const renderPlanet = (connector, index, total, offset = 0) => {
+    const angle = `${offset + ((360 / total) * index)}deg`
+
+    return (
+      <div className="connector-planet" key={connector.name} style={{ '--angle': angle, '--color': connector.color }}>
+        <span className="connector-logo-card" aria-label={connector.name}>
+          <img src={connector.logo} alt={`${connector.name} logo`} />
+        </span>
+      </div>
+    )
+  }
 
   return (
     <div className="solar-showcase" aria-label="Animated Plutus connector solar system">
@@ -272,12 +305,15 @@ function SolarSystemShowcase() {
       <div className="solar-center">
         <div className="solar-logo-glow"><img src="/logo.svg" alt="Plutus" /></div>
       </div>
-      <div className="connector-orbit orbit-inner" style={{ '--duration': '32s', '--radius': '128px' }}>
-        {innerPlanets.map((connector, index) => renderPlanet(connector, index, innerPlanets.length))}
-      </div>
-      <div className="connector-orbit orbit-outer" style={{ '--duration': '50s', '--radius': '222px' }}>
-        {outerPlanets.map((connector, index) => renderPlanet(connector, index, outerPlanets.length))}
-      </div>
+      {orbitGroups.map(({ ring, className, duration, radius, offset }) => {
+        const planets = connectorPlanets.filter(connector => connector.ring === ring)
+
+        return (
+          <div className={`connector-orbit ${className}`} key={ring} style={{ '--duration': duration, '--radius': radius }}>
+            {planets.map((connector, index) => renderPlanet(connector, index, planets.length, offset))}
+          </div>
+        )
+      })}
     </div>
   )
 }
@@ -321,7 +357,7 @@ function HomePage() {
   return (
     <PageShell>
       <section className="hero-section">
-        <div className="hero-grid hero-solo section-container">
+        <div className="hero-grid section-container">
           <div className="hero-copy">
             <Eyebrow>AI work assistant for every team</Eyebrow>
             <h1>Tell Plutus what needs to be done. It handles the busywork.</h1>
@@ -335,6 +371,7 @@ function HomePage() {
               <span><IconWorld size={16} /> Browser, voice, or local</span>
             </div>
           </div>
+          <HeroOutcomeVisual />
         </div>
       </section>
 
