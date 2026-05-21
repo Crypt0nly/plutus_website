@@ -281,6 +281,23 @@ pre,
   gap: 58px;
 }
 
+.hero-solo {
+  grid-template-columns: minmax(0, 920px);
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-solo .hero-copy,
+.hero-solo .hero-copy h1,
+.hero-solo .hero-lede {
+  margin-inline: auto;
+}
+
+.hero-solo .cta-row,
+.hero-solo .hero-trust-row {
+  justify-content: center;
+}
+
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -498,6 +515,46 @@ pre,
   min-height: 132px;
   padding: 24px;
   background: rgba(8, 8, 14, 0.88);
+}
+
+.connector-universe-section {
+  padding-top: 64px;
+  background:
+    radial-gradient(circle at 22% 18%, rgba(168, 85, 247, 0.12), transparent 28rem),
+    radial-gradient(circle at 78% 42%, rgba(34, 211, 238, 0.1), transparent 24rem);
+}
+
+.connector-universe-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(520px, 1.2fr);
+  align-items: center;
+  gap: 58px;
+}
+
+.connector-universe-copy .section-heading {
+  margin-bottom: 24px;
+}
+
+.connector-proof-list {
+  display: grid;
+  gap: 12px;
+  max-width: 520px;
+}
+
+.connector-proof-list span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--text-soft);
+  font-weight: 750;
+}
+
+.connector-proof-list svg {
+  color: var(--cyan);
 }
 
 .proof-strip strong {
@@ -1417,49 +1474,31 @@ pre,
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 156px;
-  min-height: 156px;
+  width: 142px;
+  height: 142px;
   transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
+  display: grid;
+  place-items: center;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: linear-gradient(180deg, rgba(18, 18, 30, 0.94), rgba(82, 37, 134, 0.76));
-  box-shadow: 0 0 60px rgba(168, 85, 247, 0.42), inset 0 0 32px rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 70px rgba(168, 85, 247, 0.46), inset 0 0 32px rgba(255, 255, 255, 0.06);
   z-index: 5;
-  text-align: center;
 }
 
 .solar-logo-glow {
-  width: 56px;
-  height: 56px;
+  width: 76px;
+  height: 76px;
   display: grid;
   place-items: center;
-  border-radius: 18px;
+  border-radius: 24px;
   background: rgba(255, 255, 255, 0.12);
 }
 
 .solar-logo-glow img {
-  width: 40px;
-  height: 40px;
+  width: 54px;
+  height: 54px;
   object-fit: contain;
-}
-
-.solar-center strong {
-  color: white;
-  font-size: 20px;
-  line-height: 1;
-}
-
-.solar-center span {
-  max-width: 110px;
-  color: #ddd6fe;
-  font-size: 12px;
-  line-height: 1.25;
-  font-weight: 750;
 }
 
 .connector-orbit {
@@ -1486,35 +1525,35 @@ pre,
   transform-origin: center;
 }
 
-.connector-planet span {
+.connector-logo-card {
   display: inline-flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 104px;
-  padding: 10px 12px;
-  border-radius: 18px;
+  align-items: center;
+  gap: 9px;
+  min-width: 108px;
+  padding: 10px 13px;
+  border-radius: 999px;
   border: 1px solid color-mix(in srgb, var(--color), transparent 58%);
-  background: color-mix(in srgb, var(--color), rgba(10, 10, 18, 0.92) 87%);
+  background: color-mix(in srgb, var(--color), rgba(10, 10, 18, 0.94) 88%);
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.24), 0 0 22px color-mix(in srgb, var(--color), transparent 78%);
   color: white;
   animation: counterSpin var(--duration) linear infinite;
   backdrop-filter: blur(14px);
 }
 
-.orbit-outer .connector-planet span {
+.orbit-outer .connector-logo-card {
   animation-direction: reverse;
 }
 
-.connector-planet b {
-  font-size: 13px;
-  line-height: 1;
+.connector-logo-card img {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
-.connector-planet small {
-  color: rgba(255, 255, 255, 0.68);
-  font-size: 10px;
-  line-height: 1.2;
-  font-weight: 700;
+.connector-logo-card b {
+  font-size: 13px;
+  line-height: 1;
 }
 
 .solar-insight-card {
@@ -1789,12 +1828,20 @@ pre,
 
 @media (max-width: 1080px) {
   .workflow-story,
+  .connector-universe-grid,
   .hero-grid {
     grid-template-columns: 1fr;
   }
 
+  .connector-universe-grid {
+    gap: 34px;
+  }
+
   .solar-showcase {
     min-height: 540px;
+    width: 100%;
+    max-width: 640px;
+    margin-inline: auto;
   }
 }
 
@@ -1809,42 +1856,38 @@ pre,
   .ring-three { width: 340px; height: 340px; }
 
   .solar-center {
-    width: 122px;
-    min-height: 122px;
+    width: 104px;
+    height: 104px;
   }
 
   .solar-logo-glow {
-    width: 44px;
-    height: 44px;
-    border-radius: 14px;
+    width: 58px;
+    height: 58px;
+    border-radius: 19px;
   }
 
   .solar-logo-glow img {
-    width: 32px;
-    height: 32px;
+    width: 42px;
+    height: 42px;
   }
 
-  .solar-center strong { font-size: 17px; }
-  .solar-center span { font-size: 11px; }
+  .orbit-inner { --radius: 86px !important; }
+  .orbit-outer { --radius: 132px !important; }
 
-  .orbit-inner { --radius: 82px !important; }
-  .orbit-outer { --radius: 124px !important; }
-
-  .connector-planet span {
-    min-width: 68px;
-    max-width: 84px;
-    padding: 8px 9px;
-    border-radius: 15px;
+  .connector-logo-card {
+    min-width: auto;
+    padding: 8px;
+    gap: 0;
+    border-radius: 18px;
   }
 
-  .connector-planet b { font-size: 11px; }
-  .connector-planet small { display: none; }
+  .connector-logo-card img {
+    width: 24px;
+    height: 24px;
+  }
 
-  .solar-insight-card {
-    left: 14px;
-    right: 14px;
-    bottom: 14px;
-    padding: 14px;
+  .connector-logo-card b {
+    display: none;
   }
 
   .workflow-story {
@@ -1898,7 +1941,7 @@ pre,
 
 @media (prefers-reduced-motion: reduce) {
   .connector-orbit,
-  .connector-planet span,
+  .connector-logo-card,
   .solar-showcase::before,
   .action-line {
     animation: none !important;

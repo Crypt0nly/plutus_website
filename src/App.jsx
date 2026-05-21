@@ -136,16 +136,16 @@ const solutions = [
 ]
 
 const connectorPlanets = [
-  { name: 'Notion', role: 'customer notes', color: '#f8fafc', ring: 'inner' },
-  { name: 'Stripe', role: 'billing context', color: '#7c3aed', ring: 'inner' },
-  { name: 'Slack', role: 'team handoff', color: '#36c5f0', ring: 'inner' },
-  { name: 'Gmail', role: 'customer reply', color: '#ef4444', ring: 'inner' },
-  { name: 'Calendar', role: 'meeting follow-up', color: '#22c55e', ring: 'outer' },
-  { name: 'Drive', role: 'saved files', color: '#f59e0b', ring: 'outer' },
-  { name: 'CRM', role: 'account history', color: '#ec4899', ring: 'outer' },
-  { name: 'Jira', role: 'product tasks', color: '#3b82f6', ring: 'outer' },
-  { name: 'Shopify', role: 'orders', color: '#84cc16', ring: 'outer' },
-  { name: 'HubSpot', role: 'pipeline', color: '#fb923c', ring: 'outer' },
+  { name: 'Notion', logo: '/connectors/notion.svg', color: '#f8fafc', ring: 'inner' },
+  { name: 'Stripe', logo: '/connectors/stripe.svg', color: '#635bff', ring: 'inner' },
+  { name: 'Slack', logo: '/connectors/slack.svg', color: '#36c5f0', ring: 'inner' },
+  { name: 'Gmail', logo: '/connectors/gmail.svg', color: '#ea4335', ring: 'inner' },
+  { name: 'Calendar', logo: '/connectors/googlecalendar.svg', color: '#4285f4', ring: 'outer' },
+  { name: 'Drive', logo: '/connectors/googledrive.svg', color: '#fbbc04', ring: 'outer' },
+  { name: 'Jira', logo: '/connectors/jira.svg', color: '#2684ff', ring: 'outer' },
+  { name: 'Shopify', logo: '/connectors/shopify.svg', color: '#7ab55c', ring: 'outer' },
+  { name: 'HubSpot', logo: '/connectors/hubspot.svg', color: '#ff7a59', ring: 'outer' },
+  { name: 'WhatsApp', logo: '/connectors/whatsapp.svg', color: '#25d366', ring: 'outer' },
 ]
 
 const workflowStory = [
@@ -253,6 +253,15 @@ function SolarSystemShowcase() {
   const innerPlanets = connectorPlanets.filter(connector => connector.ring === 'inner')
   const outerPlanets = connectorPlanets.filter(connector => connector.ring === 'outer')
 
+  const renderPlanet = (connector, index, total) => (
+    <div className="connector-planet" key={connector.name} style={{ '--i': index, '--total': total, '--color': connector.color }}>
+      <span className="connector-logo-card">
+        <img src={connector.logo} alt={`${connector.name} logo`} />
+        <b>{connector.name}</b>
+      </span>
+    </div>
+  )
+
   return (
     <div className="solar-showcase" aria-label="Animated Plutus connector solar system">
       <div className="solar-rings" aria-hidden="true">
@@ -262,27 +271,12 @@ function SolarSystemShowcase() {
       </div>
       <div className="solar-center">
         <div className="solar-logo-glow"><img src="/logo.svg" alt="Plutus" /></div>
-        <strong>Plutus</strong>
-        <span>coordinates the work</span>
       </div>
-      <div className="connector-orbit orbit-inner" style={{ '--duration': '30s', '--radius': '112px' }}>
-        {innerPlanets.map((connector, index) => (
-          <div className="connector-planet" key={connector.name} style={{ '--i': index, '--total': innerPlanets.length, '--color': connector.color }}>
-            <span><b>{connector.name}</b><small>{connector.role}</small></span>
-          </div>
-        ))}
+      <div className="connector-orbit orbit-inner" style={{ '--duration': '32s', '--radius': '128px' }}>
+        {innerPlanets.map((connector, index) => renderPlanet(connector, index, innerPlanets.length))}
       </div>
-      <div className="connector-orbit orbit-outer" style={{ '--duration': '46s', '--radius': '190px' }}>
-        {outerPlanets.map((connector, index) => (
-          <div className="connector-planet" key={connector.name} style={{ '--i': index, '--total': outerPlanets.length, '--color': connector.color }}>
-            <span><b>{connector.name}</b><small>{connector.role}</small></span>
-          </div>
-        ))}
-      </div>
-      <div className="solar-insight-card">
-        <span>In action</span>
-        <strong>Customer rescue workflow</strong>
-        <p>One request can pull context from tools, brief the team, draft the reply, and save the outcome.</p>
+      <div className="connector-orbit orbit-outer" style={{ '--duration': '50s', '--radius': '222px' }}>
+        {outerPlanets.map((connector, index) => renderPlanet(connector, index, outerPlanets.length))}
       </div>
     </div>
   )
@@ -327,7 +321,7 @@ function HomePage() {
   return (
     <PageShell>
       <section className="hero-section">
-        <div className="hero-grid section-container">
+        <div className="hero-grid hero-solo section-container">
           <div className="hero-copy">
             <Eyebrow>AI work assistant for every team</Eyebrow>
             <h1>Tell Plutus what needs to be done. It handles the busywork.</h1>
@@ -339,6 +333,19 @@ function HomePage() {
               <span><IconShieldCheck size={16} /> Human-approved work</span>
               <span><IconDeviceMobile size={16} /> Works on any device</span>
               <span><IconWorld size={16} /> Browser, voice, or local</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="connector-universe-section section-padding">
+        <div className="section-container connector-universe-grid">
+          <div className="connector-universe-copy">
+            <SectionHeader eyebrow="Connect the apps you already use" title="Plutus sits in the middle and coordinates the work around you." text="The animation is intentionally simple: Plutus stays at the center, while your everyday business tools move around it. The point is clear for every buyer — one assistant can gather context, create the next step, and keep teams aligned without forcing people into another complicated dashboard." />
+            <div className="connector-proof-list">
+              <span><IconPlugConnected size={17} /> Business apps stay familiar</span>
+              <span><IconUsers size={17} /> Teams get the right handoff</span>
+              <span><IconCheck size={17} /> People approve important actions</span>
             </div>
           </div>
           <SolarSystemShowcase />
