@@ -1496,6 +1496,11 @@ pre,
 .footer-grid,
 .workflow-panel,
 .hero-product-card,
+.hero-command-center,
+.command-topbar,
+.command-request-card,
+.command-canvas,
+.command-approval-card,
 .final-banner,
 .proof-strip {
   min-width: 0;
@@ -1607,13 +1612,26 @@ pre,
 @media (max-width: 420px) {
   .hero-copy h1,
   .page-hero h1 {
-    font-size: clamp(34px, 11vw, 42px);
-    letter-spacing: -0.045em;
+    font-size: clamp(32px, 9.8vw, 38px);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    text-wrap: pretty;
+  }
+
+  .hero-lede,
+  .page-hero p {
+    font-size: 15px;
   }
 
   .section-container {
     padding-left: 15px;
     padding-right: 15px;
+  }
+
+  .hero-command-center {
+    max-width: calc(100vw - 30px);
+    padding: 12px;
+    border-radius: 24px;
   }
 }
 
@@ -2145,10 +2163,11 @@ pre,
 
   .hero-command-center {
     width: 100%;
-    max-width: 100%;
+    max-width: min(100%, calc(100vw - 32px));
     min-height: auto;
     padding: 14px;
     border-radius: 28px;
+    justify-self: stretch;
   }
 
   .hero-command-center::before {

@@ -11,7 +11,6 @@ import {
   IconCode,
   IconDatabase,
   IconDeviceDesktop,
-  IconDeviceMobile,
   IconFileDescription,
   IconFiles,
   IconGitBranch,
@@ -259,13 +258,13 @@ function HeroOutcomeVisual() {
 
       <div className="command-topbar">
         <div className="command-window-dots" aria-hidden="true"><span /><span /><span /></div>
-        <strong>Plutus workspace</strong>
-        <span>Live handoff</span>
+        <strong>Plutus</strong>
+        <span>Live</span>
       </div>
 
       <div className="command-request-card">
-        <span>You asked</span>
-        <p>Prepare the renewal follow-up, pull the latest context, and tell the team what changed.</p>
+        <span>Task</span>
+        <p>Prepare the renewal follow-up.</p>
       </div>
 
       <div className="command-canvas" aria-hidden="true">
@@ -276,19 +275,19 @@ function HeroOutcomeVisual() {
         <div className="command-core-node">
           <div className="command-core-logo"><img src="/logo.svg" alt="" /></div>
           <span>Plutus</span>
-          <strong>Coordinating work</strong>
+          <strong>Working</strong>
         </div>
 
-        <div className="command-tool-node tool-node-mail"><IconMail size={18} /><span>Draft reply</span></div>
-        <div className="command-tool-node tool-node-files"><IconFiles size={18} /><span>Attach notes</span></div>
-        <div className="command-tool-node tool-node-team"><IconUsers size={18} /><span>Notify owner</span></div>
+        <div className="command-tool-node tool-node-mail"><IconMail size={18} /><span>Draft</span></div>
+        <div className="command-tool-node tool-node-files"><IconFiles size={18} /><span>Notes</span></div>
+        <div className="command-tool-node tool-node-team"><IconUsers size={18} /><span>Notify</span></div>
       </div>
 
       <div className="command-approval-card">
         <IconCheck size={18} />
         <div>
-          <strong>Ready for approval</strong>
-          <span>Reply, notes, and owner update prepared.</span>
+          <strong>Ready</strong>
+          <span>Review and send.</span>
         </div>
       </div>
     </aside>
@@ -378,16 +377,15 @@ function HomePage() {
       <section className="hero-section">
         <div className="hero-grid section-container">
           <div className="hero-copy">
-            <Eyebrow>AI work assistant for every team</Eyebrow>
-            <h1>Tell Plutus what needs to be done. It handles the busywork.</h1>
+            <Eyebrow>AI work assistant</Eyebrow>
+            <h1>Busywork handled. You stay in control.</h1>
             <p className="hero-lede">
-              Plutus helps non-technical teams research, write, follow up, organize files, create assets, and keep projects moving across the tools they already use. Technical teams can still go deeper when they need to.
+              Plutus drafts, researches, organizes, and follows up across your apps — with approval before anything important happens.
             </p>
             <CTAGroup />
             <div className="hero-trust-row">
-              <span><IconShieldCheck size={16} /> Human-approved work</span>
-              <span><IconDeviceMobile size={16} /> Works on any device</span>
-              <span><IconWorld size={16} /> Browser, voice, or local</span>
+              <span><IconShieldCheck size={16} /> Human-approved</span>
+              <span><IconWorld size={16} /> Works across apps</span>
             </div>
           </div>
           <HeroOutcomeVisual />
